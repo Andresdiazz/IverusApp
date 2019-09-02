@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>896146491506-sqhg9gjj892trsf2jovgv61m3vlib355.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.896146491506-sqhg9gjj892trsf2jovgv61m3vlib355</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>896146491506-d37viemh08u360jm19ervhvtbt5j2cpa.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCqtQGGhsVqSdV_Oyvkn40XIpqbcJo6xNY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>896146491506</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>excited.andresdiaz.com.cocreacion</string>
+	<key>PROJECT_ID</key>
+	<string>cocreacion-f17df</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cocreacion-f17df.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:896146491506:ios:be5ea9732687da84</string>
+	<key>DATABASE_URL</key>
+	<string>https://cocreacion-f17df.firebaseio.com</string>
+</dict>
+</plist>

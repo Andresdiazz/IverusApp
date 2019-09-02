@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "896146491506",
+    "firebase_url": "https://cocreacion-f17df.firebaseio.com",
+    "project_id": "cocreacion-f17df",
+    "storage_bucket": "cocreacion-f17df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896146491506:android:be5ea9732687da84",
+        "android_client_info": {
+          "package_name": "excited.andresdiaz.com.cocreacion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896146491506-jsquucugfid46o8cteekfotbm10vgm1u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com.cocreacion",
+            "certificate_hash": "3dc2a84ea42cc0298069d6cf13e7e0c62182a783"
+          }
+        },
+        {
+          "client_id": "896146491506-u7hveap6m53vs38vid96bk1a6q34hhs6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIi3BSNaCkCeeBxqLT7lSJg1495Z4r1ac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896146491506-k2npqjqrqh5054h0hpqaihu5ddr2fgj2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "896146491506-28i0md3gp6c0d68u5t1j7ti04s2l0uhd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "excited.andresdiaz.com.excited"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
