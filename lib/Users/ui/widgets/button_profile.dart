@@ -27,7 +27,17 @@ class ButtonProfile extends StatelessWidget {
         stream: userBloc.streamFirebase,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
 
-          switch (snapshot.connectionState) {
+
+
+          if ( !snapshot.hasData  || snapshot.hasError){
+             return profile(context);
+          } else {
+            return   showProfileData(snapshot, context);
+
+          }
+
+
+        /*  switch (snapshot.connectionState) {
             case ConnectionState.active:
             // TODO: Handle this case.
               return showProfileData(snapshot, context);
@@ -43,7 +53,7 @@ class ButtonProfile extends StatelessWidget {
               return profile(context);
             default:
               return showProfileData(snapshot, context);
-          }
+          }*/
         },
       );
 

@@ -143,7 +143,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     ButtonLogin(iconData: FontAwesomeIcons.facebookF, top: 10.0,
                       onPressed: () {
-                      startFacebookLogin();
+                      userBloc.signOut();
+                     startFacebookLogin();
+
 
                       },),
                     ButtonLogin(iconData: FontAwesomeIcons.phoneAlt, top: 10.0,

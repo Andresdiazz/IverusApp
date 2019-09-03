@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cocreacion/homepage.dart';
+import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_picker_dropdown.dart';
 import 'package:country_pickers/country_pickers.dart';
@@ -19,6 +19,7 @@ class _AuthphoneState extends State<Authphone> {
   final TextEditingController _smsController  = new TextEditingController();
 
   String _phonecode;
+
   String verificationId;
   FirebaseUser user;
   var _keyField = GlobalKey<FormFieldState>();
@@ -26,7 +27,7 @@ class _AuthphoneState extends State<Authphone> {
   _buildCountryPickerDropdown() => Row(
     children: <Widget>[
       CountryPickerDropdown(
-
+        initialValue: 'mx',
         itemBuilder: _buildDropdownItem,
         onValuePicked:  (Country country){
           print("${country.name}");
@@ -70,6 +71,7 @@ class _AuthphoneState extends State<Authphone> {
 //Verificar_Telefono
 
   Future<void> verifyPhone(BuildContext context) async {
+
     try{
 
       final PhoneCodeAutoRetrievalTimeout autoRetrieve = (String verId){
@@ -86,7 +88,7 @@ class _AuthphoneState extends State<Authphone> {
       final PhoneVerificationCompleted verifiedSuccess = (AuthCredential user){
         print('Successful verification');
         if(user != null){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(this.user)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
 
         }else{
           print('user is null');
@@ -95,11 +97,12 @@ class _AuthphoneState extends State<Authphone> {
       };
 
       final PhoneVerificationFailed veriFailed = (AuthException exception) {
+
         print('Failed verification: ${exception.message}');
       };
 
       await FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber: "+${_phonecode+_phoneController.text.trim()}",
+          phoneNumber: '+${_phonecode + _phoneController.text.trim()}',
           timeout: const Duration(seconds: 5),
           verificationCompleted: verifiedSuccess,
           verificationFailed: veriFailed,
@@ -138,7 +141,7 @@ class _AuthphoneState extends State<Authphone> {
                     if(user != null) {
                       Navigator.of(context).pop();
                       print("Successful verification user is: ${user}");
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(this.user)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
                     }else{
                       print("Failed verification");
                     }
@@ -147,12 +150,7 @@ class _AuthphoneState extends State<Authphone> {
                   });
                 },
               ),
-              FlatButton(
-                child: Text("Renviar codigo"),
-                onPressed: () {
-                  verifyPhone(context);
-                },
-              )
+
             ],
           );
         });

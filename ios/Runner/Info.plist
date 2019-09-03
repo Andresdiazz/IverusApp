@@ -57,25 +57,22 @@
     		<array>
     			<!-- TODO Replace this value: -->
     			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+    			<string>fb440485399846824</string>
     			<string>com.googleusercontent.apps.896146491506-sqhg9gjj892trsf2jovgv61m3vlib355</string>
     		</array>
     	</dict>
     </array>
-    <!-- End of the Google Sign-in Section -->
-
-        <!-- Facebook Sign-in Section -->
-        <key>CFBundleURLTypes</key>
-         <array>
-          <dict> <key>CFBundleURLSchemes</key>
-           <array> <string>fb440485399846824</string> </array>
-          </dict>
-           </array>
-            <key>FacebookAppID</key>
-            <string>440485399846824</string>
+      <key>FacebookAppID</key>
+      <string>440485399846824</string>
+      <key>LSRequiresIPhoneOS</key>
+      <true/>
 
 
 
 
 
 </dict>
+
+
+
 </plist>
