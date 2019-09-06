@@ -36,20 +36,9 @@ class UserBloc implements Bloc {
 
   //3. SignIn with Phone
 
-
-
-
-
-
-
-
-
   //3. Registra usuario en base de datos
   final _cloudFiretoreRepository = CloudFirestoreRepository();
   void updateUserData(User user) => _cloudFiretoreRepository.updateUserDataFiretore(user);
-
-
-
 
   Future<void> updateIdeas(Ideas ideas) => _cloudFiretoreRepository.updateIdeas(ideas);
   Future<void> updateComments(Comments comments) => _cloudFiretoreRepository.updateComments(comments);
@@ -73,6 +62,8 @@ class UserBloc implements Bloc {
   signOut(){
     _auth_repository.signOut();
   }
+
+
 
 
   @override

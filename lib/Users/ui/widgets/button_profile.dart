@@ -125,8 +125,8 @@ class ButtonProfile extends StatelessWidget {
         percent: getPercent(121),
         progressColor: Colors.black,
         center: Container(
-           width: width/1.3,
-          height: width/1.3,
+          width: width / 1.3,
+          height: width / 1.3,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(

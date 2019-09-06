@@ -1,8 +1,6 @@
-import 'package:cocreacion/Ideas/ui/screens/home.dart';
-import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
+ import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:cocreacion/Users/model/user.dart';
-import 'package:cocreacion/Users/ui/screens/phone_login_screen.dart';
-import 'package:cocreacion/Users/ui/widgets/background_login.dart';
+ import 'package:cocreacion/Users/ui/widgets/background_login.dart';
 import 'package:cocreacion/Users/ui/widgets/button_login.dart';
 import 'package:cocreacion/authphone.dart';
 import 'package:flutter/material.dart';

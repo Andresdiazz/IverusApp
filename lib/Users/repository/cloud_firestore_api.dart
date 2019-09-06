@@ -5,16 +5,18 @@ import 'package:cocreacion/Ideas/ui/widgets/slide.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class CloudFirestoreAPI {
+import '../../CommonResponse.dart';
 
+class CloudFirestoreAPI {
   final String USERS = "users";
   final String IDEAS = "ideas";
   final String COMMENTS = "comments";
+  final String VIDEOS = "videos";
 
   final Firestore _db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void updateUserData(User user) async{
+  void updateUserData(User user) async {
     DocumentReference ref = _db.collection(USERS).document(user.uid);
     return await ref.setData({
       'uid': user.uid,
@@ -24,74 +26,59 @@ class CloudFirestoreAPI {
       'myIdeas': user.myIdeas,
       'myFavoriteIdeas': user.myFavoriteIdeas,
       'lastSignIn': DateTime.now()
-
     }, merge: true);
-    
   }
 
-  Future<void> updateIdeas(Ideas ideas) async{
-    
+  Future<void> updateIdeas(Ideas ideas) async {
     CollectionReference refIdeas = _db.collection(IDEAS);
 
-    _auth.currentUser().then((FirebaseUser user){
+    _auth.currentUser().then((FirebaseUser user) {
       refIdeas.add({
         'title': ideas.title,
         'likes': ideas.likes,
-        'userOwner': _db.document("${USERS}/${user.uid}")//reference,
-      }).then((DocumentReference dr){
-        dr.get().then((DocumentSnapshot snapshot){
+        'userOwner': _db.document("${USERS}/${user.uid}") //reference,
+      }).then((DocumentReference dr) {
+        dr.get().then((DocumentSnapshot snapshot) {
           //ID Place REFERENCE ARRAY
           DocumentReference refUsers = _db.collection(USERS).document(user.uid);
           refUsers.updateData({
-            'myIdeas': FieldValue.arrayUnion([
-            _db.document("${IDEAS}/${snapshot.documentID}")
-            ])
+            'myIdeas': FieldValue.arrayUnion(
+                [_db.document("${IDEAS}/${snapshot.documentID}")])
           });
         });
       });
-
     });
-    
   }
 
-  Future<void> updateComments(Comments comments) async{
-
-
-
+  Future<void> updateComments(Comments comments) async {
     //DocumentReference docRef = _db.collection(IDEAS).document(ideas.id);
 
-    CollectionReference refComments = _db.collection(IDEAS).document().collection(COMMENTS);
+    CollectionReference refComments =
+        _db.collection(IDEAS).document().collection(COMMENTS);
 
-    _auth.currentUser().then((FirebaseUser user){
+    _auth.currentUser().then((FirebaseUser user) {
       refComments.add({
         'title': comments.title,
         'likes': comments.likes,
         'userOwner': _db.document("${USERS}/${user.uid}")
-      }).then((DocumentReference dr){
-        dr.get().then((DocumentSnapshot snapshot){
+      }).then((DocumentReference dr) {
+        dr.get().then((DocumentSnapshot snapshot) {
           //ID Place REFERENCE ARRAY
           DocumentReference refUsers = _db.collection(USERS).document(user.uid);
           refUsers.updateData({
-            'myIdeas': FieldValue.arrayUnion([
-              _db.document("${IDEAS}/${snapshot.documentID}")
-            ])
+            'myIdeas': FieldValue.arrayUnion(
+                [_db.document("${IDEAS}/${snapshot.documentID}")])
           });
-
-
         });
       });
     });
-
   }
 
-  List<Slide> buildIdeas(List<DocumentSnapshot> slideListSnapshot, User user){
-
+  List<Slide> buildIdeas(List<DocumentSnapshot> slideListSnapshot, User user) {
     List<Slide> ideasUser = List<Slide>();
 
-    slideListSnapshot.forEach((i){
-
+    slideListSnapshot.forEach((i) {
       ideasUser.add(Slide(
-
           Ideas(
             title: i.data['title'],
             likes: i.data['likes'],
@@ -100,37 +87,31 @@ class CloudFirestoreAPI {
               uid: i.data['uid'],
               name: i.data['name'],
               photoURL: i.data['photo'],
-              email: i.data['email']
-          ),
-          onPressedFabIcon: () {
-            likeIdea(i.documentID);
-          }
-      )
-      );
+              email: i.data['email']), onPressedFabIcon: () {
+        likeIdea(i.documentID);
+      }));
+    });
 
-    }
-    );
-
-        return ideasUser;
-
+    return ideasUser;
   }
 
+  Future likeIdea(String idIdea) async {
+    await _db
+        .collection(IDEAS)
+        .document(idIdea)
+        .get()
+        .then((DocumentSnapshot ds) {
+      int likes = ds.data["likes"];
 
-
-  Future likeIdea(String idIdea) async{
-    await _db.collection(IDEAS).document(idIdea).get()
-        .then((DocumentSnapshot ds){
-          int likes = ds.data["likes"];
-
-          _db.collection(IDEAS).document(idIdea)
-              .updateData({
-            'likes': likes+1
-          });
-
+      _db.collection(IDEAS).document(idIdea).updateData({'likes': likes + 1});
     });
   }
 
-
-
-
+  Future<CommonResponse> addUser(User user) async {
+    return _db.collection(USERS).add(user.getMap()).then((onValue) {
+      return CommonResponse(CommonResponse.successCode, "Added");
+    }).catchError((exception) {
+      return CommonResponse(CommonResponse.errorCode, exception);
+    });
+  }
 }

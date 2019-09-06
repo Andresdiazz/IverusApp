@@ -6,16 +6,21 @@ import 'package:cocreacion/Ideas/ui/widgets/slide.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_api.dart';
 
+import '../../CommonResponse.dart';
 
-class CloudFirestoreRepository{
-
+class CloudFirestoreRepository {
   final _cloudFirestoreAPI = CloudFirestoreAPI();
 
-  void updateUserDataFiretore(User user) => _cloudFirestoreAPI.updateUserData(user);
-  Future<void> updateIdeas(Ideas ideas) => _cloudFirestoreAPI.updateIdeas(ideas);
+  void updateUserDataFiretore(User user) =>
+      _cloudFirestoreAPI.updateUserData(user);
 
-  Future<void> updateComments(Comments comments) => _cloudFirestoreAPI.updateComments(comments);
+  Future<void> updateIdeas(Ideas ideas) =>
+      _cloudFirestoreAPI.updateIdeas(ideas);
 
-  List<Slide> buildIdeas(List<DocumentSnapshot> slideListSnapshot, User user) => _cloudFirestoreAPI.buildIdeas(slideListSnapshot, user);
+  Future<void> updateComments(Comments comments) =>
+      _cloudFirestoreAPI.updateComments(comments);
 
-}
+  List<Slide> buildIdeas(List<DocumentSnapshot> slideListSnapshot, User user) =>
+      _cloudFirestoreAPI.buildIdeas(slideListSnapshot, user);
+
+ }
