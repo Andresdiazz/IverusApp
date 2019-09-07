@@ -16,7 +16,7 @@ class CloudFirestoreAPI {
   final Firestore _db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void updateUserData(User user) async {
+  Future<void> updateUserData(User user) async {
     DocumentReference ref = _db.collection(USERS).document(user.uid);
     return await ref.setData({
       'uid': user.uid,
@@ -107,11 +107,11 @@ class CloudFirestoreAPI {
     });
   }
 
-  Future<CommonResponse> addUser(User user) async {
-    return _db.collection(USERS).add(user.getMap()).then((onValue) {
-      return CommonResponse(CommonResponse.successCode, "Added");
-    }).catchError((exception) {
-      return CommonResponse(CommonResponse.errorCode, exception);
+  Future<CommonResponse> getProfile(String uid) async {
+    return _db.collection(USERS).document(uid).get().then((onValue) {
+      return CommonResponse(CommonResponse.successCode, onValue.data);
+    }).catchError((error) {
+      throw error;
     });
   }
 }

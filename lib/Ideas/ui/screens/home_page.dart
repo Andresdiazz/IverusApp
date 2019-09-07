@@ -1,4 +1,3 @@
-
 import 'package:cocreacion/Ideas/ui/widgets/sliding_cards.dart';
 import 'package:cocreacion/Ideas/ui/widgets/tabs.dart';
 import 'package:flutter/material.dart';
@@ -36,16 +35,18 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: Image(image: AssetImage("assets/img/iverus.png"),
-      width: 150,)
-      /*Text(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        child: Image(
+          image: AssetImage("assets/img/iverus.png"),
+          width: 150,
+        )
+        /*Text(
         'Iverus',
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.w600,
         ),
       ),*/
-    );
+        );
   }
 }

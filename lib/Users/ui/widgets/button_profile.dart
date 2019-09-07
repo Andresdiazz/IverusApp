@@ -1,4 +1,5 @@
 import 'package:cocreacion/Users/bloc/bloc_user.dart';
+import 'package:cocreacion/Users/bloc/user_bloc_singleton.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/ui/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +13,10 @@ class ButtonProfile extends StatelessWidget {
 
   User user;
 
-  UserBloc userBloc;
+  HomeBloc homeBloc;
 
   ButtonProfile(
-      {@required this.userBloc,
+      {@required this.homeBloc,
       this.user,
       this.fontSize,
       this.height,
@@ -23,9 +24,9 @@ class ButtonProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    userBloc = BlocProvider.of<UserBloc>(context);
+    homeBloc = BlocProvider.of<HomeBloc>(context);
     return StreamBuilder(
-      stream: userBloc.streamFirebase,
+      stream: homeBloc.user,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData || snapshot.hasError) {
           return profile(context);
@@ -83,10 +84,7 @@ class ButtonProfile extends StatelessWidget {
   }
 
   Widget showProfileData(AsyncSnapshot snapshot, BuildContext context) {
-    user = User(
-        name: snapshot.data.displayName,
-        photoURL: snapshot.data.photoUrl,
-        email: snapshot.data.email);
+    user = snapshot.data;
 
     final userName = Container(
         margin: EdgeInsets.only(left: 40.0, top: 10.0),
@@ -154,7 +152,7 @@ class ButtonProfile extends StatelessWidget {
       return 0.33;
     } else if (points > 100 && points <= 200) {
       return 0.66;
-    } else if (points > 200 && points <= 300) {
+    } else if (points > 200) {
       return 1.0;
     }
   }

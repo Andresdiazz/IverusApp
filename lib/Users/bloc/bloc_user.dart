@@ -12,18 +12,23 @@ import 'package:cocreacion/Users/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_api.dart';
 
-class UserBloc implements Bloc {
+import '../../CommonResponse.dart';
+import 'user_bloc_singleton.dart';
 
+class UserBloc implements Bloc {
   final _auth_repository = AuthRepository();
+
+
 
   //Flujo de datos - Streams
 
   //Stream - Firebase
 
   //StreamController
-  Stream<FirebaseUser> streamFirebase = FirebaseAuth.instance.onAuthStateChanged;
-  Stream<FirebaseUser> get authStatus => streamFirebase;
+  Stream<FirebaseUser> streamFirebase =
+      FirebaseAuth.instance.onAuthStateChanged;
 
+  Stream<FirebaseUser> get authStatus => streamFirebase;
 
   //Casos uso
   //1. SignIn a la aplicacion Google
@@ -33,42 +38,44 @@ class UserBloc implements Bloc {
 
   //2. SignIn with Facebook
 
-
   //3. SignIn with Phone
 
   //3. Registra usuario en base de datos
   final _cloudFiretoreRepository = CloudFirestoreRepository();
-  void updateUserData(User user) => _cloudFiretoreRepository.updateUserDataFiretore(user);
 
-  Future<void> updateIdeas(Ideas ideas) => _cloudFiretoreRepository.updateIdeas(ideas);
-  Future<void> updateComments(Comments comments) => _cloudFiretoreRepository.updateComments(comments);
+  void updateUserData(User user) {
+    _cloudFiretoreRepository.updateUserDataFiretore(user).then((data) {
 
-  Stream<QuerySnapshot> ideasListStream = Firestore.instance.collection(CloudFirestoreAPI().IDEAS).snapshots();
+    });
+  }
+
+  Future<void> updateIdeas(Ideas ideas) =>
+      _cloudFiretoreRepository.updateIdeas(ideas);
+
+  Future<void> updateComments(Comments comments) =>
+      _cloudFiretoreRepository.updateComments(comments);
+
+  Stream<QuerySnapshot> ideasListStream =
+      Firestore.instance.collection(CloudFirestoreAPI().IDEAS).snapshots();
+
   Stream<QuerySnapshot> get ideasStream => ideasListStream;
 
-  Stream<QuerySnapshot> userListStream = Firestore.instance.collection(CloudFirestoreAPI().USERS).snapshots();
+  Stream<QuerySnapshot> userListStream =
+      Firestore.instance.collection(CloudFirestoreAPI().USERS).snapshots();
+
   Stream<QuerySnapshot> get userStream => userListStream;
-
-
-
-
-
 
   //StreamZip<QuerySnapshot> bothStreams = StreamZip([ideasListStream, userListStream]);
 
+  List<Slide> buildIdeas(List<DocumentSnapshot> slideListSnapshot, User user) =>
+      _cloudFiretoreRepository.buildIdeas(slideListSnapshot, user);
 
-  List<Slide> buildIdeas(List<DocumentSnapshot> slideListSnapshot, User user) => _cloudFiretoreRepository.buildIdeas(slideListSnapshot, user);
-
-  signOut(){
+  signOut() {
     _auth_repository.signOut();
   }
-
-
-
 
   @override
   void dispose() {
     // TODO: implement dispose
   }
-
 }

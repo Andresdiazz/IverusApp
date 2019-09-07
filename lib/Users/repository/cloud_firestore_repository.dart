@@ -11,7 +11,7 @@ import '../../CommonResponse.dart';
 class CloudFirestoreRepository {
   final _cloudFirestoreAPI = CloudFirestoreAPI();
 
-  void updateUserDataFiretore(User user) =>
+  Future<void> updateUserDataFiretore(User user) =>
       _cloudFirestoreAPI.updateUserData(user);
 
   Future<void> updateIdeas(Ideas ideas) =>
@@ -23,4 +23,8 @@ class CloudFirestoreRepository {
   List<Slide> buildIdeas(List<DocumentSnapshot> slideListSnapshot, User user) =>
       _cloudFirestoreAPI.buildIdeas(slideListSnapshot, user);
 
- }
+
+  Future<CommonResponse> getProfile(String uid) =>
+      _cloudFirestoreAPI.getProfile(uid);
+
+}

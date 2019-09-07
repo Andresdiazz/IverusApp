@@ -7,6 +7,10 @@ import 'package:country_pickers/country_pickers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+
+import 'Users/bloc/bloc_user.dart';
+import 'Users/model/user.dart';
 
 class Authphone extends StatefulWidget {
   @override
@@ -14,9 +18,10 @@ class Authphone extends StatefulWidget {
 }
 
 class _AuthphoneState extends State<Authphone> {
+  UserBloc userBloc;
 
   final TextEditingController _phoneController = new TextEditingController();
-  final TextEditingController _smsController  = new TextEditingController();
+  final TextEditingController _smsController = new TextEditingController();
 
   String _phonecode;
 
@@ -25,79 +30,84 @@ class _AuthphoneState extends State<Authphone> {
   var _keyField = GlobalKey<FormFieldState>();
 
   _buildCountryPickerDropdown() => Row(
-    children: <Widget>[
-      CountryPickerDropdown(
-        initialValue: 'mx',
-        itemBuilder: _buildDropdownItem,
-        onValuePicked:  (Country country){
-          print("${country.name}");
-          print("${country.phoneCode}");
-          setState(() {
-            this._phonecode = country.phoneCode;
-          });
-        },
-      ),
-      SizedBox(
-        width: 8.0,
-      ),
-      Expanded(
-        child: TextFormField(
-          key:_keyField,
-          controller: _phoneController,
-          keyboardType: TextInputType.phone,
-          decoration: InputDecoration(labelText: "Phone"),
-          validator: (val) {
-            if(val.isEmpty){
-              return "this field cannot be empty";
-            }
-          },
-        ),
-      ),
-    ],
-  );
+        children: <Widget>[
+          CountryPickerDropdown(
+            initialValue: 'mx',
+            itemBuilder: _buildDropdownItem,
+            onValuePicked: (Country country) {
+              print("${country.name}");
+              print("${country.phoneCode}");
+              setState(() {
+                this._phonecode = country.phoneCode;
+              });
+            },
+          ),
+          SizedBox(
+            width: 8.0,
+          ),
+          Expanded(
+            child: TextFormField(
+              key: _keyField,
+              controller: _phoneController,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(labelText: "Phone"),
+              validator: (val) {
+                if (val.isEmpty) {
+                  return "this field cannot be empty";
+                }
+              },
+            ),
+          ),
+        ],
+      );
 
   Widget _buildDropdownItem(Country country) => Container(
-    child: Row(
-      children: <Widget>[
-        CountryPickerUtils.getDefaultFlagImage(country),
-        SizedBox(
-          width: 8.0,
+        child: Row(
+          children: <Widget>[
+            CountryPickerUtils.getDefaultFlagImage(country),
+            SizedBox(
+              width: 8.0,
+            ),
+            Text("+${country.phoneCode}(${country.isoCode})"),
+          ],
         ),
-        Text("+${country.phoneCode}(${country.isoCode})"),
-      ],
-    ),
-  );
+      );
 
 //Verificar_Telefono
 
   Future<void> verifyPhone(BuildContext context) async {
-
-    try{
-
-      final PhoneCodeAutoRetrievalTimeout autoRetrieve = (String verId){
+    try {
+      final PhoneCodeAutoRetrievalTimeout autoRetrieve = (String verId) {
         this.verificationId = verId;
       };
 
-      final PhoneCodeSent  smsCodeSent =(String verId,[int forceCodeResend]){
+      final PhoneCodeSent smsCodeSent = (String verId, [int forceCodeResend]) {
         this.verificationId = verId;
         smsCodeDialog(context).then((value) {
           print('Signed in');
         });
       };
 
-      final PhoneVerificationCompleted verifiedSuccess = (AuthCredential user){
+      final PhoneVerificationCompleted verifiedSuccess = (AuthCredential user) {
         print('Successful verification');
-        if(user != null){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+        if (user != null) {
+          FirebaseAuth.instance.signInWithCredential(user).then((user) {
+            userBloc.updateUserData(User(
+              uid: user.user.uid,
+              name: user.user.displayName,
+              email: user.user.email,
+              photoURL: user.user.photoUrl,
+            ));
+          });
 
-        }else{
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        } else {
           print('user is null');
         }
-
       };
 
       final PhoneVerificationFailed veriFailed = (AuthException exception) {
-
         print('Failed verification: ${exception.message}');
       };
 
@@ -108,12 +118,10 @@ class _AuthphoneState extends State<Authphone> {
           verificationFailed: veriFailed,
           codeSent: smsCodeSent,
           codeAutoRetrievalTimeout: autoRetrieve);
-
-    }catch(e){
+    } catch (e) {
       print("error: $e");
     }
   }
-
 
   Future<bool> smsCodeDialog(BuildContext context) {
     return showDialog(
@@ -131,18 +139,20 @@ class _AuthphoneState extends State<Authphone> {
               new FlatButton(
                 child: Text('Done'),
                 onPressed: () async {
-
                   AuthCredential credential = PhoneAuthProvider.getCredential(
                     verificationId: this.verificationId,
                     smsCode: _smsController.text.trim(),
                   );
 
-                  user = await FirebaseAuth.instance.signInWithCredential(credential).then((user) {
-                    if(user != null) {
+                  user = await FirebaseAuth.instance
+                      .signInWithCredential(credential)
+                      .then((user) {
+                    if (user != null) {
                       Navigator.of(context).pop();
                       print("Successful verification user is: ${user}");
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-                    }else{
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
+                    } else {
                       print("Failed verification");
                     }
                   }).catchError((e) {
@@ -150,7 +160,6 @@ class _AuthphoneState extends State<Authphone> {
                   });
                 },
               ),
-
             ],
           );
         });
@@ -158,14 +167,16 @@ class _AuthphoneState extends State<Authphone> {
 
   flushBarMessage(BuildContext context, String msg) {
     Flushbar(
-      message : "$msg",
-      duration : Duration(seconds: 4),
-      leftBarIndicatorColor : Colors.blue[300] )
+        message: "$msg",
+        duration: Duration(seconds: 4),
+        leftBarIndicatorColor: Colors.blue[300])
       ..show(context);
-   }
+  }
 
   @override
   Widget build(BuildContext context) {
+    userBloc = BlocProvider.of(context);
+
     return SafeArea(
       child: new Scaffold(
         appBar: new AppBar(),
@@ -177,7 +188,9 @@ class _AuthphoneState extends State<Authphone> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text('Autentificacion Telefono',textAlign: TextAlign.center,
+                    Text(
+                      'Autentificacion Telefono',
+                      textAlign: TextAlign.center,
                       style: new TextStyle(fontSize: 24),
                     ),
                     ListTile(title: _buildCountryPickerDropdown()),
@@ -185,22 +198,19 @@ class _AuthphoneState extends State<Authphone> {
                 ),
               ),
               new RaisedButton(
-                child: Text( "Verificacion"),
+                child: Text("Verificacion"),
                 color: Colors.green.shade800,
                 textColor: Colors.white,
                 onPressed: () {
-                  
-                  if(_phonecode != null){
-                    if(_keyField.currentState.validate()) {
-                      print("+${_phonecode+_phoneController.text.trim()}");
+                  if (_phonecode != null) {
+                    if (_keyField.currentState.validate()) {
+                      print("+${_phonecode + _phoneController.text.trim()}");
                       verifyPhone(context);
                       log("funcion correctamente verificar");
-
                     }
-                  }else{
+                  } else {
                     flushBarMessage(context, "please select your code country");
                     log("errro");
-
                   }
                 },
               ),
@@ -208,10 +218,6 @@ class _AuthphoneState extends State<Authphone> {
           ),
         ),
       ),
-
     );
   }
-
-
-
 }
