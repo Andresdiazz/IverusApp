@@ -27,4 +27,8 @@ class CloudFirestoreRepository {
   Future<CommonResponse> getProfile(String uid) =>
       _cloudFirestoreAPI.getProfile(uid);
 
+  Future<CommonResponse> getLeaderBoard() =>
+      _cloudFirestoreAPI.getLeaderBoard();
+
+
 }

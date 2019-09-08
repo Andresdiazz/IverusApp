@@ -25,7 +25,8 @@ class CloudFirestoreAPI {
       'photoURL': user.photoURL,
       'myIdeas': user.myIdeas,
       'myFavoriteIdeas': user.myFavoriteIdeas,
-      'lastSignIn': DateTime.now()
+      'lastSignIn': DateTime.now(),
+      'points': user.points
     }, merge: true);
   }
 
@@ -110,6 +111,25 @@ class CloudFirestoreAPI {
   Future<CommonResponse> getProfile(String uid) async {
     return _db.collection(USERS).document(uid).get().then((onValue) {
       return CommonResponse(CommonResponse.successCode, onValue.data);
+    }).catchError((error) {
+      throw error;
+    });
+  }
+
+  Future<CommonResponse> getLeaderBoard() async {
+    return _db
+        .collection(USERS)
+        .orderBy("points", descending: true)
+        .limit(10)
+        .getDocuments()
+        .then((onValue) {
+      List<User> data = List();
+      onValue.documents.forEach((document) {
+        var user = User.fromJson(document.data);
+        data.add(user);
+      });
+
+      return CommonResponse(CommonResponse.successCode, data);
     }).catchError((error) {
       throw error;
     });

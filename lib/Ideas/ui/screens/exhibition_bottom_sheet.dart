@@ -80,7 +80,6 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
             onVerticalDragUpdate: _handleDragUpdate,
             onVerticalDragEnd: _handleDragEnd,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(colors: [
                   Colors.cyanAccent,
@@ -95,7 +94,7 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
               ),
               child: Stack(
                 children: <Widget>[
-                  MenuButton(),
+                  Container(child: MenuButton()),
                   SheetHeader(
                     fontSize: headerFontSize,
                     topMargin: headerTopMargin,
@@ -200,7 +199,8 @@ class ExpandedEventItem extends StatelessWidget {
       top: 50,
       left: leftMargin,
       right: 0,
-      height: 800,
+      height: MediaQuery.of(context).size.height,
+
       child: AnimatedOpacity(
         opacity: isVisible ? 1 : 0,
         duration: Duration(milliseconds: 200),
@@ -209,7 +209,7 @@ class ExpandedEventItem extends StatelessWidget {
             ProfileScreen(),
             //BarScore(),
             Container(
-              margin: EdgeInsets.only(top: 230),
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.28),
               child: LeaderBoarding(),
             )
 
@@ -257,6 +257,7 @@ class SheetHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
+
       top: topMargin,
       child: ButtonProfile(
         fontSize: fontSize,
@@ -279,7 +280,7 @@ class MenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      right: 0,
+      right: 32,
       bottom: 24,
       child: Icon(
         Icons.menu,

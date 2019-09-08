@@ -11,7 +11,6 @@ import 'login_screen.dart';
 import 'package:flutter_fluid_slider/flutter_fluid_slider.dart';
 
 class ProfileScreen extends StatelessWidget {
-
   User user;
 
   UserBloc userBloc;
@@ -30,21 +29,23 @@ class ProfileScreen extends StatelessWidget {
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('Para subir una idea tienes que volver a iniciar sesión'),
+                  Text(
+                      'Para subir una idea tienes que volver a iniciar sesión'),
                 ],
               ),
             ),
             actions: <Widget>[
-              FlatButton(onPressed: (){
-                Navigator.of(context).pop();
-                },
-                  child: Text('Cancelar')
-              ),
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancelar')),
               FlatButton(
                 child: Text('Cerrar sesión'),
                 onPressed: () {
                   userBloc.signOut();
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
                 },
               ),
             ],
@@ -53,27 +54,27 @@ class ProfileScreen extends StatelessWidget {
       );
     }
 
-
     return Container(
       child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                  margin: EdgeInsets.only(top:0, left: 300),
-                  child: InkWell(
-                    onTap: () {
-                      _neverSatisfied();
-                      //userBloc.signOut();
-                      //Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
-                    },
-                    child: Icon(Icons.exit_to_app, size: 30.0, color: Colors.white,),
-                  )
-              ),
-              //BarScore()
-            ],
-          ),
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Container(
+              margin: EdgeInsets.only(top: 0, right: 32),
+              child: InkWell(
+                onTap: () {
+                  _neverSatisfied();
+                  //userBloc.signOut();
+                  //Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+                },
+                child: Icon(
+                  Icons.exit_to_app,
+                  size: 30.0,
+                  color: Colors.white,
+                ),
+              )),
+          //BarScore()
+        ],
+      ),
     );
-
   }
 }
-

@@ -5,10 +5,11 @@ import 'package:cocreacion/Ideas/ui/widgets/slide.dart';
 import 'package:cocreacion/Ideas/ui/widgets/slide_info.dart';
 import 'package:cocreacion/Ideas/ui/widgets/text_bar.dart';
 import 'package:cocreacion/Users/bloc/bloc_user.dart';
-import 'package:cocreacion/Users/bloc/user_bloc_singleton.dart';
+import 'package:cocreacion/Users/bloc/home_bloc.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/ui/widgets/button_profile.dart';
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
 
 
@@ -67,7 +68,7 @@ class Home extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     TextBar(),
-                    ButtonProfile(user: user, homeBloc: HomeBloc())
+                    ButtonProfile(user: user, homeBloc: BlocProvider.of<HomeBloc>(context))
                   ],
                 ),
               ),

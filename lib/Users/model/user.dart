@@ -9,6 +9,7 @@ class User {
   String name;
   String email;
   String photoURL;
+  String gift;
   int points;
   List<Ideas> myIdeas;
   List<Ideas> myFavoriteIdeas;
@@ -20,6 +21,7 @@ class User {
       @required this.photoURL,
       @required this.points,
       @required this.email,
+      @required this.gift,
       this.myIdeas,
       this.myFavoriteIdeas});
 

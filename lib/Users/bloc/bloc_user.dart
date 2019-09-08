@@ -13,12 +13,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_api.dart';
 
 import '../../CommonResponse.dart';
-import 'user_bloc_singleton.dart';
+import 'home_bloc.dart';
 
 class UserBloc implements Bloc {
   final _auth_repository = AuthRepository();
-
-
 
   //Flujo de datos - Streams
 
@@ -44,9 +42,7 @@ class UserBloc implements Bloc {
   final _cloudFiretoreRepository = CloudFirestoreRepository();
 
   void updateUserData(User user) {
-    _cloudFiretoreRepository.updateUserDataFiretore(user).then((data) {
-
-    });
+    _cloudFiretoreRepository.updateUserDataFiretore(user).then((data) {});
   }
 
   Future<void> updateIdeas(Ideas ideas) =>
