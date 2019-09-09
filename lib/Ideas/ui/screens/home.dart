@@ -11,9 +11,6 @@ import 'package:cocreacion/Users/ui/widgets/button_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
-
-
-
 class Home extends StatelessWidget {
 
   User user;

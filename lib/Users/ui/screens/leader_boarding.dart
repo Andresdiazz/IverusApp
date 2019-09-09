@@ -141,7 +141,28 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
               SingleChildScrollView(
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.5,
-                  child: getPopulatedList(snapshot.data),
+                  child: snapshot.data != null
+                      ? getPopulatedList(snapshot.data)
+                      : Container(
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          child: Column(
+                             children: <Widget>[
+                              Container(
+                                margin: const EdgeInsets.only(top:80,bottom: 8),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 3,
+                                  backgroundColor: Colors.white,
+                                ),
+                                height: 30,
+                                width: 30,
+                              ),
+                              Text(
+                                "Getting LeaderBoard",
+                                style: Theme.of(context).textTheme.body2.copyWith(color: Colors.white),
+                              )
+                            ],
+                          ),
+                        ),
                 ),
               )
 //                Container(
