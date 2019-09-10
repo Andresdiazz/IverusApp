@@ -1,3 +1,4 @@
+import 'package:cocreacion/EditProfile/ui/screens/edit_profile.dart';
 import 'package:cocreacion/Users/bloc/bloc_user.dart';
 import 'package:cocreacion/Users/bloc/home_bloc.dart';
 import 'package:cocreacion/Users/model/user.dart';
@@ -27,7 +28,6 @@ class ButtonProfile extends StatelessWidget {
     homeBloc = BlocProvider.of<HomeBloc>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
-
       child: StreamBuilder(
         stream: homeBloc.user,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -141,7 +141,13 @@ class ButtonProfile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        updatedPhoto,
+        GestureDetector(
+          child: updatedPhoto,
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => EditProfile()));
+          },
+        ),
         Center(
           child: userName,
         )

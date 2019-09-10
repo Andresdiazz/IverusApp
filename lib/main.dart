@@ -14,7 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        child: MaterialApp(title: 'Flutter Demo', home: LoginScreen()),
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            home: LoginScreen()),
         bloc: UserBloc());
   }
 }

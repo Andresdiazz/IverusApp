@@ -36,7 +36,7 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
   double get iconRightBorderRadius => lerp(8, 0);
 
   double get iconSize => lerp(iconStartSize, iconEndSize);
-  
+
   double get profileSizeTam => lerp(50, 130);
 
   double iconTopMargin(int index) =>
@@ -81,15 +81,15 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
             onVerticalDragEnd: _handleDragEnd,
             child: Container(
               decoration: const BoxDecoration(
-                gradient: LinearGradient(colors: [
-                  Colors.cyanAccent,
-                  //Colors.deepPurpleAccent,
-                  Colors.deepPurple,
-                ],
-                  //stops: [0.2, 0.7],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomLeft
-                ),
+                gradient: LinearGradient(
+                    colors: [
+                      Colors.cyanAccent,
+                      //Colors.deepPurpleAccent,
+                      Colors.deepPurple,
+                    ],
+                    //stops: [0.2, 0.7],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomLeft),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
               ),
               child: Stack(
@@ -119,17 +119,17 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
       top: iconTopMargin(index),
       //left: iconLeftMargin(index),
       child: ClipRRect(
-        borderRadius: BorderRadius.horizontal(
-          left: Radius.circular(iconLeftBorderRadius),
-          right: Radius.circular(iconRightBorderRadius),
-        ),
-        child: ButtonProfile()
-        /*Image.asset(
+          borderRadius: BorderRadius.horizontal(
+            left: Radius.circular(iconLeftBorderRadius),
+            right: Radius.circular(iconRightBorderRadius),
+          ),
+          child: ButtonProfile()
+          /*Image.asset(
           'assets/${event.assetName}',
           fit: BoxFit.cover,
           alignment: Alignment(lerp(1, 0), 0),
         ),*/
-      ),
+          ),
     );
   }
 
@@ -179,7 +179,6 @@ class ExpandedEventItem extends StatelessWidget {
   final String title;
   final String date;
 
-
   const ExpandedEventItem(
       {Key key,
       this.topMargin,
@@ -193,42 +192,36 @@ class ExpandedEventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Positioned(
       top: 50,
       left: leftMargin,
       right: 0,
       height: MediaQuery.of(context).size.height,
-
       child: AnimatedOpacity(
-        opacity: isVisible ? 1 : 0,
-        duration: Duration(milliseconds: 200),
-        child: Column(
-          children: <Widget>[
-            ProfileScreen(),
-            //BarScore(),
-            Container(
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.28),
-              child: LeaderBoarding(),
-            )
+          opacity: isVisible ? 1 : 0,
+          duration: Duration(milliseconds: 200),
+          child: Column(
+            children: <Widget>[
+              ProfileScreen(),
+              //BarScore(),
+              Container(
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.28),
+                child: LeaderBoarding(),
+              )
+            ],
+          )
 
-          ],
-        )
-
-
-        /*Container(
+          /*Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
             color: Colors.white,
           ),
           padding: EdgeInsets.only(left: height).add(EdgeInsets.all(8)),
         ),*/
-      ),
+          ),
     );
   }
-
-
 }
 
 final List<Event> events = [
@@ -251,20 +244,22 @@ class SheetHeader extends StatelessWidget {
   final double profileSize;
 
   const SheetHeader(
-      {Key key, @required this.fontSize, @required this.topMargin, @required this.profileSize})
+      {Key key,
+      @required this.fontSize,
+      @required this.topMargin,
+      @required this.profileSize})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
-
-      top: topMargin,
-      child: ButtonProfile(
-        fontSize: fontSize,
-        height: profileSize,
-        width: profileSize,
-      )
-      /*Text(
+        top: topMargin,
+        child: ButtonProfile(
+          fontSize: fontSize,
+          height: profileSize,
+          width: profileSize,
+        )
+        /*Text(
         '',
         style: TextStyle(
           color: Colors.white,
@@ -272,7 +267,7 @@ class SheetHeader extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),*/
-    );
+        );
   }
 }
 
