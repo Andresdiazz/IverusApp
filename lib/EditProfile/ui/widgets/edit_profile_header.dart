@@ -6,26 +6,21 @@ class EditProfileHeader extends StatelessWidget {
     return ClipPath(
       child: Container(
         color: Colors.white,
-        child: Stack(
-          fit: StackFit.passthrough,
-          children: <Widget>[
-            new Container(
-              height: 250.0,
-              child: new Container(
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  gradient: LinearGradient(
-                    colors: [
-                      // Colors are easy thanks to Flutter's Colors class.
-                      Colors.cyanAccent,
-                      Colors.deepPurpleAccent,
-                      Colors.deepPurple,
-                    ],
-                  ),
-                ),
+        child: Container(
+          height: 250.0,
+          child: new Container(
+            decoration: new BoxDecoration(
+              shape: BoxShape.rectangle,
+              gradient: LinearGradient(
+                colors: [
+                  // Colors are easy thanks to Flutter's Colors class.
+                  Colors.cyanAccent,
+                  Colors.deepPurpleAccent,
+                  Colors.deepPurple,
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
       clipper: BottomWaveClipper(),
