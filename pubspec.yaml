@@ -37,6 +37,8 @@ dependencies:
   flutter_auth_buttons: ^0.5.0
   percent_indicator: "^2.1.1"
   rxdart: ^0.21.0
+  shared_preferences: ^0.5.3+4
+
 
   flutter:
     sdk: flutter

@@ -10,33 +10,47 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   EditProfileBloc _editProfileBloc = EditProfileBloc();
 
+  FocusNode _nameFocus = FocusNode();
+  FocusNode _emailFocus = FocusNode();
+  FocusNode _phoneFocus = FocusNode();
+  FocusNode _aboutYouFocus = FocusNode();
+  GlobalKey<FormState> _formKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: ListView(
         children: <Widget>[
-          Container(height: 250, child: EditProfileHeader()),
-          ListView(
+          Stack(
             children: <Widget>[
-              getUpper(context),
-              SizedBox(
-                height: 40,
+              Container(height: 230, child: EditProfileHeader()),
+              Column(
+                children: <Widget>[
+                  getUpper(context),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  getName(context),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  getEmail(context),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  getPhone(context),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  getDesc(context),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  getSave(context)
+                ],
               ),
-              getName(context),
-              SizedBox(
-                height: 20,
-              ),
-              getEmail(context),
-              SizedBox(
-                height: 20,
-              ),
-              getPhone(context),
-              SizedBox(
-                height: 20,
-              ),
-              getDesc(context)
             ],
-          ),
+          )
         ],
       ),
     );
@@ -170,6 +184,11 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 Flexible(
                   child: TextField(
+                    focusNode: _nameFocus,
+                    onSubmitted: (value) {
+                      _nameFocus.unfocus();
+                      FocusScope.of(context).requestFocus(_emailFocus);
+                    },
                     keyboardType: TextInputType.text,
                     maxLines: 1,
                     textInputAction: TextInputAction.next,
@@ -226,6 +245,11 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 Flexible(
                   child: TextField(
+                    focusNode: _emailFocus,
+                    onSubmitted: (value) {
+                      _emailFocus.unfocus();
+                      FocusScope.of(context).requestFocus(_phoneFocus);
+                    },
                     keyboardType: TextInputType.emailAddress,
                     maxLines: 1,
                     textInputAction: TextInputAction.next,
@@ -282,6 +306,11 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 Flexible(
                   child: TextField(
+                    focusNode: _phoneFocus,
+                    onSubmitted: (value) {
+                      _phoneFocus.unfocus();
+                      FocusScope.of(context).requestFocus(_aboutYouFocus);
+                    },
                     keyboardType: TextInputType.phone,
                     maxLines: 1,
                     textInputAction: TextInputAction.next,
@@ -338,6 +367,11 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 Flexible(
                   child: TextField(
+                    focusNode: _aboutYouFocus,
+                    onSubmitted: (value) {
+                      _aboutYouFocus.unfocus();
+//                      FocusScope.of(context).requestFocus(_emailFocus);
+                    },
                     keyboardType: TextInputType.multiline,
                     maxLines: 4,
                     minLines: 1,
@@ -353,6 +387,50 @@ class _EditProfileState extends State<EditProfile> {
           ),
         )
       ],
+    );
+  }
+
+  getSave(context) {
+    return StreamBuilder(
+      stream: _editProfileBloc.isLoadingController,
+      builder: (context, AsyncSnapshot<bool> snapshot) {
+        return Container(
+          margin: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.27,
+              right: MediaQuery.of(context).size.width * 0.27),
+          decoration: new BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.deepPurpleAccent,
+                  Colors.deepPurple,
+                ],
+              ),
+              borderRadius: new BorderRadius.all(const Radius.circular(20.0))),
+          child: InkWell(
+            onTap: () {},
+            splashColor: Colors.white30,
+            child: Container(
+              alignment: Alignment.topCenter,
+              padding: EdgeInsets.all(12),
+              child: snapshot.data != null
+                  ? Container(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                      ),
+                      height: 20,
+                      width: 20,
+                    )
+                  : Text(
+                      "Save",
+                      style: Theme.of(context)
+                          .textTheme
+                          .button
+                          .copyWith(color: Colors.white),
+                    ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

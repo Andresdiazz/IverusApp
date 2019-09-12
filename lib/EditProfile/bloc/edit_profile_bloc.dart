@@ -3,6 +3,7 @@ import 'package:rxdart/rxdart.dart';
 
 class EditProfileBloc implements Bloc {
   final _isEditingController = BehaviorSubject<bool>();
+  final isLoadingController = BehaviorSubject<bool>();
 
   Observable<bool> get isEditing => _isEditingController.stream;
 
