@@ -1,3 +1,8 @@
+import 'package:cocreacion/Categorias/belleza.dart';
+import 'package:cocreacion/Categorias/cuidado_personal.dart';
+import 'package:cocreacion/Categorias/iverus.dart';
+import 'package:cocreacion/Ideas/ui/screens/home.dart';
+import 'package:cocreacion/Users/ui/screens/login_screen.dart';
 import 'package:cocreacion/example.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -5,6 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
+import 'package:cocreacion/Categorias/moda.dart';
 
 class SlidingCardsView extends StatefulWidget {
   @override
@@ -38,23 +44,52 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
         controller: pageController,
         children: <Widget>[
           SlidingCard(
+            name: "I'm Iverus",
+            date: 'Live Tomorrow 7PM',
+            assetName: 'img/iverus.png',
+            offset: pageOffset,
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => Iverus()
+              ));
+            },
+
+            //videoPlayerController: VideoPlayerController.asset('img/video_prueba.mp4'),
+          ),
+          SlidingCard(
             name: 'Moda',
             date: 'Live Tomorrow 7PM',
             assetName: 'img/gif.gif',
-            offset: pageOffset,
+            offset: pageOffset -1,
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) => Moda()
+              ));
+            },
+
             //videoPlayerController: VideoPlayerController.asset('img/video_prueba.mp4'),
           ),
           SlidingCard(
             name: 'Bienestar',
             date: 'Live Monday 8PM',
             assetName: 'img/bienestar.gif',
-            offset: pageOffset - 1,
+            offset: pageOffset - 2,
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => Belleza()
+              ));
+            },
           ),
           SlidingCard(
             name: 'Cuidado Personal',
             date: 'Live Today 8PM',
             assetName: 'img/moda.gif',
-            offset: pageOffset - 1,
+            offset: pageOffset - 3,
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => Cpersonal()
+              ));
+            },
           ),
         ],
       ),
@@ -63,18 +98,20 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
 }
 
 class SlidingCard extends StatelessWidget {
-  final String name;
-  final String date;
-  final String assetName;
-  final double offset;
+  String name;
+  String date;
+  String assetName;
+  double offset;
+  VoidCallback onPressed;
 
 
-  const SlidingCard({
+  SlidingCard({
     Key key,
     @required this.name,
     @required this.date,
     @required this.assetName,
     @required this.offset,
+    @required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -103,6 +140,7 @@ class SlidingCard extends StatelessWidget {
                 name: name,
                 date: date,
                 offset: gauss,
+                onPressed: onPressed,
               ),
             ),
           ],
@@ -116,16 +154,37 @@ class CardContent extends StatelessWidget {
   final String name;
   final String date;
   final double offset;
+  final VoidCallback onPressed;
 
-  const CardContent(
+  CardContent(
       {Key key,
       @required this.name,
       @required this.date,
-      @required this.offset})
+      @required this.offset,
+      @required this.onPressed
+      })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final button = Transform.translate(
+      offset: Offset(48 * offset, 0),
+      child: RaisedButton(
+        splashColor: Colors.amber,
+        color: Colors.cyan,
+        child: Transform.translate(
+          offset: Offset(24 * offset, 0),
+          child: Text('More'),
+        ),
+        textColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(32),
+        ),
+        onPressed: onPressed,
+      ),
+    );
+
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -156,7 +215,8 @@ class CardContent extends StatelessWidget {
                   ),
                 ]
             ),
-            Transform.translate(
+            button
+            /*Transform.translate(
                 offset: Offset(48 * offset, 0),
                 child: RaisedButton(
                   splashColor: Colors.amber,
@@ -170,14 +230,18 @@ class CardContent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(32),
                   ),
                   onPressed: () {
-                    Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Example08())
-                    );
+
                   },
                 ),
-              ),
+              ),*/
           ],
         )
         );
   }
+
+
+  
 }
+
+
+

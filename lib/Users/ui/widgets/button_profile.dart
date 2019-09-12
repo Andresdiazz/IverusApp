@@ -60,8 +60,8 @@ class ButtonProfile extends StatelessWidget {
   }
 
   Widget profile(BuildContext context) {
-    final photo = Container(
-      margin: EdgeInsets.only(top: 30.0, right: 10.0),
+    return Container(
+      margin: EdgeInsets.only(top: 20.0),
       width: width,
       //40.0,
       height: height,
@@ -72,17 +72,6 @@ class ButtonProfile extends StatelessWidget {
               fit: BoxFit.cover, image: AssetImage("assets/img/profile.jpg"))),
     );
 
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ProfileScreen()));
-        return BlocProvider<UserBloc>(
-          bloc: UserBloc(),
-          child: ProfileScreen(),
-        );
-      },
-      child: photo,
-    );
   }
 
   Widget showProfileData(AsyncSnapshot snapshot, BuildContext context) {

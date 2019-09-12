@@ -36,8 +36,14 @@ dependencies:
   flutter_facebook_login: ^2.0.1
   flutter_auth_buttons: ^0.5.0
   percent_indicator: "^2.1.1"
-  rxdart: ^0.21.0
+  rxdart: ^0.22.2
   shared_preferences: ^0.5.3+4
+  firebase_database: ^3.0.7
+  story_view: ^0.10.0
+  flutter_stories:
+  flutter_simple_video_player: ^0.0.9
+  image_picker: ^0.6.1+4
+  gallery_saver: ^1.0.2
 
 
   flutter:
