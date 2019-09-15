@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:chewie/chewie.dart';
+//import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:video_player/video_player.dart';
@@ -75,7 +75,7 @@ final Uint8List kTransparentImage = new Uint8List.fromList(<int>[
 List<IntSize> _createSizes(int count) {
   Random rnd = new Random();
   return new List.generate(count,
-          (i) => new IntSize((rnd.nextInt(500) + 200), rnd.nextInt(800) + 200));
+      (i) => new IntSize((rnd.nextInt(500) + 200), rnd.nextInt(800) + 200));
 }
 
 class Example08 extends StatelessWidget {
@@ -88,16 +88,15 @@ class Example08 extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('MODA',
-        style: TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-          fontFamily: "Lato",
-          letterSpacing: 8
-        ),
+        title: new Text(
+          'MODA',
+          style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Lato",
+              letterSpacing: 8),
         ),
         backgroundColor: Colors.white,
-
       ),
       body: new StaggeredGridView.countBuilder(
         primary: false,
@@ -147,12 +146,9 @@ class _Tile extends StatelessWidget {
 }
 
 class ChewieDemo extends StatefulWidget {
-
-
   final IntSize size;
   final int index;
   const ChewieDemo(this.size, this.index);
-
 
   @override
   State<StatefulWidget> createState() {
@@ -164,8 +160,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
   TargetPlatform _platform;
   VideoPlayerController _videoPlayerController1;
   VideoPlayerController _videoPlayerController2;
-  ChewieController _chewieController;
-
+//  ChewieController _chewieController;
 
   @override
   void initState() {
@@ -174,32 +169,32 @@ class _ChewieDemoState extends State<ChewieDemo> {
         'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4/${widget.size.width}/${widget.size.height}/');
     _videoPlayerController2 = VideoPlayerController.network(
         'https://www.sample-videos.com/video123/mp4/480/asdasdas.mp4');
-    _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController1,
-      aspectRatio: 3 / 2,
-      autoPlay: true,
-      looping: true,
-      // Try playing around with some of these other options:
-
-      // showControls: false,
-      // materialProgressColors: ChewieProgressColors(
-      //   playedColor: Colors.red,
-      //   handleColor: Colors.blue,
-      //   backgroundColor: Colors.grey,
-      //   bufferedColor: Colors.lightGreen,
-      // ),
-      // placeholder: Container(
-      //   color: Colors.grey,
-      // ),
-      // autoInitialize: true,
-    );
+//    _chewieController = ChewieController(
+//      videoPlayerController: _videoPlayerController1,
+//      aspectRatio: 3 / 2,
+//      autoPlay: true,
+//      looping: true,
+//      // Try playing around with some of these other options:
+//
+//      // showControls: false,
+//      // materialProgressColors: ChewieProgressColors(
+//      //   playedColor: Colors.red,
+//      //   handleColor: Colors.blue,
+//      //   backgroundColor: Colors.grey,
+//      //   bufferedColor: Colors.lightGreen,
+//      // ),
+//      // placeholder: Container(
+//      //   color: Colors.grey,
+//      // ),
+//      // autoInitialize: true,
+//    );
   }
 
   @override
   void dispose() {
     _videoPlayerController1.dispose();
     _videoPlayerController2.dispose();
-    _chewieController.dispose();
+//    _chewieController.dispose();
     super.dispose();
   }
 
@@ -207,17 +202,15 @@ class _ChewieDemoState extends State<ChewieDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-          children: <Widget>[
-            Expanded(
-              child: Center(
-                child: Chewie(
-                  controller: _chewieController,
-                ),
-              ),
-            ),
-          ],
-        ));
+      children: <Widget>[
+//            Expanded(
+//              child: Center(
+//                child: Chewie(
+//                  controller: _chewieController,
+//                ),
+//              ),
+//            ),
+      ],
+    ));
   }
 }
-
-

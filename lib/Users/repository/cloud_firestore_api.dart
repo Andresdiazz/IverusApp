@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Comments/model/comments.dart';
 import 'package:cocreacion/Ideas/model/ideas.dart';
 import 'package:cocreacion/Ideas/ui/widgets/slide.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../CommonResponse.dart';
 
@@ -26,7 +29,9 @@ class CloudFirestoreAPI {
       'myIdeas': user.myIdeas,
       'myFavoriteIdeas': user.myFavoriteIdeas,
       'lastSignIn': DateTime.now(),
-      'points': user.points
+      'points': user.points,
+      'desc': user.desc,
+      'phone': user.phone
     }, merge: true);
   }
 
@@ -132,6 +137,26 @@ class CloudFirestoreAPI {
       return CommonResponse(CommonResponse.successCode, data);
     }).catchError((error) {
       throw error;
+    });
+  }
+
+  Future<CommonResponse> updateImage(uid, filePath, ext) async {
+    final String fileName = uid;
+
+    final StorageReference storageRef =
+        FirebaseStorage.instance.ref().child(USERS).child(fileName);
+
+    final StorageUploadTask uploadTask = storageRef.putFile(
+      File(filePath),
+      StorageMetadata(contentType: 'image' + '/' + ext),
+    );
+
+    final StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
+
+    return downloadUrl.ref.getDownloadURL().then((url) {
+      return CommonResponse(CommonResponse.successCode, url);
+    }).catchError((error) {
+      return CommonResponse(CommonResponse.errorCode, error.message);
     });
   }
 }

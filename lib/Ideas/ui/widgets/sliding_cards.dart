@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
-import 'package:chewie/chewie.dart';
+//import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 import 'package:cocreacion/Categorias/moda.dart';
 
@@ -48,10 +48,9 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
             date: 'Live Tomorrow 7PM',
             assetName: 'img/iverus.png',
             offset: pageOffset,
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => Iverus()
-              ));
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Iverus()));
             },
 
             //videoPlayerController: VideoPlayerController.asset('img/video_prueba.mp4'),
@@ -60,11 +59,10 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
             name: 'Moda',
             date: 'Live Tomorrow 7PM',
             assetName: 'img/gif.gif',
-            offset: pageOffset -1,
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) => Moda()
-              ));
+            offset: pageOffset - 1,
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Moda()));
             },
 
             //videoPlayerController: VideoPlayerController.asset('img/video_prueba.mp4'),
@@ -74,10 +72,9 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
             date: 'Live Monday 8PM',
             assetName: 'img/bienestar.gif',
             offset: pageOffset - 2,
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => Belleza()
-              ));
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Belleza()));
             },
           ),
           SlidingCard(
@@ -85,10 +82,9 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
             date: 'Live Today 8PM',
             assetName: 'img/moda.gif',
             offset: pageOffset - 3,
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => Cpersonal()
-              ));
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Cpersonal()));
             },
           ),
         ],
@@ -103,7 +99,6 @@ class SlidingCard extends StatelessWidget {
   String assetName;
   double offset;
   VoidCallback onPressed;
-
 
   SlidingCard({
     Key key,
@@ -161,13 +156,11 @@ class CardContent extends StatelessWidget {
       @required this.name,
       @required this.date,
       @required this.offset,
-      @required this.onPressed
-      })
+      @required this.onPressed})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final button = Transform.translate(
       offset: Offset(48 * offset, 0),
       child: RaisedButton(
@@ -213,8 +206,7 @@ class CardContent extends StatelessWidget {
                           fontStyle: FontStyle.italic),
                     ),
                   ),
-                ]
-            ),
+                ]),
             button
             /*Transform.translate(
                 offset: Offset(48 * offset, 0),
@@ -235,13 +227,6 @@ class CardContent extends StatelessWidget {
                 ),
               ),*/
           ],
-        )
-        );
+        ));
   }
-
-
-  
 }
-
-
-

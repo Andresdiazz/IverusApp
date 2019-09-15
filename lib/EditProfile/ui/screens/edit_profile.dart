@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cocreacion/EditProfile/bloc/edit_profile_bloc.dart';
 import 'package:cocreacion/EditProfile/ui/widgets/edit_profile_header.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -8,12 +11,20 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  bool _validateName = false;
+  bool _validatePhone = false;
+  bool _validateEmail = false;
   EditProfileBloc _editProfileBloc = EditProfileBloc();
-
   FocusNode _nameFocus = FocusNode();
   FocusNode _emailFocus = FocusNode();
   FocusNode _phoneFocus = FocusNode();
   FocusNode _aboutYouFocus = FocusNode();
+
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _descController = TextEditingController();
+
   GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
@@ -24,31 +35,37 @@ class _EditProfileState extends State<EditProfile> {
           Stack(
             children: <Widget>[
               Container(height: 230, child: EditProfileHeader()),
-              Column(
-                children: <Widget>[
-                  getUpper(context),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  getName(context),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  getEmail(context),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  getPhone(context),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  getDesc(context),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  getSave(context)
-                ],
-              ),
+              StreamBuilder<bool>(
+                  stream: _editProfileBloc.isEditing,
+                  builder: (context, snapshot) {
+                    bool d = snapshot.data == null || !snapshot.data;
+
+                    return Column(
+                      children: <Widget>[
+                        getUpper(context, snapshot),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        getName(context, !d),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        getEmail(context, !d),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        getPhone(context, !d),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        getDesc(context, !d),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        !d ? getSave(context) : Container()
+                      ],
+                    );
+                  }),
             ],
           )
         ],
@@ -56,69 +73,91 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  getUpper(context) {
+  getUpper(context, snapshot) {
     return Container(
       height: 250,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width * 0.3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Image(
-                  image: AssetImage("assets/img/edit.png"),
-                  width: 20,
-                  color: Colors.deepPurple,
-                ),
-                Text(
-                  "Edit Profile",
-                  style: Theme.of(context)
-                      .textTheme
-                      .body1
-                      .copyWith(color: Colors.black87),
-                ),
-              ],
+          Align(
+            child: GestureDetector(
+              child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: StreamBuilder<bool>(
+                      stream: _editProfileBloc.isEditing,
+                      builder: (context, AsyncSnapshot snapshot) {
+                        return snapshot.data == null || !snapshot.data
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Image(
+                                    image: AssetImage("assets/img/edit.png"),
+                                    width: 20,
+                                    color: Colors.deepPurple,
+                                  ),
+                                  Text(
+                                    "Edit Profile",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .body1
+                                        .copyWith(color: Colors.black87),
+                                  ),
+                                ],
+                              )
+                            : Container();
+                      })),
+              onTap: () {
+                _editProfileBloc.editClicked();
+              },
             ),
+            alignment: Alignment(1, 1),
           ),
-          StreamBuilder<bool>(
-            stream: _editProfileBloc.isEditing,
-            builder: (context, snapshot) {
-              return Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                child: Align(
-                  alignment: Alignment(0, 1),
-                  child: Stack(
-                    alignment: Alignment(1, -1),
-                    children: <Widget>[
-                      Card(
-                        child: CircleAvatar(
-                          maxRadius: 60,
-                          backgroundImage:
-                              AssetImage("assets/img/bienestar.jpg"),
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(80)),
-                        elevation: 8,
-                      ),
-                      snapshot.data == null || !snapshot.data
-                          ? Padding(
-                              padding: const EdgeInsets.all(8.0),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                                size: 22,
-                              ),
-                            )
-                    ],
+          Container(
+            width: MediaQuery.of(context).size.width * 0.4,
+            child: Align(
+              alignment: Alignment(0, 1),
+              child: Stack(
+                alignment: Alignment(1, -1),
+                children: <Widget>[
+                  Card(
+                    child: StreamBuilder<File>(
+                        stream: _editProfileBloc.imageController,
+                        builder: (context, AsyncSnapshot snapshot) {
+                          return CircleAvatar(
+                            maxRadius: 60,
+                            backgroundImage: snapshot.data == null
+                                ? NetworkImage(
+                                    _editProfileBloc.oldUser.photoURL)
+                                : FileImage(snapshot.data),
+//                            FileImage(_image)
+//                          AssetImage("assets/img/bienestar.jpg"),
+                          );
+                        }),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(80)),
+                    elevation: 8,
                   ),
-                ),
-              );
-            },
+                  snapshot.data == null || !snapshot.data
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            getImage();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                              size: 22,
+                            ),
+                          ),
+                        )
+                ],
+              ),
+            ),
           ),
           Container(
             width: MediaQuery.of(context).size.width * 0.3,
@@ -145,7 +184,15 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  getName(context) {
+  getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _editProfileBloc.updateImage(image);
+    });
+  }
+
+  getName(context, bool sn) {
     return Row(
       children: <Widget>[
         SizedBox(
@@ -183,20 +230,31 @@ class _EditProfileState extends State<EditProfile> {
                   width: 12,
                 ),
                 Flexible(
-                  child: TextField(
-                    focusNode: _nameFocus,
-                    onSubmitted: (value) {
-                      _nameFocus.unfocus();
-                      FocusScope.of(context).requestFocus(_emailFocus);
-                    },
-                    keyboardType: TextInputType.text,
-                    maxLines: 1,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                    ),
-                    style: Theme.of(context).textTheme.body2,
-                  ),
+                  child: StreamBuilder(
+                      stream: _editProfileBloc.name,
+                      builder: (context, AsyncSnapshot<String> snapshot) {
+                        _nameController.value =
+                            _nameController.value.copyWith(text: snapshot.data);
+                        return TextField(
+                          controller: _nameController,
+                          focusNode: _nameFocus,
+                          onSubmitted: (value) {
+                            _nameFocus.unfocus();
+                            FocusScope.of(context).requestFocus(_emailFocus);
+                          },
+                          enabled: sn,
+                          onChanged: _editProfileBloc.changeName,
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            errorText: _validateName
+                                ? "This field cannot be empty."
+                                : null,
+                            border: InputBorder.none,
+                          ),
+                          style: Theme.of(context).textTheme.body2,
+                        );
+                      }),
                 )
               ],
             ),
@@ -206,7 +264,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  getEmail(context) {
+  getEmail(context, bool sn) {
     return Row(
       children: <Widget>[
         SizedBox(
@@ -244,20 +302,29 @@ class _EditProfileState extends State<EditProfile> {
                   width: 12,
                 ),
                 Flexible(
-                  child: TextField(
-                    focusNode: _emailFocus,
-                    onSubmitted: (value) {
-                      _emailFocus.unfocus();
-                      FocusScope.of(context).requestFocus(_phoneFocus);
-                    },
-                    keyboardType: TextInputType.emailAddress,
-                    maxLines: 1,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                    ),
-                    style: Theme.of(context).textTheme.body2,
-                  ),
+                  child: StreamBuilder(
+                      stream: _editProfileBloc.email,
+                      builder: (context, AsyncSnapshot<String> snapshot) {
+                        _emailController.value = _emailController.value
+                            .copyWith(text: snapshot.data);
+                        return TextField(
+                          controller: _emailController,
+                          focusNode: _emailFocus,
+                          onSubmitted: (value) {
+                            _emailFocus.unfocus();
+                            FocusScope.of(context).requestFocus(_phoneFocus);
+                          },
+                          onChanged: _editProfileBloc.changeEmail,
+                          keyboardType: TextInputType.emailAddress,
+                          enabled: sn,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            errorText: _validateEmail ? "Invalid email" : null,
+                            border: InputBorder.none,
+                          ),
+                          style: Theme.of(context).textTheme.body2,
+                        );
+                      }),
                 )
               ],
             ),
@@ -267,7 +334,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  getPhone(context) {
+  getPhone(context, bool sn) {
     return Row(
       children: <Widget>[
         SizedBox(
@@ -305,20 +372,29 @@ class _EditProfileState extends State<EditProfile> {
                   width: 12,
                 ),
                 Flexible(
-                  child: TextField(
-                    focusNode: _phoneFocus,
-                    onSubmitted: (value) {
-                      _phoneFocus.unfocus();
-                      FocusScope.of(context).requestFocus(_aboutYouFocus);
-                    },
-                    keyboardType: TextInputType.phone,
-                    maxLines: 1,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                    ),
-                    style: Theme.of(context).textTheme.body2,
-                  ),
+                  child: StreamBuilder(
+                      stream: _editProfileBloc.phone,
+                      builder: (context, AsyncSnapshot<String> snapshot) {
+                        _phoneController.value = _phoneController.value
+                            .copyWith(text: snapshot.data);
+                        return TextField(
+                          controller: _phoneController,
+                          focusNode: _phoneFocus,
+                          onSubmitted: (value) {
+                            _phoneFocus.unfocus();
+                            FocusScope.of(context).requestFocus(_aboutYouFocus);
+                          },
+                          onChanged: _editProfileBloc.changePhone,
+                          enabled: sn,
+                          keyboardType: TextInputType.phone,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            errorText: _validatePhone ? "Invalid phone." : null,
+                            border: InputBorder.none,
+                          ),
+                          style: Theme.of(context).textTheme.body2,
+                        );
+                      }),
                 )
               ],
             ),
@@ -328,7 +404,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  getDesc(context) {
+  getDesc(context, bool sn) {
     return Row(
       children: <Widget>[
         SizedBox(
@@ -366,21 +442,29 @@ class _EditProfileState extends State<EditProfile> {
                   width: 12,
                 ),
                 Flexible(
-                  child: TextField(
-                    focusNode: _aboutYouFocus,
-                    onSubmitted: (value) {
-                      _aboutYouFocus.unfocus();
-//                      FocusScope.of(context).requestFocus(_emailFocus);
-                    },
-                    keyboardType: TextInputType.multiline,
-                    maxLines: 4,
-                    minLines: 1,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                    ),
-                    style: Theme.of(context).textTheme.body2,
-                  ),
+                  child: StreamBuilder(
+                      stream: _editProfileBloc.desc,
+                      builder: (context, AsyncSnapshot<String> snapshot) {
+                        _descController.value =
+                            _descController.value.copyWith(text: snapshot.data);
+                        return TextField(
+                          controller: _descController,
+                          focusNode: _aboutYouFocus,
+                          onSubmitted: (value) {
+                            _aboutYouFocus.unfocus();
+                          },
+                          minLines: 1,
+                          maxLines: 3,
+                          onChanged: _editProfileBloc.changeDesc,
+                          enabled: sn,
+                          keyboardType: TextInputType.multiline,
+                          textInputAction: TextInputAction.done,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          style: Theme.of(context).textTheme.body2,
+                        );
+                      }),
                 )
               ],
             ),
@@ -407,12 +491,26 @@ class _EditProfileState extends State<EditProfile> {
               ),
               borderRadius: new BorderRadius.all(const Radius.circular(20.0))),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              print(_phoneController.text);
+              setState(() {
+                _validateName = _nameController.text.isEmpty;
+                _validateEmail = (_emailController.text.isNotEmpty &&
+                    !_editProfileBloc.validateEmail(_emailController.text));
+
+                _validatePhone = (_phoneController.text.isNotEmpty &&
+                    !_editProfileBloc.validatePhone(_phoneController.text));
+              });
+
+              if (!_validateName && !_validatePhone && !_validateEmail) {
+                _editProfileBloc.updateData();
+              }
+            },
             splashColor: Colors.white30,
             child: Container(
               alignment: Alignment.topCenter,
               padding: EdgeInsets.all(12),
-              child: snapshot.data != null
+              child: snapshot.data != null && snapshot.data
                   ? Container(
                       child: CircularProgressIndicator(
                         strokeWidth: 3,

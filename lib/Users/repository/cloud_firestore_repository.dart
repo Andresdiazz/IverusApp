@@ -23,12 +23,12 @@ class CloudFirestoreRepository {
   List<Slide> buildIdeas(List<DocumentSnapshot> slideListSnapshot, User user) =>
       _cloudFirestoreAPI.buildIdeas(slideListSnapshot, user);
 
-
   Future<CommonResponse> getProfile(String uid) =>
       _cloudFirestoreAPI.getProfile(uid);
 
   Future<CommonResponse> getLeaderBoard() =>
       _cloudFirestoreAPI.getLeaderBoard();
 
-
+  Future<CommonResponse> updateImage(String uid, String filePath, String ext) =>
+      _cloudFirestoreAPI.updateImage(uid, filePath, ext);
 }
