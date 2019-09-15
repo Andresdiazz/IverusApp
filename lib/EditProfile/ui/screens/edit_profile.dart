@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cocreacion/EditProfile/bloc/edit_profile_bloc.dart';
+import 'package:cocreacion/EditProfile/model/image_model.dart';
 import 'package:cocreacion/EditProfile/ui/widgets/edit_profile_header.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -121,15 +122,14 @@ class _EditProfileState extends State<EditProfile> {
                 alignment: Alignment(1, -1),
                 children: <Widget>[
                   Card(
-                    child: StreamBuilder<File>(
+                    child: StreamBuilder<ImageModel>(
                         stream: _editProfileBloc.imageController,
-                        builder: (context, AsyncSnapshot snapshot) {
+                        builder: (context, AsyncSnapshot<ImageModel> snapshot) {
                           return CircleAvatar(
                             maxRadius: 60,
-                            backgroundImage: snapshot.data == null
-                                ? NetworkImage(
-                                    _editProfileBloc.oldUser.photoURL)
-                                : FileImage(snapshot.data),
+                            backgroundImage: snapshot.data.file == null
+                                ? NetworkImage(snapshot.data.path)
+                                : FileImage(snapshot.data.file),
 //                            FileImage(_image)
 //                          AssetImage("assets/img/bienestar.jpg"),
                           );

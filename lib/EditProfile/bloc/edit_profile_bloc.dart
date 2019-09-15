@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cocreacion/EditProfile/model/image_model.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_repository.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
@@ -19,7 +20,7 @@ class EditProfileBloc implements Bloc {
       _emailController.sink.add(oldUser.email);
       _phoneController.sink.add(oldUser.phone);
       _descController.sink.add(oldUser.desc);
-
+      imageController.sink.add(ImageModel(null, oldUser.photoURL));
       print(value);
     }).catchError((error) {});
 
@@ -30,7 +31,7 @@ class EditProfileBloc implements Bloc {
   final _isEditingController = BehaviorSubject<bool>();
   final isLoadingController = BehaviorSubject<bool>();
 
-  final imageController = BehaviorSubject<File>();
+  final imageController = BehaviorSubject<ImageModel>();
 
 //  name
   final _nameController = BehaviorSubject<String>();
@@ -143,6 +144,6 @@ class EditProfileBloc implements Bloc {
   }
 
   updateImage(File image) {
-    imageController.sink.add(image);
+    imageController.sink.add(ImageModel(image, ""));
   }
 }

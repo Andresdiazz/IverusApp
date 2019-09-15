@@ -1,4 +1,5 @@
 import 'package:cocreacion/EditProfile/ui/screens/edit_profile.dart';
+import 'package:cocreacion/EditProfile/ui/screens/splash.dart';
 import 'package:cocreacion/Users/bloc/bloc_user.dart';
 import 'package:cocreacion/Users/bloc/home_bloc.dart';
 import 'package:cocreacion/Users/model/user.dart';
@@ -71,7 +72,6 @@ class ButtonProfile extends StatelessWidget {
           image: DecorationImage(
               fit: BoxFit.cover, image: AssetImage("assets/img/profile.jpg"))),
     );
-
   }
 
   Widget showProfileData(AsyncSnapshot snapshot, BuildContext context) {
