@@ -21,7 +21,6 @@ class EditProfileBloc implements Bloc {
       _phoneController.sink.add(oldUser.phone);
       _descController.sink.add(oldUser.desc);
       imageController.sink.add(ImageModel(null, oldUser.photoURL));
-      print(value);
     }).catchError((error) {});
 
     // get user data from shared preferences here to load in screen
@@ -72,10 +71,10 @@ class EditProfileBloc implements Bloc {
     _emailController.close();
     _phoneController.close();
     _descController.close();
+    imageController.close();
   }
 
   updateData() {
-    print(oldUser.uid);
     User user = User(
         uid: oldUser.uid,
         name: _nameController.value == null
@@ -92,11 +91,9 @@ class EditProfileBloc implements Bloc {
             : _descController.value,
         points: oldUser.points);
 
-    print(user.toString());
-
     isLoadingController.sink.add(true);
 
-    if (imageController.value != null) {
+    if (imageController.value.file != null) {
       _cloudFiretoreRepository
           .updateImage(user.uid, imageController.value.path,
               imageController.value.path.split("/").last.split(".")[1])

@@ -23,7 +23,7 @@ class User {
       @required this.photoURL,
       @required this.points,
       @required this.email,
-      @required this.gift,
+      this.gift,
       @required this.phone,
       @required this.desc,
       this.myIdeas,

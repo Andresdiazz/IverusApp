@@ -492,7 +492,6 @@ class _EditProfileState extends State<EditProfile> {
               borderRadius: new BorderRadius.all(const Radius.circular(20.0))),
           child: InkWell(
             onTap: () {
-              print(_phoneController.text);
               setState(() {
                 _validateName = _nameController.text.isEmpty;
                 _validateEmail = (_emailController.text.isNotEmpty &&

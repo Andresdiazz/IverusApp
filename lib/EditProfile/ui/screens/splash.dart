@@ -1,50 +1,48 @@
 import 'dart:async';
-
+import 'package:cocreacion/Users/ui/screens/login_screen.dart';
+import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
-
-import 'edit_profile.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => FadeIn();
+  State<StatefulWidget> createState() => _SplashScreenState();
 }
 
-class FadeIn extends State<SplashScreen> with TickerProviderStateMixin {
-  var animationController;
-  @override
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> animation;
+
   initState() {
     super.initState();
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 1000), vsync: this);
+    animation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.fastOutSlowIn,
+    );
 
-    animationController = AnimationController(
-        duration: new Duration(milliseconds: 700), vsync: this);
+    controller.forward();
 
     Timer(
-        Duration(seconds: 5),
+        Duration(seconds: 3),
         () => Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => EditProfile()),
+            MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
             (_) => false));
   }
 
-  Timer _timer;
-  FlutterLogoStyle _logoStyle = FlutterLogoStyle.markOnly;
-
-//  FadeIn() {
-//    _timer = new Timer(const Duration(seconds: 2), () {
-//      setState(() {
-//        _logoStyle = FlutterLogoStyle.horizontal;
-//      });
-//    });
-//  }
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizeTransition(
-          sizeFactor: new CurvedAnimation(
-              parent: animationController, curve: Curves.linearToEaseOut),
-          axisAlignment: 0,
-          child: Image(
-            image: AssetImage("assets/img/excited.png"),
-          )),
-    );
+    return Container(
+        color: Colors.blueGrey,
+        child: ScaleTransition(
+            scale: controller,
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                child: Image(
+                  width: 150,
+                  image: AssetImage("assets/img/iverus2.png"),
+                ),
+              )
+            ])));
   }
 }

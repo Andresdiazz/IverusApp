@@ -3,6 +3,7 @@ import 'package:cocreacion/example.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:flutter/material.dart';
 
+import 'EditProfile/ui/screens/splash.dart';
 import 'Users/bloc/bloc_user.dart';
 import 'Users/ui/screens/login_screen.dart';
 import 'Users/ui/screens/phone_login_screen.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            home: LoginScreen()),
+            home: SplashScreen()),
         bloc: UserBloc());
   }
 }
