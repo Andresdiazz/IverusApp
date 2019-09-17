@@ -169,4 +169,20 @@ class CloudFirestoreAPI {
       return CommonResponse(CommonResponse.errorCode, error);
     });
   }
+
+  Future<CommonResponse> updateLikes(String uid, String videoId) async {
+    return getProfile(uid).then((res) {
+      var user = User.fromJson(res.data);
+      if (user.likes != null) user.likes = List();
+      user.likes.add(videoId);
+      updateUser(user).then((res) {});
+    });
+
+    DocumentReference ref = _db.collection(USERS).document(uid);
+  }
+
+  Future<void> updateUser(User user) {
+    DocumentReference ref = _db.collection(USERS).document(user.uid);
+    return ref.setData(user.getMap());
+  }
 }

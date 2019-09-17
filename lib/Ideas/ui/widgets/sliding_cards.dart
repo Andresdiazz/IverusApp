@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
+
 //import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 import 'package:cocreacion/Categorias/moda.dart';
