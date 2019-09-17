@@ -95,8 +95,8 @@ class EditProfileBloc implements Bloc {
 
     if (imageController.value.file != null) {
       _cloudFiretoreRepository
-          .updateImage(user.uid, imageController.value.path,
-              imageController.value.path.split("/").last.split(".")[1])
+          .updateImage(user.uid, imageController.value.file.path,
+              imageController.value.file.path.split("/").last.split(".")[1])
           .then((res) {
         user.photoURL = res.data;
         updateUser(user);

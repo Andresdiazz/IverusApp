@@ -42,7 +42,11 @@ class UserBloc implements Bloc {
   final _cloudFiretoreRepository = CloudFirestoreRepository();
 
   void updateUserData(User user) {
-    _cloudFiretoreRepository.updateUserDataFiretore(user).then((data) {});
+    _cloudFiretoreRepository.checkIfUserExists(user.uid).then((res) {
+      if (!res.data) {
+        _cloudFiretoreRepository.updateUserDataFiretore(user).then((data) {});
+      }
+    }).catchError((error) {});
   }
 
   Future<void> updateIdeas(Ideas ideas) =>

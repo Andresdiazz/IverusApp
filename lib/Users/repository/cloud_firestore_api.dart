@@ -159,4 +159,14 @@ class CloudFirestoreAPI {
       return CommonResponse(CommonResponse.errorCode, error.message);
     });
   }
+
+  Future<CommonResponse> checkIfUserExists(String id) async {
+    DocumentReference ref = _db.collection(USERS).document(id);
+
+    return ref.get().then((res) {
+      return CommonResponse(CommonResponse.successCode, res.exists);
+    }).catchError((error) {
+      return CommonResponse(CommonResponse.errorCode, error);
+    });
+  }
 }

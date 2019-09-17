@@ -31,4 +31,7 @@ class CloudFirestoreRepository {
 
   Future<CommonResponse> updateImage(String uid, String filePath, String ext) =>
       _cloudFirestoreAPI.updateImage(uid, filePath, ext);
+
+  Future<CommonResponse> checkIfUserExists(String id) =>
+      _cloudFirestoreAPI.checkIfUserExists(id);
 }
