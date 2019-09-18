@@ -171,11 +171,10 @@ class CloudFirestoreAPI {
   }
 
   Future<CommonResponse> updateLikes(String uid, String videoId) async {
-    return getProfile(uid).then((res) {
+    getProfile(uid).then((res) {
       var user = User.fromJson(res.data);
-      if (user.likes != null) user.likes = List();
-      user.likes.add(videoId);
-      updateUser(user).then((res) {});
+//      if (user.likes != null) user.likes = List();
+//      user.likes.add(videoId);
     });
 
     DocumentReference ref = _db.collection(USERS).document(uid);

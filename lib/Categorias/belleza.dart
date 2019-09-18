@@ -88,7 +88,7 @@ class Single_prod extends StatelessWidget {
                     momentDurationGetter: (idx) => Duration(seconds: 90),
                     momentBuilder: (context, idx) {
                       String a = prod_pricture.toString();
-                      if (a.split('.').removeLast() == 'jpg') {
+                      if (a.split('.').removeLast() != 'jpg') {
                         print('lo logre cabron');
                         return SimpleViewPlayer(
                             "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/BELLEZA%2F58975402377__D92F80BF-E2FD-4914-BBBB-5AB17EC46418.MOV?alt=media&token=6cad85f0-17cd-4ac0-afff-49d3c9e22711",
@@ -99,7 +99,6 @@ class Single_prod extends StatelessWidget {
                           prod_pricture.toString(),
                         );
                       }
-                      ;
                     },
                   ),
                 );
