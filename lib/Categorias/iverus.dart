@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_simple_video_player/flutter_simple_video_player.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_stories/flutter_stories.dart';
+import 'package:share/share.dart';
 
 class Iverus extends StatefulWidget {
   @override
@@ -80,22 +81,57 @@ class Single_prod extends StatelessWidget {
               context: context,
               builder: (context) {
                 return GestureDetector(
-                  child: Story(
-                    onFlashForward: Navigator.of(context).pop,
-                    onFlashBack: Navigator.of(context).pop,
-                    momentCount: 1,
-                    momentDurationGetter: (idx) => Duration(seconds: 90),
-                    momentBuilder: (context, idx) {
-                      String a = prod_pricture.toString();
-                      if(a.split('.').removeLast() == 'jpg'){
-                        print('lo logre cabron');
-                        return SimpleViewPlayer("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/BELLEZA%2F58975402377__D92F80BF-E2FD-4914-BBBB-5AB17EC46418.MOV?alt=media&token=6cad85f0-17cd-4ac0-afff-49d3c9e22711", isFullScreen: false);
-                      }else{
-                        print('pinche wey lo lograstes');
-                        return Image.network(prod_pricture.toString(),);
-                      };
-                    },
-                  ),
+                  child: Scaffold(
+                    body: Stack(
+                      children: <Widget>[
+                        Story(
+                          onFlashForward: Navigator.of(context).pop,
+                          onFlashBack: Navigator.of(context).pop,
+                          momentCount: 1,
+                          momentDurationGetter: (idx) => Duration(seconds: 90),
+                          momentBuilder: (context, idx) {
+                            String a = prod_pricture.toString();
+                            if(a.split('.').removeLast() == 'jpg'){
+                              print('lo logre cabron');
+                              return SimpleViewPlayer("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/BELLEZA%2F58975402377__D92F80BF-E2FD-4914-BBBB-5AB17EC46418.MOV?alt=media&token=6cad85f0-17cd-4ac0-afff-49d3c9e22711", isFullScreen: false);
+                            }else{
+                              print('pinche wey lo lograstes');
+                              return Image.network(prod_pricture.toString(),);
+                            };
+                          },
+                        ),
+                        Container(
+                            margin: EdgeInsets.only(top: 700, left: 300),
+                            child: Row(
+                              children: <Widget>[
+                                InkWell(
+                                  onTap: (){},
+                                  child: Icon(
+                                    CupertinoIcons.heart_solid,
+                                    size: 50.0,
+                                    color: Colors.black,
+                                    //FontAwesomeIcons.heart,
+                                    //size: 20.0,
+                                  ),
+                                ),
+                                InkWell(
+                                    onTap: (){
+                                      Share.share('chek my website https://www.excited.com.mx');
+                                    }
+                                    ,
+                                    child: Icon(
+                                      CupertinoIcons.share_up,
+                                      //FontAwesomeIcons.shareAlt,
+                                      size: 50.0,
+                                      color: Colors.black,)
+                                )
+                              ],
+                            )
+                        )
+                      ],
+                    ),
+                  )
+
                 );
               },
             );
