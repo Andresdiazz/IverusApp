@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import '../../ideas.dart';
-import 'likes.dart';
 
 class User {
   String uid;
@@ -14,7 +13,7 @@ class User {
   String phone;
   String desc;
   int points;
-  Likes likes;
+  List<String> likes;
   List<Ideas> myIdeas;
   List<Ideas> myFavoriteIdeas;
 
@@ -42,7 +41,7 @@ class User {
       'points': points,
       'phone': phone,
       'desc': desc,
-      'likes': likes.toString(),
+      'likes': likes,
     });
   }
 
@@ -53,14 +52,14 @@ class User {
 
   User.fromJson(Map<dynamic, dynamic> json) {
     if (json == null) return;
-    json['uid'] == null ? uid = null : uid = json['uid'];
-    json['name'] == null ? name = null : name = json['name'];
-    json['email'] == null ? email = null : email = json['email'];
-    json['photoURL'] == null ? photoURL = null : photoURL = json['photoURL'];
-    json['points'] == null ? points = null : points = json['points'];
-    json['phone'] == null ? phone = null : phone = json['phone'];
-    json['desc'] == null ? desc = null : desc = json['desc'];
-    likes = json['likes'] != null ? new Likes.fromJson(json['likes']) : null;
+    uid = json['uid'] == null ? null : json['uid'];
+    name = json['name'] == null ? null : json['name'];
+    email = json['email'] == null ? null : json['email'];
+    photoURL = json['photoURL'] == null ? null : json['photoURL'];
+    points = json['points'] == null ? null : json['points'];
+    phone = json['phone'] == null ? null : json['phone'];
+    desc = json['desc'] == null ? null : json['desc'];
+    likes = json['likes'] != null ? json['likes'] : null;
   }
 
   Map<String, dynamic> getMap() {
@@ -77,7 +76,7 @@ class User {
     if (this.points != null) data['points'] = this.points;
     if (this.phone != null) data['phone'] = this.phone;
     if (this.desc != null) data['desc'] = this.desc;
-    if (this.likes != null) data['likes'] = this.likes.toJson();
+    if (this.likes != null) data['likes'] = this.likes;
 
     return data;
   }

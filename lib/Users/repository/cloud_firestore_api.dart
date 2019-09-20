@@ -170,18 +170,52 @@ class CloudFirestoreAPI {
     });
   }
 
-  Future<CommonResponse> updateLikes(String uid, String videoId) async {
-    getProfile(uid).then((res) {
+  Future<CommonResponse> updateLikes(
+      String uid, String videoId, String table, bool isLike) async {
+//    get likes first
+    return getProfile(uid).then((res) {
       var user = User.fromJson(res.data);
-//      if (user.likes != null) user.likes = List();
-//      user.likes.add(videoId);
+      if (user.likes != null) user.likes = List();
+      if (isLike)
+        user.likes.add(table + "_" + videoId);
+      else
+        user.likes.remove(table + "_" + videoId);
+      return updateUser(user, videoId, table, isLike);
     });
-
-    DocumentReference ref = _db.collection(USERS).document(uid);
   }
 
-  Future<void> updateUser(User user) {
+//  to update likes
+  Future<CommonResponse> updateUser(
+      User user, String videoId, String table, bool isLike) {
     DocumentReference ref = _db.collection(USERS).document(user.uid);
-    return ref.setData(user.getMap());
+    return ref.setData(user.getMap()).then((res) {
+      return updateLikesTable(user.uid, videoId, table, isLike);
+    });
+  }
+
+  Future<CommonResponse> updateLikesTable(
+      String uid, String videoId, String table, bool isLike) {
+    DocumentReference ref = _db.collection(table).document(videoId);
+    return ref.get().then((res) {
+      List<String> likes;
+      likes = res.data['likes'] != null ? res.data['likes'] : List();
+
+      if (isLike)
+        likes.add(uid);
+      else
+        likes.remove(uid);
+
+      return ref.setData({'likes': likes}, merge: true).then((res) {
+        return CommonResponse(CommonResponse.successCode, "Success");
+      }).catchError((error) {
+        return CommonResponse(CommonResponse.errorCode, error);
+      });
+    });
+  }
+
+  Future<CommonResponse> getCategoryData(String catName) {
+    return _db.collection(catName).getDocuments().then((res) {
+      return CommonResponse(CommonResponse.successCode, res.documents);
+    });
   }
 }

@@ -13,6 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_api.dart';
 
 import '../../CommonResponse.dart';
+import '../../SharedPref.dart';
 import 'home_bloc.dart';
 
 class UserBloc implements Bloc {
@@ -71,11 +72,10 @@ class UserBloc implements Bloc {
       _cloudFiretoreRepository.buildIdeas(slideListSnapshot, user);
 
   signOut() {
+    SharedPref().clear();
     _auth_repository.signOut();
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-  }
+  void dispose() {}
 }
