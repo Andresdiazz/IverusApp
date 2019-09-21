@@ -174,12 +174,17 @@ class CloudFirestoreAPI {
       String uid, String videoId, String table, bool isLike) async {
 //    get likes first
     return getProfile(uid).then((res) {
+      List<String> likes;
       var user = User.fromJson(res.data);
-      if (user.likes != null) user.likes = List();
+      likes = user.likes != null ? List<String>.from(user.likes) : List();
+
       if (isLike)
-        user.likes.add(table + "_" + videoId);
+        likes.add(table + "_" + videoId);
       else
-        user.likes.remove(table + "_" + videoId);
+        likes.remove(table + "_" + videoId);
+
+//      user.likes=null;
+      user.likes = likes;
       return updateUser(user, videoId, table, isLike);
     });
   }
@@ -198,7 +203,9 @@ class CloudFirestoreAPI {
     DocumentReference ref = _db.collection(table).document(videoId);
     return ref.get().then((res) {
       List<String> likes;
-      likes = res.data['likes'] != null ? res.data['likes'] : List();
+      likes = res.data['likes'] != null
+          ? List<String>.from(res.data['likes'])
+          : List();
 
       if (isLike)
         likes.add(uid);

@@ -9,32 +9,55 @@ import 'package:rxdart/rxdart.dart';
 import '../../SharedPref.dart';
 
 class CategoriesBloc extends Bloc {
+  List<CategoryItem> items;
+
   final _categoriesController = BehaviorSubject<List<CategoryItem>>();
 
   Observable<List<CategoryItem>> get categories => _categoriesController.stream;
 
-  final _cloudFiretoreRepository = CloudFirestoreRepository();
-  User user;
+  final itemController = BehaviorSubject<CategoryItem>();
 
-  CategoriesBloc() {
+  Observable<CategoryItem> get item => itemController.stream;
+
+  final _cloudFiretoreRepository = CloudFirestoreRepository();
+
+  User user;
+  String category;
+
+  CategoriesBloc(this.category) {
     SharedPref().get(SharedPref.user).then((value) {
       user = User.stringToObject(value);
     }).catchError((error) {});
 
-    getCategories();
+    getCategories(category);
   }
 
   updateLike(String videoId, String table, bool isLike) {
+    CategoryItem i = items.lastWhere((q) => q.id == videoId);
+
+    List<String> likes;
+
+    likes = i.likes == null ? List() : List<String>.from(i.likes);
+
+    if (isLike)
+      likes.add(user.uid);
+    else
+      likes.remove(user.uid);
+
+    i.likes = likes;
+
+    itemController.sink.add(i);
     _cloudFiretoreRepository
         .updateLikes(user.uid, videoId, table, isLike)
-        .then((res) {})
-        .then((error) {});
+        .then((res) {
+      getCategories(category);
+    }).then((error) {});
   }
 
-  getCategories() {
-    _cloudFiretoreRepository.getCategoryData("belleza").then((res) {
+  getCategories(String category) {
+    _cloudFiretoreRepository.getCategoryData(category).then((res) {
       var result = res.data as List<DocumentSnapshot>;
-      List<CategoryItem> items = List();
+      items = List();
       result.forEach((data) {
         var item = CategoryItem.fromJson(data.data);
         item.id = data.documentID;

@@ -17,7 +17,7 @@ class Belleza extends StatefulWidget {
 
 class _BellezaState extends State<Belleza> {
   var product_list;
-  CategoriesBloc _bloc = CategoriesBloc();
+  CategoriesBloc _bloc = CategoriesBloc("belleza");
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +49,9 @@ class _BellezaState extends State<Belleza> {
               itemBuilder: (_, int index) {
                 final CategoryItem item = snapshot.data[index];
                 return Single_prod(
-                    bloc: _bloc,
-//                  prod_pricture: '${doc.data["image"]}' + '?alt=media',
-                    documentData: item);
+                  item,
+                  _bloc,
+                );
               },
               staggeredTileBuilder: (index) => StaggeredTile.fit(2));
 
@@ -76,7 +76,7 @@ class Single_prod extends StatelessWidget {
   final CategoryItem documentData;
   final CategoriesBloc bloc;
 
-  Single_prod({this.documentData, this.bloc});
+  Single_prod(this.documentData, this.bloc) {}
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +84,8 @@ class Single_prod extends StatelessWidget {
       child: Material(
         child: InkWell(
           onTap: () {
+            bloc.itemController.sink.add(documentData);
+
             showCupertinoDialog(
               context: context,
               builder: (context) {
@@ -119,24 +121,30 @@ class Single_prod extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              InkWell(
-                                onTap: () {
-                                  bloc.updateLike(
-                                      documentData.id,
-                                      "belleza",
-                                      documentData.likes
-                                          .contains(bloc.user.uid));
-                                },
-                                child: Icon(
-                                  documentData.likes.contains(bloc.user.uid)
-                                      ? CupertinoIcons.heart
-                                      : CupertinoIcons.heart_solid,
-                                  size: 50.0,
-                                  color: Colors.black,
-                                  //FontAwesomeIcons.heart,
-                                  //size: 20.0,
-                                ),
-                              ),
+                              StreamBuilder<CategoryItem>(
+                                  stream: bloc.item,
+                                  builder: (context,
+                                      AsyncSnapshot<CategoryItem> snapshot) {
+                                    return InkWell(
+                                      onTap: () {
+                                        bloc.updateLike(
+                                            snapshot.data.id,
+                                            "belleza",
+                                            !snapshot.data.likes
+                                                .contains(bloc.user.uid));
+                                      },
+                                      child: Icon(
+                                        snapshot.data.likes
+                                                .contains(bloc.user.uid)
+                                            ? CupertinoIcons.heart_solid
+                                            : CupertinoIcons.heart,
+                                        size: 50.0,
+                                        color: Colors.black,
+                                        //FontAwesomeIcons.heart,
+                                        //size: 20.0,
+                                      ),
+                                    );
+                                  }),
                               InkWell(
                                   onTap: () {
                                     Share.share(
