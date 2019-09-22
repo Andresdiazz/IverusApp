@@ -10,7 +10,6 @@ import '../../SharedPref.dart';
 
 class CategoriesBloc extends Bloc {
   List<CategoryItem> items;
-
   final _categoriesController = BehaviorSubject<List<CategoryItem>>();
 
   Observable<List<CategoryItem>> get categories => _categoriesController.stream;
@@ -19,7 +18,7 @@ class CategoriesBloc extends Bloc {
 
   Observable<CategoryItem> get item => itemController.stream;
 
-  final _cloudFiretoreRepository = CloudFirestoreRepository();
+  final _cloudFirestoreRepository = CloudFirestoreRepository();
 
   User user;
   String category;
@@ -47,7 +46,7 @@ class CategoriesBloc extends Bloc {
     i.likes = likes;
 
     itemController.sink.add(i);
-    _cloudFiretoreRepository
+    _cloudFirestoreRepository
         .updateLikes(user.uid, videoId, table, isLike)
         .then((res) {
       getCategories(category);
@@ -55,7 +54,7 @@ class CategoriesBloc extends Bloc {
   }
 
   getCategories(String category) {
-    _cloudFiretoreRepository.getCategoryData(category).then((res) {
+    _cloudFirestoreRepository.getCategoryData(category).then((res) {
       var result = res.data as List<DocumentSnapshot>;
       items = List();
       result.forEach((data) {
@@ -69,5 +68,8 @@ class CategoriesBloc extends Bloc {
   }
 
   @override
-  void dispose() {}
+  void dispose() {
+    _categoriesController.close();
+    itemController.close();
+  }
 }

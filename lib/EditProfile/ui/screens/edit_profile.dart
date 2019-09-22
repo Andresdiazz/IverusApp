@@ -40,7 +40,6 @@ class _EditProfileState extends State<EditProfile> {
                   stream: _editProfileBloc.isEditing,
                   builder: (context, snapshot) {
                     bool d = snapshot.data == null || !snapshot.data;
-
                     return Column(
                       children: <Widget>[
                         getUpper(context, snapshot),
