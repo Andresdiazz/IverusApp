@@ -99,17 +99,15 @@ class Single_prod extends StatelessWidget {
                         momentCount: 1,
                         momentDurationGetter: (idx) => Duration(seconds: 90),
                         momentBuilder: (context, idx) {
-                          String a = documentData.image;
-                          if (a.split('.').removeLast() == 'jpg') {
+                          if (documentData.video != null) {
                             print('lo logre cabron');
-                            return SimpleViewPlayer(
-                                "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/BELLEZA%2F58975402377__D92F80BF-E2FD-4914-BBBB-5AB17EC46418.MOV?alt=media&token=6cad85f0-17cd-4ac0-afff-49d3c9e22711",
-                                isFullScreen: true);
+                            return SimpleViewPlayer(documentData.video,
+                                isFullScreen: false);
                           } else {
                             print('pinche wey lo lograstes');
-                            return Image.network(documentData.image
-//                              documentData.toString(),
-                                );
+                            return Container(
+                              child: Image.network(documentData.image),
+                            );
                           }
                         },
                       ),
@@ -117,15 +115,15 @@ class Single_prod extends StatelessWidget {
                         alignment: Alignment(-1, 1),
                         child: Container(
                             child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              StreamBuilder<CategoryItem>(
-                                  stream: bloc.item,
-                                  builder: (context,
-                                      AsyncSnapshot<CategoryItem> snapshot) {
-                                    return InkWell(
+                          padding: const EdgeInsets.only(right: 8, bottom: 16),
+                          child: StreamBuilder<CategoryItem>(
+                              stream: bloc.item,
+                              builder: (context,
+                                  AsyncSnapshot<CategoryItem> snapshot) {
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    InkWell(
                                       onTap: () {
                                         bloc.updateLike(
                                             snapshot.data.id,
@@ -139,25 +137,34 @@ class Single_prod extends StatelessWidget {
                                             ? CupertinoIcons.heart_solid
                                             : CupertinoIcons.heart,
                                         size: 50.0,
-                                        color: Colors.black,
+                                        color: documentData.video != null
+                                            ? Colors.white
+                                            : Colors.black,
                                         //FontAwesomeIcons.heart,
                                         //size: 20.0,
                                       ),
-                                    );
-                                  }),
-                              InkWell(
-                                  onTap: () {
-                                    Share.share(
-                                        'chek my website https://www.excited.com.mx');
-                                  },
-                                  child: Icon(
-                                    CupertinoIcons.share_up,
-                                    //FontAwesomeIcons.shareAlt,
-                                    size: 50.0,
-                                    color: Colors.black,
-                                  ))
-                            ],
-                          ),
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          bloc.updateShare(
+                                            snapshot.data.id,
+                                            "belleza",
+                                          );
+
+                                          Share.share(
+                                              'chek my website https://www.excited.com.mx');
+                                        },
+                                        child: Icon(
+                                          CupertinoIcons.share,
+                                          //FontAwesomeIcons.shareAlt,
+                                          size: 50.0,
+                                          color: documentData.video != null
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ))
+                                  ],
+                                );
+                              }),
                         )),
                       )
                     ],

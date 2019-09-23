@@ -14,6 +14,7 @@ class User {
   String desc;
   int points;
   List<dynamic> likes;
+  List<dynamic> shares;
   List<Ideas> myIdeas;
   List<Ideas> myFavoriteIdeas;
 
@@ -28,6 +29,7 @@ class User {
       @required this.phone,
       @required this.desc,
       this.likes,
+      this.shares,
       this.myIdeas,
       this.myFavoriteIdeas});
 
@@ -42,6 +44,7 @@ class User {
       'phone': phone,
       'desc': desc,
       'likes': likes,
+      'shares': shares,
     });
   }
 
@@ -60,6 +63,7 @@ class User {
     phone = json['phone'] == null ? null : json['phone'];
     desc = json['desc'] == null ? null : json['desc'];
     likes = json['likes'] != null ? json['likes'] : null;
+    shares = json['shares'] != null ? json['shares'] : null;
   }
 
   Map<String, dynamic> getMap() {
@@ -77,6 +81,7 @@ class User {
     if (this.phone != null) data['phone'] = this.phone;
     if (this.desc != null) data['desc'] = this.desc;
     if (this.likes != null) data['likes'] = this.likes;
+    if (this.shares != null) data['shares'] = this.shares;
 
     return data;
   }

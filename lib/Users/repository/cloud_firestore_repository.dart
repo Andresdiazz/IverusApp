@@ -39,6 +39,14 @@ class CloudFirestoreRepository {
           String uid, String videoId, String table, bool isLike) =>
       _cloudFirestoreAPI.updateLikes(uid, videoId, table, isLike);
 
+  Future<CommonResponse> updateShare(
+          String uid, String videoId, String table) =>
+      _cloudFirestoreAPI.updateShare(
+        uid,
+        videoId,
+        table,
+      );
+
   Future<CommonResponse> getCategoryData(String table) =>
       _cloudFirestoreAPI.getCategoryData(table);
 }

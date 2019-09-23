@@ -6,48 +6,55 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_stories/flutter_stories.dart';
 import 'package:share/share.dart';
 
+import 'bloc/categories_bloc.dart';
+import 'model/category_item.dart';
+
 class Iverus extends StatefulWidget {
   @override
   _IverusState createState() => _IverusState();
 }
+
 class _IverusState extends State<Iverus> {
   var product_list;
+  CategoriesBloc _bloc = CategoriesBloc("iverus");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('IVERUS',style: TextStyle(
+      appBar: AppBar(
+        title: Text(
+          'IVERUS',
+          style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
               fontFamily: "Lato",
-              letterSpacing: 8
-          ),),
-          backgroundColor: Colors.white,
+              letterSpacing: 8),
         ),
+        backgroundColor: Colors.white,
+      ),
       body: StreamBuilder(
-        stream: Firestore.instance.collection('iverus').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        stream: _bloc.categories,
+        builder:
+            (BuildContext context, AsyncSnapshot<List<CategoryItem>> snapshot) {
           if (!snapshot.hasData) {
             return Text("loading....");
           }
-          int length = snapshot.data.documents.length;
+          int length = snapshot.data.length;
           return StaggeredGridView.countBuilder(
-              itemCount:length ,
+              itemCount: length,
               crossAxisCount: 4,
               mainAxisSpacing: 4.0,
               crossAxisSpacing: 4.0,
-              itemBuilder:  (_, int index){
-                final DocumentSnapshot doc = snapshot.data.documents[index];
+              itemBuilder: (_, int index) {
+                final CategoryItem item = snapshot.data[index];
                 return Single_prod(
-                  prod_pricture: '${doc.data["image"]}' + '?alt=media',
+                  item,
+                  _bloc,
                 );
               },
               staggeredTileBuilder: (index) => StaggeredTile.fit(2));
 
-
-
-
-            /*GridView.builder(
+          /*GridView.builder(
               itemCount: length,
 
               gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
@@ -59,17 +66,16 @@ class _IverusState extends State<Iverus> {
               },
           );*/
         },
-
       ),
-
     );
   }
 }
+
 class Single_prod extends StatelessWidget {
-  final prod_pricture;
-  Single_prod({
-    this.prod_pricture,
-  });
+  final CategoryItem documentData;
+  final CategoriesBloc bloc;
+
+  Single_prod(this.documentData, this.bloc) {}
 
   @override
   Widget build(BuildContext context) {
@@ -77,71 +83,101 @@ class Single_prod extends StatelessWidget {
       child: Material(
         child: InkWell(
           onTap: () {
+            bloc.itemController.sink.add(documentData);
+
             showCupertinoDialog(
               context: context,
               builder: (context) {
                 return GestureDetector(
-                  child: Scaffold(
-                    body: Stack(
-                      children: <Widget>[
-                        Story(
-                          onFlashForward: Navigator.of(context).pop,
-                          onFlashBack: Navigator.of(context).pop,
-                          momentCount: 1,
-                          momentDurationGetter: (idx) => Duration(seconds: 90),
-                          momentBuilder: (context, idx) {
-                            String a = prod_pricture.toString();
-                            if(a.split('.').removeLast() == 'jpg'){
-                              print('lo logre cabron');
-                              return SimpleViewPlayer("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/BELLEZA%2F58975402377__D92F80BF-E2FD-4914-BBBB-5AB17EC46418.MOV?alt=media&token=6cad85f0-17cd-4ac0-afff-49d3c9e22711", isFullScreen: false);
-                            }else{
-                              print('pinche wey lo lograstes');
-                              return Image.network(prod_pricture.toString(),);
-                            };
-                          },
-                        ),
-                        Container(
-                            margin: EdgeInsets.only(top: 700, left: 300),
-                            child: Row(
-                              children: <Widget>[
-                                InkWell(
-                                  onTap: (){},
-                                  child: Icon(
-                                    CupertinoIcons.heart_solid,
-                                    size: 50.0,
-                                    color: Colors.black,
-                                    //FontAwesomeIcons.heart,
-                                    //size: 20.0,
-                                  ),
-                                ),
-                                InkWell(
-                                    onTap: (){
-                                      Share.share('chek my website https://www.excited.com.mx');
-                                    }
-                                    ,
-                                    child: Icon(
-                                      CupertinoIcons.share_up,
-                                      //FontAwesomeIcons.shareAlt,
-                                      size: 50.0,
-                                      color: Colors.black,)
-                                )
-                              ],
-                            )
-                        )
-                      ],
-                    ),
-                  )
+                    child: Scaffold(
+                  body: Stack(
+                    children: <Widget>[
+                      Story(
+                        onFlashForward: Navigator.of(context).pop,
+                        onFlashBack: Navigator.of(context).pop,
+                        momentCount: 1,
+                        momentDurationGetter: (idx) => Duration(seconds: 90),
+                        momentBuilder: (context, idx) {
+                          if (documentData.video != null) {
+                            print('lo logre cabron');
+                            return SimpleViewPlayer(documentData.video,
+                                isFullScreen: false);
+                          } else {
+                            print('pinche wey lo lograstes');
+                            return Container(
+                              child: Image.network(documentData.image),
+                            );
+                          }
+                        },
+                      ),
+                      Align(
+                        alignment: Alignment(-1, 1),
+                        child: Container(
+                            child: Padding(
+                          padding: const EdgeInsets.only(right: 8, bottom: 16),
+                          child: StreamBuilder<CategoryItem>(
+                              stream: bloc.item,
+                              builder: (context,
+                                  AsyncSnapshot<CategoryItem> snapshot) {
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    InkWell(
+                                      onTap: () {
+                                        bloc.updateLike(
+                                            snapshot.data.id,
+                                            "iverus",
+                                            !snapshot.data.likes
+                                                .contains(bloc.user.uid));
+                                      },
+                                      child: Icon(
+                                        snapshot.data.likes
+                                                .contains(bloc.user.uid)
+                                            ? CupertinoIcons.heart_solid
+                                            : CupertinoIcons.heart,
+                                        size: 50.0,
+                                        color: documentData.video != null
+                                            ? Colors.white
+                                            : Colors.black,
+                                        //FontAwesomeIcons.heart,
+                                        //size: 20.0,
+                                      ),
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          bloc.updateShare(
+                                            snapshot.data.id,
+                                            "iverus",
+                                          );
 
-                );
+                                          Share.share(
+                                              'chek my website https://www.excited.com.mx');
+                                        },
+                                        child: Icon(
+                                          CupertinoIcons.share,
+                                          //FontAwesomeIcons.shareAlt,
+                                          size: 50.0,
+                                          color: documentData.video != null
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ))
+                                  ],
+                                );
+                              }),
+                        )),
+                      )
+                    ],
+                  ),
+                ));
               },
             );
-            print(prod_pricture.toString());
+            print(documentData.toString());
           },
           child: GridTile(
               child: Image.network(
-                prod_pricture,
-                fit: BoxFit.cover,
-              )),
+            documentData.image,
+            fit: BoxFit.cover,
+          )),
         ),
       ),
     );

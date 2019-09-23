@@ -53,6 +53,13 @@ class CategoriesBloc extends Bloc {
     }).then((error) {});
   }
 
+  updateShare(String videoId, String table) {
+    _cloudFirestoreRepository
+        .updateShare(user.uid, videoId, table)
+        .then((res) {})
+        .then((error) {});
+  }
+
   getCategories(String category) {
     _cloudFirestoreRepository.getCategoryData(category).then((res) {
       var result = res.data as List<DocumentSnapshot>;

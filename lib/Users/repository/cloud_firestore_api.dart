@@ -170,6 +170,13 @@ class CloudFirestoreAPI {
     });
   }
 
+  Future<CommonResponse> getCategoryData(String catName) {
+    return _db.collection(catName).getDocuments().then((res) {
+      return CommonResponse(CommonResponse.successCode, res.documents);
+    });
+  }
+
+//  Likes api
   Future<CommonResponse> updateLikes(
       String uid, String videoId, String table, bool isLike) async {
 //    get likes first
@@ -220,9 +227,47 @@ class CloudFirestoreAPI {
     });
   }
 
-  Future<CommonResponse> getCategoryData(String catName) {
-    return _db.collection(catName).getDocuments().then((res) {
-      return CommonResponse(CommonResponse.successCode, res.documents);
+// share api's
+  Future<CommonResponse> updateShare(
+      String uid, String videoId, String table) async {
+//    get likes first
+    return getProfile(uid).then((res) {
+      List<String> shares;
+      var user = User.fromJson(res.data);
+      shares = user.shares != null ? List<String>.from(user.shares) : List();
+
+      shares.add(table + "_" + videoId);
+
+      user.shares = shares;
+      return updateUserShare(user, videoId, table);
+    });
+  }
+
+//  to update likes
+  Future<CommonResponse> updateUserShare(
+      User user, String videoId, String table) {
+    DocumentReference ref = _db.collection(USERS).document(user.uid);
+    return ref.setData(user.getMap()).then((res) {
+      return updateSharesTable(user.uid, videoId, table);
+    });
+  }
+
+  Future<CommonResponse> updateSharesTable(
+      String uid, String videoId, String table) {
+    DocumentReference ref = _db.collection(table).document(videoId);
+    return ref.get().then((res) {
+      List<String> shares;
+      shares = res.data['shares'] != null
+          ? List<String>.from(res.data['shares'])
+          : List();
+
+      shares.add(uid);
+
+      return ref.setData({'shares': shares}, merge: true).then((res) {
+        return CommonResponse(CommonResponse.successCode, "Success");
+      }).catchError((error) {
+        return CommonResponse(CommonResponse.errorCode, error);
+      });
     });
   }
 }
