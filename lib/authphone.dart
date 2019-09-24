@@ -177,47 +177,78 @@ class _AuthphoneState extends State<Authphone> {
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of(context);
 
-    return SafeArea(
-      child: new Scaffold(
-        appBar: new AppBar(),
-        body: new Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              new Card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Autentificacion Telefono',
-                      textAlign: TextAlign.center,
-                      style: new TextStyle(fontSize: 24),
-                    ),
-                    ListTile(title: _buildCountryPickerDropdown()),
-                  ],
-                ),
-              ),
-              new RaisedButton(
-                child: Text("Verificacion"),
-                color: Colors.green.shade800,
-                textColor: Colors.white,
-                onPressed: () {
-                  if (_phonecode != null) {
-                    if (_keyField.currentState.validate()) {
-                      print("+${_phonecode + _phoneController.text.trim()}");
-                      verifyPhone(context);
-                      log("funcion correctamente verificar");
-                    }
-                  } else {
-                    flushBarMessage(context, "please select your code country");
-                    log("errro");
-                  }
-                },
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.cyan,
+        title: Text("Autenticación Telefono",
+        style: TextStyle(
+          color: Colors.white
+        ),
         ),
       ),
+        body: Center(
+          child: Container(
+            color: Colors.white,
+            child: Center(
+              child: Container(
+                margin: EdgeInsets.only(top: 250),
+                child: Column(
+                  //crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: 200,
+                          child: Image(
+                              image: AssetImage(
+                                "assets/img/iverus.png",
+                              )),
+                        ),
+                        SizedBox(height: 100),
+                        ListTile(title: _buildCountryPickerDropdown()),
+                      ],
+                    ),
+                    SizedBox(height: 20,),
+                    InkWell(
+                      onTap: () {
+                        if (_phonecode != null) {
+                          if (_keyField.currentState.validate()) {
+                            print("+${_phonecode + _phoneController.text
+                                .trim()}");
+                            verifyPhone(context);
+                            log("funcion correctamente verificar");
+                          }
+                        } else {
+                          flushBarMessage(
+                              context, "please select your code country");
+                          log("error");
+                        }
+                      },
+                      child: Container(
+                          width: 200,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Colors.cyan,
+                              borderRadius: BorderRadius.circular(30)
+                          ),
+                          child: Center(
+                            child: Text("Verificación",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15
+                              ),
+                            ),
+                          )
+                      ),
+                    )
+                  ],
+                ),
+              )
+            )
+          ),
+        ),
     );
   }
 }

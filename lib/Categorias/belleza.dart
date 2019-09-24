@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_simple_video_player/flutter_simple_video_player.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_stories/flutter_stories.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:share/share.dart';
 
@@ -139,7 +140,7 @@ class Single_prod extends StatelessWidget {
                                         size: 50.0,
                                         color: documentData.video != null
                                             ? Colors.white
-                                            : Colors.black,
+                                            : Colors.redAccent,
                                         //FontAwesomeIcons.heart,
                                         //size: 20.0,
                                       ),
@@ -155,7 +156,7 @@ class Single_prod extends StatelessWidget {
                                               'chek my website https://www.excited.com.mx');
                                         },
                                         child: Icon(
-                                          CupertinoIcons.share,
+                                          CupertinoIcons.share_up,
                                           //FontAwesomeIcons.shareAlt,
                                           size: 50.0,
                                           color: documentData.video != null
