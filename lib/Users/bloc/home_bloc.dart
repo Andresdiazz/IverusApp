@@ -9,17 +9,20 @@ import 'package:rxdart/rxdart.dart';
 import '../../SharedPref.dart';
 
 class HomeBloc extends Bloc {
-  final _cloudFiretoreRepository = CloudFirestoreRepository();
+  final _cloudFirestoreRepository = CloudFirestoreRepository();
   final _userController = BehaviorSubject<User>();
   final _leaderBoardController = BehaviorSubject<List<User>>();
+  final _videosCountController = BehaviorSubject<int>();
 
   Observable<User> get user => _userController.stream;
 
   Observable<List<User>> get leaderBoard => _leaderBoardController.stream;
 
+  Observable<int> get videosCount => _videosCountController.stream;
+
   HomeBloc() {
     FirebaseAuth.instance.currentUser().then((user) {
-      _cloudFiretoreRepository.getProfile(user.uid).then((res) {
+      _cloudFirestoreRepository.getProfile(user.uid).then((res) {
         _userController.sink.add(User.fromJson(res.data));
 
         SharedPref().save(SharedPref.user, _userController.value.toString());
@@ -27,7 +30,7 @@ class HomeBloc extends Bloc {
         print(exc);
       });
 
-      _cloudFiretoreRepository.getLeaderBoard().then((res) {
+      _cloudFirestoreRepository.getLeaderBoard().then((res) {
         List<User> data = List();
         data.addAll(res.data);
 
@@ -40,11 +43,16 @@ class HomeBloc extends Bloc {
         print(exc.toString());
       });
     });
+
+    _cloudFirestoreRepository.getVideosCount().then((onValue) {
+      _videosCountController.sink.add(onValue);
+    });
   }
 
   @override
   void dispose() {
     _userController.close();
     _leaderBoardController.close();
+    _videosCountController.close();
   }
 }

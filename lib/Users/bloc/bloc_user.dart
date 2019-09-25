@@ -44,7 +44,8 @@ class UserBloc implements Bloc {
 
   void updateUserData(User user) {
     _cloudFiretoreRepository.checkIfUserExists(user.uid).then((res) {
-      if (!res.data) {
+      var result = res.data as DocumentSnapshot;
+      if (!result.exists) {
         _cloudFiretoreRepository.updateUserDataFiretore(user).then((data) {});
       }
     }).catchError((error) {});
@@ -74,6 +75,12 @@ class UserBloc implements Bloc {
   signOut() {
     SharedPref().clear();
     _auth_repository.signOut();
+  }
+
+  Future<DocumentSnapshot> checkIfAlreadyExists(String uid) {
+    return _cloudFiretoreRepository.checkIfUserExists(uid).then((res) {
+      return res.data as DocumentSnapshot;
+    });
   }
 
   @override

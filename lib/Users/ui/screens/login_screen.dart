@@ -1,3 +1,4 @@
+import 'package:cocreacion/EditProfile/ui/screens/edit_profile.dart';
 import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:cocreacion/Users/bloc/home_bloc.dart';
 import 'package:cocreacion/Users/model/user.dart';
@@ -48,23 +49,27 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of(context);
+    ;
     return _handleCurrentSession();
   }
 
   Widget _handleCurrentSession() {
     return StreamBuilder(
       stream: userBloc.authStatus,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
         //snapshot - data - Object User
         if (!snapshot.hasData || snapshot.hasError) {
           return signIn();
         } else {
-          return BlocProvider<HomeBloc>(
-            bloc: HomeBloc(),
-            child: HomePage(),
-          );
+//          TODO handle this with case: user login with phone, exit app without completing profile
+          return HomePage();
         }
       },
     );

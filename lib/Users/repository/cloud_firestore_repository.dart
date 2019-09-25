@@ -49,4 +49,6 @@ class CloudFirestoreRepository {
 
   Future<CommonResponse> getCategoryData(String table) =>
       _cloudFirestoreAPI.getCategoryData(table);
+
+  Future<int> getVideosCount() => _cloudFirestoreAPI.getVideosCount();
 }

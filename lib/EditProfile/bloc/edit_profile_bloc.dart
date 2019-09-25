@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:cocreacion/EditProfile/model/image_model.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -10,19 +10,27 @@ import '../../SharedPref.dart';
 
 class EditProfileBloc implements Bloc {
   User oldUser;
+  bool _completeProfile;
+  FirebaseUser user;
 
-  EditProfileBloc() {
+  EditProfileBloc(this._completeProfile) {
     isLoadingController.sink.add(false);
-    SharedPref().get(SharedPref.user).then((value) {
-      oldUser = User.stringToObject(value);
-
-      _nameController.sink.add(oldUser.name);
-      _emailController.sink.add(oldUser.email);
-      _phoneController.sink.add(oldUser.phone);
-      _descController.sink.add(oldUser.desc);
-      imageController.sink.add(ImageModel(null, oldUser.photoURL));
-    }).catchError((error) {});
-
+    if (_completeProfile) {
+      _isEditingController.sink.add(true);
+      FirebaseAuth.instance.currentUser().then((user) {
+        this.user = user;
+        _phoneController.sink.add(user.phoneNumber);
+      });
+    } else {
+      SharedPref().get(SharedPref.user).then((value) {
+        oldUser = User.stringToObject(value);
+        _nameController.sink.add(oldUser.name);
+        _emailController.sink.add(oldUser.email);
+        _phoneController.sink.add(oldUser.phone);
+        _descController.sink.add(oldUser.desc);
+        imageController.sink.add(ImageModel(null, oldUser.photoURL));
+      }).catchError((error) {});
+    }
     // get user data from shared preferences here to load in screen
   }
 
@@ -74,56 +82,70 @@ class EditProfileBloc implements Bloc {
     imageController.close();
   }
 
-  updateData() {
-    User user = User(
-        uid: oldUser.uid,
-        name: _nameController.value == null
-            ? oldUser.name
-            : _nameController.value,
-        email: _emailController.value == null
-            ? oldUser.email
-            : _emailController.value,
-        phone: _phoneController.value == null
-            ? oldUser.phone
-            : _phoneController.value,
-        desc: _descController.value == null
-            ? oldUser.desc
-            : _descController.value,
-        points: oldUser.points);
+  Future<void> updateData() {
+    User user;
+    if (_completeProfile) {
+      user = User(
+          uid: this.user.uid,
+          name: _nameController.value,
+          email: _emailController.value,
+          phone: _phoneController.value,
+          desc: _descController.value == null ? "" : _descController.value,
+          points: 0);
+    } else {
+      user = User(
+          uid: oldUser.uid,
+          name: _nameController.value == null
+              ? oldUser.name
+              : _nameController.value,
+          email: _emailController.value == null
+              ? oldUser.email
+              : _emailController.value,
+          phone: _phoneController.value == null
+              ? oldUser.phone
+              : _phoneController.value,
+          desc: _descController.value == null
+              ? oldUser.desc
+              : _descController.value,
+          points: oldUser.points);
+    }
 
     isLoadingController.sink.add(true);
 
     if (imageController.value.file != null) {
-      _cloudFiretoreRepository
+      return _cloudFiretoreRepository
           .updateImage(user.uid, imageController.value.file.path,
               imageController.value.file.path.split("/").last.split(".")[1])
           .then((res) {
         user.photoURL = res.data;
-        updateUser(user);
+        return updateUser(user);
       });
     } else {
       user.photoURL = oldUser.photoURL;
 
-      updateUser(user);
+      return updateUser(user);
     }
   }
 
-  updateUser(user) {
-    _cloudFiretoreRepository.updateUserDataFiretore(user).then((data) {
+  Future<void> updateUser(user) {
+    return _cloudFiretoreRepository.updateUserDataFiretore(user).then((data) {
       isLoadingController.sink.add(false);
       _isEditingController.sink.add(false);
 
-      SharedPref().save(SharedPref.user, user.toString());
+      SharedPref().save(SharedPref.user, user.toString()).then((value) {
+        return;
+      });
     });
   }
 
   bool validatePhone(String text) {
-    Pattern pattern = r'^(?:[+0]9)?[0-9]{10}$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(text))
-      return false;
-    else
+//    Pattern pattern = r'^(?:[+0]9)?[0-9]{10}$';
+//    RegExp regex = new RegExp(pattern);
+//    if (!regex.hasMatch(text))
+    if (text.length >= 10 && text.length < 15)
       return true;
+    else
+      return false;
   }
 
   bool validateEmail(String text) {

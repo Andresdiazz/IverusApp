@@ -9,6 +9,8 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
+import 'EditProfile/ui/screens/edit_profile.dart';
+import 'Ideas/ui/screens/home.dart';
 import 'Users/bloc/bloc_user.dart';
 import 'Users/model/user.dart';
 
@@ -18,6 +20,8 @@ class Authphone extends StatefulWidget {
 }
 
 class _AuthphoneState extends State<Authphone> {
+//  TODO: Handle case when user already have account in db and signin, in this case editProfile should not open if user have submitted data before
+
   UserBloc userBloc;
 
   final TextEditingController _phoneController = new TextEditingController();
@@ -27,12 +31,19 @@ class _AuthphoneState extends State<Authphone> {
 
   String verificationId;
   FirebaseUser user;
+
+  @override
+  void initState() {
+    super.initState();
+    _phoneController.text = "7696379802";
+  }
+
   var _keyField = GlobalKey<FormFieldState>();
 
   _buildCountryPickerDropdown() => Row(
         children: <Widget>[
           CountryPickerDropdown(
-            initialValue: 'mx',
+            initialValue: 'in',
             itemBuilder: _buildDropdownItem,
             onValuePicked: (Country country) {
               print("${country.name}");
@@ -91,17 +102,7 @@ class _AuthphoneState extends State<Authphone> {
       final PhoneVerificationCompleted verifiedSuccess = (AuthCredential user) {
         print('Successful verification');
         if (user != null) {
-          FirebaseAuth.instance.signInWithCredential(user).then((user) {
-            userBloc.updateUserData(User(
-              uid: user.user.uid,
-              name: user.user.displayName,
-              email: user.user.email,
-              photoURL: user.user.photoUrl,
-            ));
-          });
-
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
+          complete(user);
         } else {
           print('user is null');
         }
@@ -144,20 +145,7 @@ class _AuthphoneState extends State<Authphone> {
                     smsCode: _smsController.text.trim(),
                   );
 
-                  user = await FirebaseAuth.instance
-                      .signInWithCredential(credential)
-                      .then((user) {
-                    if (user != null) {
-                      Navigator.of(context).pop();
-                      print("Successful verification user is: ${user}");
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    } else {
-                      print("Failed verification");
-                    }
-                  }).catchError((e) {
-                    print("error: $e");
-                  });
+                  complete(credential);
                 },
               ),
             ],
@@ -173,6 +161,41 @@ class _AuthphoneState extends State<Authphone> {
       ..show(context);
   }
 
+  complete(AuthCredential user) {
+    if (user != null) {
+      FirebaseAuth.instance.signInWithCredential(user).then((user) {
+        userBloc.checkIfAlreadyExists(user.user.uid).then((snapshot) {
+          if (snapshot.exists) {
+//            user signed in and exited
+            User user = User.fromJson(snapshot.data);
+            if (user.name.isEmpty || user.photoURL.isEmpty) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EditProfile(true)));
+            } else {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+            }
+          } else {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => EditProfile(true)));
+          }
+        });
+//        userBloc.updateUserData(User(
+//          uid: user.user.uid,
+//          name: user.user.displayName,
+//          email: user.user.email,
+//          photoURL: user.user.photoUrl,
+//          phone: user.user.phoneNumber,
+//        ));
+//        Navigator.push(context,
+//            MaterialPageRoute(builder: (context) => EditProfile(true)));
+//            Navigator.of(context).pop({"user": user});
+      });
+    } else {
+      print('user is null');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of(context);
@@ -180,75 +203,72 @@ class _AuthphoneState extends State<Authphone> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.cyan,
-        title: Text("Autenticación Telefono",
-        style: TextStyle(
-          color: Colors.white
-        ),
+        title: Text(
+          "Autenticación Telefono",
+          style: TextStyle(color: Colors.white),
         ),
       ),
-        body: Center(
-          child: Container(
+      body: Center(
+        child: Container(
             color: Colors.white,
             child: Center(
-              child: Container(
-                margin: EdgeInsets.only(top: 250),
-                child: Column(
-                  //crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          width: 200,
-                          child: Image(
-                              image: AssetImage(
-                                "assets/img/iverus.png",
-                              )),
-                        ),
-                        SizedBox(height: 100),
-                        ListTile(title: _buildCountryPickerDropdown()),
-                      ],
-                    ),
-                    SizedBox(height: 20,),
-                    InkWell(
-                      onTap: () {
-                        if (_phonecode != null) {
-                          if (_keyField.currentState.validate()) {
-                            print("+${_phonecode + _phoneController.text
-                                .trim()}");
-                            verifyPhone(context);
-                            log("funcion correctamente verificar");
-                          }
-                        } else {
-                          flushBarMessage(
-                              context, "please select your code country");
-                          log("error");
-                        }
-                      },
-                      child: Container(
-                          width: 200,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              color: Colors.cyan,
-                              borderRadius: BorderRadius.circular(30)
-                          ),
-                          child: Center(
-                            child: Text("Verificación",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15
-                              ),
-                            ),
-                          )
+                child: Container(
+              margin: EdgeInsets.only(top: 250),
+              child: Column(
+                //crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: 200,
+                        child: Image(
+                            image: AssetImage(
+                          "assets/img/iverus.png",
+                        )),
                       ),
-                    )
-                  ],
-                ),
-              )
-            )
-          ),
-        ),
+                      SizedBox(height: 100),
+                      ListTile(title: _buildCountryPickerDropdown()),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (_phonecode != null) {
+                        if (_keyField.currentState.validate()) {
+                          print(
+                              "+${_phonecode + _phoneController.text.trim()}");
+                          verifyPhone(context);
+                          log("funcion correctamente verificar");
+                        }
+                      } else {
+                        flushBarMessage(
+                            context, "please select your code country");
+                        log("error");
+                      }
+                    },
+                    child: Container(
+                        width: 200,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: Colors.cyan,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Center(
+                          child: Text(
+                            "Verificación",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                        )),
+                  )
+                ],
+              ),
+            ))),
+      ),
     );
   }
 }

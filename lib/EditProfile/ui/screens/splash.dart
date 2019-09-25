@@ -1,7 +1,12 @@
 import 'dart:async';
+import 'package:cocreacion/Users/bloc/bloc_user.dart';
+import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/ui/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
+
+import 'edit_profile.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -13,8 +18,15 @@ class _SplashScreenState extends State<SplashScreen>
   AnimationController controller;
   Animation<double> animation;
 
+  UserBloc userBloc = UserBloc();
+
   initState() {
     super.initState();
+
+    FirebaseAuth.instance.currentUser().then((res) {
+      checkValidity(res);
+    });
+
     controller = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
     animation = CurvedAnimation(
@@ -24,11 +36,30 @@ class _SplashScreenState extends State<SplashScreen>
 
     controller.forward();
 
-    Timer(
-        Duration(seconds: 3),
-        () => Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
-            (_) => false));
+//    Timer(
+//        Duration(seconds: 3),
+//        () => Navigator.of(context).pushAndRemoveUntil(
+//            MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+//            (_) => false));
+  }
+
+  checkValidity(FirebaseUser user) {
+    userBloc.checkIfAlreadyExists(user.uid).then((snapshot) {
+      if (snapshot.exists) {
+//            user signed in and exited
+        User user = User.fromJson(snapshot.data);
+        if (user.name.isEmpty || user.photoURL.isEmpty) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EditProfile(true)));
+        } else {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        }
+      } else {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => EditProfile(true)));
+      }
+    });
   }
 
   Widget build(BuildContext context) {

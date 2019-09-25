@@ -81,7 +81,7 @@ class ButtonProfile extends StatelessWidget {
         margin: EdgeInsets.only(left: 40.0, top: 10.0),
         child: Center(
           child: Text(
-            user.name,
+            user.name == null ? "" : user.name,
             //"Andres Diaz",
             textAlign: TextAlign.end,
             style: TextStyle(
@@ -100,8 +100,9 @@ class ButtonProfile extends StatelessWidget {
           shape: BoxShape.circle,
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: //AssetImage("assets/img/profile.jpg")
-                  NetworkImage(user.photoURL))),
+              image: user.photoURL == null
+                  ? AssetImage("assets/img/profile.jpg")
+                  : NetworkImage(user.photoURL))),
     );
 
     var updatedPhoto = Container(
@@ -120,8 +121,9 @@ class ButtonProfile extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: //AssetImage("assets/img/profile.jpg")
-                      NetworkImage(user.photoURL))),
+                  image: user.photoURL == null
+                      ? AssetImage("assets/img/profile.jpg")
+                      : NetworkImage(user.photoURL))),
         ),
       ),
     );
@@ -134,7 +136,7 @@ class ButtonProfile extends StatelessWidget {
           child: updatedPhoto,
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EditProfile()));
+                MaterialPageRoute(builder: (context) => EditProfile(false)));
           },
         ),
         Center(

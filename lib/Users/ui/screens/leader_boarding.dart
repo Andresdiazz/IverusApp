@@ -17,55 +17,74 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
   Widget build(BuildContext context) {
     homeBloc = BlocProvider.of<HomeBloc>(context);
 
-    final lives = Column(
-      children: <Widget>[
-        Center(
-          child: Text(
-            "20",
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        Center(
-          child: Text(
-            "Lives",
-            style: TextStyle(color: Colors.white, fontFamily: "Lato"),
-          ),
-        )
-      ],
+    final lives = StreamBuilder<User>(
+      stream: homeBloc.user,
+      builder: (context, AsyncSnapshot<User> snapshot) {
+        return Column(
+          children: <Widget>[
+            Center(
+              child: Text(
+                "20",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Center(
+              child: Text(
+                "Lives",
+                style: TextStyle(color: Colors.white, fontFamily: "Lato"),
+              ),
+            )
+          ],
+        );
+      },
     );
 
-    final video = Column(
-      children: <Widget>[
-        Center(
-          child: Text(
-            "20",
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        Center(
-          child: Text(
-            "Videos",
-            style: TextStyle(color: Colors.white, fontFamily: "Lato"),
-          ),
-        )
-      ],
+    final video = StreamBuilder<int>(
+      stream: homeBloc.videosCount,
+      builder: (context, AsyncSnapshot<int> snapshot) {
+        return Column(
+          children: <Widget>[
+            Center(
+              child: Text(
+                snapshot.data == null ? "0" : snapshot.data.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Center(
+              child: Text(
+                "Videos",
+                style: TextStyle(color: Colors.white, fontFamily: "Lato"),
+              ),
+            )
+          ],
+        );
+      },
     );
 
-    final share = Column(
-      children: <Widget>[
-        Center(
-          child: Text(
-            "20",
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        Center(
-          child: Text(
-            "Share",
-            style: TextStyle(color: Colors.white, fontFamily: "Lato"),
-          ),
-        )
-      ],
+    final share = StreamBuilder<User>(
+      stream: homeBloc.user,
+      builder: (context, AsyncSnapshot<User> snapshot) {
+        return Column(
+          children: <Widget>[
+            Center(
+              child: Text(
+                snapshot.data == null ||
+                        snapshot.data.shares == null ||
+                        snapshot.data.shares.length == 0
+                    ? "No shares"
+                    : snapshot.data.shares.length.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Center(
+              child: Text(
+                "Share",
+                style: TextStyle(color: Colors.white, fontFamily: "Lato"),
+              ),
+            )
+          ],
+        );
+      },
     );
 
     return StreamBuilder<List<User>>(
@@ -146,9 +165,10 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                       : Container(
                           height: MediaQuery.of(context).size.height * 0.1,
                           child: Column(
-                             children: <Widget>[
+                            children: <Widget>[
                               Container(
-                                margin: const EdgeInsets.only(top:80,bottom: 8),
+                                margin:
+                                    const EdgeInsets.only(top: 80, bottom: 8),
                                 child: CircularProgressIndicator(
                                   strokeWidth: 3,
                                   backgroundColor: Colors.white,
@@ -158,7 +178,10 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                               ),
                               Text(
                                 "Getting LeaderBoard",
-                                style: Theme.of(context).textTheme.body2.copyWith(color: Colors.white),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .body2
+                                    .copyWith(color: Colors.white),
                               )
                             ],
                           ),

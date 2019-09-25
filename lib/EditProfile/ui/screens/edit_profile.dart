@@ -3,19 +3,27 @@ import 'dart:io';
 import 'package:cocreacion/EditProfile/bloc/edit_profile_bloc.dart';
 import 'package:cocreacion/EditProfile/model/image_model.dart';
 import 'package:cocreacion/EditProfile/ui/widgets/edit_profile_header.dart';
+import 'package:cocreacion/Ideas/ui/screens/home.dart';
+import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:toast/toast.dart';
 
 class EditProfile extends StatefulWidget {
+  bool completeProfile;
+
+  EditProfile(this.completeProfile);
+
   @override
   _EditProfileState createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
   bool _validateName = false;
+  bool _validatePhoto = false;
   bool _validatePhone = false;
   bool _validateEmail = false;
-  EditProfileBloc _editProfileBloc = EditProfileBloc();
+  EditProfileBloc _editProfileBloc;
   FocusNode _nameFocus = FocusNode();
   FocusNode _emailFocus = FocusNode();
   FocusNode _phoneFocus = FocusNode();
@@ -27,6 +35,12 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController _descController = TextEditingController();
 
   GlobalKey<FormState> _formKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    _editProfileBloc = EditProfileBloc(this.widget.completeProfile);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,9 +140,11 @@ class _EditProfileState extends State<EditProfile> {
                         builder: (context, AsyncSnapshot<ImageModel> snapshot) {
                           return CircleAvatar(
                             maxRadius: 60,
-                            backgroundImage: snapshot.data.file == null
-                                ? NetworkImage(snapshot.data.path)
-                                : FileImage(snapshot.data.file),
+                            backgroundImage: snapshot.data == null
+                                ? AssetImage("assets/img/profile.jpg")
+                                : snapshot.data.file == null
+                                    ? NetworkImage(snapshot.data.path)
+                                    : FileImage(snapshot.data.file),
 //                            FileImage(_image)
 //                          AssetImage("assets/img/bienestar.jpg"),
                           );
@@ -492,6 +508,16 @@ class _EditProfileState extends State<EditProfile> {
           child: InkWell(
             onTap: () {
               setState(() {
+                if (this.widget.completeProfile) {
+                  if (_editProfileBloc.imageController.value == null ||
+                      _editProfileBloc.imageController.value.path == null &&
+                          _editProfileBloc.imageController.value.file == null) {
+                    _validatePhoto = false;
+                    Toast.show("Please select profile photo!", context,
+                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                  } else
+                    _validatePhoto = true;
+                }
                 _validateName = _nameController.text.isEmpty;
                 _validateEmail = (_emailController.text.isNotEmpty &&
                     !_editProfileBloc.validateEmail(_emailController.text));
@@ -501,7 +527,25 @@ class _EditProfileState extends State<EditProfile> {
               });
 
               if (!_validateName && !_validatePhone && !_validateEmail) {
-                _editProfileBloc.updateData();
+                if (this.widget.completeProfile) {
+                  if (_validatePhoto) {
+                    _editProfileBloc.updateData().then((_) {
+                      if (this.widget.completeProfile) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                      }
+                    });
+                  }
+                } else {
+                  _editProfileBloc.updateData().then((_) {
+                    if (this.widget.completeProfile) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
+                    }
+                  });
+                }
               }
             },
             splashColor: Colors.white30,

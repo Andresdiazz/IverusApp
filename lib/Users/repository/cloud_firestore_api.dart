@@ -15,6 +15,10 @@ class CloudFirestoreAPI {
   final String IDEAS = "ideas";
   final String COMMENTS = "comments";
   final String VIDEOS = "videos";
+  final String BELLEZA = "belleza";
+  final String CPERSONAL = "cpersonal";
+  final String IVERUS = "iverus";
+  final String MODA = "moda";
 
   final Firestore _db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -140,6 +144,26 @@ class CloudFirestoreAPI {
     });
   }
 
+  Future<int> getVideosCount() async {
+    int size = 0;
+    return _db.collection(IVERUS).getDocuments().then((snap) {
+      size = size + snap.documents.length;
+
+      return _db.collection(BELLEZA).getDocuments().then((snap) {
+        size = size + snap.documents.length;
+
+        return _db.collection(CPERSONAL).getDocuments().then((snap) {
+          size = size + snap.documents.length;
+
+          return _db.collection(MODA).getDocuments().then((snap) {
+            size = size + snap.documents.length;
+            return size;
+          });
+        });
+      });
+    });
+  }
+
   Future<CommonResponse> updateImage(uid, filePath, ext) async {
     final String fileName = uid;
 
@@ -164,7 +188,7 @@ class CloudFirestoreAPI {
     DocumentReference ref = _db.collection(USERS).document(id);
 
     return ref.get().then((res) {
-      return CommonResponse(CommonResponse.successCode, res.exists);
+      return CommonResponse(CommonResponse.successCode, res);
     }).catchError((error) {
       return CommonResponse(CommonResponse.errorCode, error);
     });
