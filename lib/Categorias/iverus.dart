@@ -84,6 +84,7 @@ class Single_prod extends StatelessWidget {
         child: InkWell(
           onTap: () {
             bloc.itemController.sink.add(documentData);
+            if (documentData.video != null) bloc.videoClick();
 
             showCupertinoDialog(
               context: context,
@@ -131,10 +132,11 @@ class Single_prod extends StatelessWidget {
                                                 .contains(bloc.user.uid));
                                       },
                                       child: Icon(
-                                        snapshot.data.likes
-                                                .contains(bloc.user.uid)
-                                            ? CupertinoIcons.heart_solid
-                                            : CupertinoIcons.heart,
+                                        snapshot.data == null ||
+                                                !snapshot.data.likes
+                                                    .contains(bloc.user.uid)
+                                            ? CupertinoIcons.heart
+                                            : CupertinoIcons.heart_solid,
                                         size: 50.0,
                                         color: documentData.video != null
                                             ? Colors.white

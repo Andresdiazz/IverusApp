@@ -242,7 +242,6 @@ class CloudFirestoreAPI {
         likes.add(uid);
       else
         likes.remove(uid);
-
       return ref.setData({'likes': likes}, merge: true).then((res) {
         return CommonResponse(CommonResponse.successCode, "Success");
       }).catchError((error) {
@@ -261,7 +260,9 @@ class CloudFirestoreAPI {
       shares = user.shares != null ? List<String>.from(user.shares) : List();
 
       shares.add(table + "_" + videoId);
-
+      int points = user.points != null ? user.points : 0;
+      points = points + 10;
+      user.points = points;
       user.shares = shares;
       return updateUserShare(user, videoId, table);
     });
@@ -292,6 +293,17 @@ class CloudFirestoreAPI {
       }).catchError((error) {
         return CommonResponse(CommonResponse.errorCode, error);
       });
+    });
+  }
+
+  updatePointsOnVideoWatch(String uid, String table) async {
+    return getProfile(uid).then((res) {
+      var user = User.fromJson(res.data);
+      int points = user.points != null ? user.points : 0;
+      points = points + 20;
+      user.points = points;
+      DocumentReference ref = _db.collection(USERS).document(user.uid);
+      return ref.setData(user.getMap()).then((res) {});
     });
   }
 }

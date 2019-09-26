@@ -51,4 +51,7 @@ class CloudFirestoreRepository {
       _cloudFirestoreAPI.getCategoryData(table);
 
   Future<int> getVideosCount() => _cloudFirestoreAPI.getVideosCount();
+
+  updatePointsOnVideoWatch(String uid, String table) =>
+      _cloudFirestoreAPI.updatePointsOnVideoWatch(uid, table);
 }

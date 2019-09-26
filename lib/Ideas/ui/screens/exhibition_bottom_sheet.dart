@@ -206,7 +206,7 @@ class ExpandedEventItem extends StatelessWidget {
               //BarScore(),
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.28),
+                    top: MediaQuery.of(context).size.height * 0.23),
                 child: LeaderBoarding(),
               )
             ],

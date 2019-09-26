@@ -46,6 +46,7 @@ class CategoriesBloc extends Bloc {
     i.likes = likes;
 
     itemController.sink.add(i);
+
     _cloudFirestoreRepository
         .updateLikes(user.uid, videoId, table, isLike)
         .then((res) {
@@ -72,6 +73,10 @@ class CategoriesBloc extends Bloc {
 
       _categoriesController.sink.add(items);
     }).then((error) {});
+  }
+
+  videoClick() {
+    _cloudFirestoreRepository.updatePointsOnVideoWatch(user.uid, category);
   }
 
   @override

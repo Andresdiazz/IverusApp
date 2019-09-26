@@ -87,108 +87,102 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
       },
     );
 
+    final points = StreamBuilder<User>(
+      stream: homeBloc.user,
+      builder: (context, AsyncSnapshot<User> snapshot) {
+        return Column(
+          children: <Widget>[
+            Center(
+              child: Text(
+                snapshot.data == null ||
+                        snapshot.data.points == null ||
+                        snapshot.data.points == 0
+                    ? "0"
+                    : snapshot.data.points.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Center(
+              child: Text(
+                "Points",
+                style: TextStyle(color: Colors.white, fontFamily: "Lato"),
+              ),
+            )
+          ],
+        );
+      },
+    );
+
     return StreamBuilder<List<User>>(
       stream: homeBloc.leaderBoard,
       builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
         return Container(
-          height: MediaQuery.of(context).size.height * 0.6,
+          height: MediaQuery.of(context).size.height * 0.66,
           child: Column(
             children: <Widget>[
+              StreamBuilder<User>(
+                  stream: homeBloc.user,
+                  builder: (context, snapshot) {
+                    return Container(
+                      margin: const EdgeInsets.only(left: 40),
+                      alignment: Alignment(-1, 0),
+                      child: Text(
+                        snapshot.data == null || snapshot.data.desc == null
+                            ? ""
+                            : snapshot.data.desc,
+                        style: Theme.of(context)
+                            .textTheme
+                            .body2
+                            .copyWith(color: Colors.white, fontSize: 12),
+                      ),
+                    );
+                  }),
+
+              SizedBox(height: 20),
+
               Center(
                 child: Container(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[lives, video, share],
+                    children: <Widget>[points, lives, video, share],
                   ),
                 ),
               ),
               SizedBox(height: 30),
-//                Padding(
-//                  padding: const EdgeInsets.all(12.0),
-//                  child: Row(
-//                    children: <Widget>[
-//                      SizedBox(
-//                        width: MediaQuery.of(context).size.width * 0.22,
-//                        child: Align(
-//                          child: Text(
-//                            "Image",
-//                            style: TextStyle(
-//                                fontSize: 15,
-//                                color: Colors.indigoAccent,
-//                                fontWeight: FontWeight.bold),
-//                          ),
-//                          alignment: Alignment(-1, 0),
-//                        ),
-//                      ),
-//                      SizedBox(
-//                        width: MediaQuery.of(context).size.width * 0.3,
-//                        child: Align(
-//                            child: Text(
-//                              "Name",
-//                              style: TextStyle(
-//                                  fontSize: 15,
-//                                  color: Colors.indigoAccent,
-//                                  fontWeight: FontWeight.bold),
-//                            ),
-//                            alignment: Alignment(-1, 0)),
-//                      ),
-//                      SizedBox(
-//                        width: MediaQuery.of(context).size.width * 0.22,
-//                        child: Align(
-//                            child: Text(
-//                              "Points",
-//                              style: TextStyle(
-//                                  fontSize: 15,
-//                                  color: Colors.indigoAccent,
-//                                  fontWeight: FontWeight.bold),
-//                            ),
-//                            alignment: Alignment(-1, 0)),
-//                      ),
-//                      Align(
-//                          child: Text(
-//                            "Points",
-//                            style: TextStyle(
-//                                fontSize: 15,
-//                                color: Colors.indigoAccent,
-//                                fontWeight: FontWeight.bold),
-//                          ),
-//                          alignment: Alignment(-1, 0)),
-//                    ],
-//                  ),
-//                ),
-              SingleChildScrollView(
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: snapshot.data != null
-                      ? getPopulatedList(snapshot.data)
-                      : Container(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                margin:
-                                    const EdgeInsets.only(top: 80, bottom: 8),
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 3,
-                                  backgroundColor: Colors.white,
+
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Container(
+                    child: snapshot.data != null
+                        ? getPopulatedList(snapshot.data)
+                        : Container(
+                            height: MediaQuery.of(context).size.height * 0.1,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  margin:
+                                      const EdgeInsets.only(top: 80, bottom: 8),
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 3,
+                                    backgroundColor: Colors.white,
+                                  ),
+                                  height: 30,
+                                  width: 30,
                                 ),
-                                height: 30,
-                                width: 30,
-                              ),
-                              Text(
-                                "Getting LeaderBoard",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .body2
-                                    .copyWith(color: Colors.white),
-                              )
-                            ],
+                                Text(
+                                  "Getting LeaderBoard",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .body2
+                                      .copyWith(color: Colors.white),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
+                  ),
                 ),
-              )
-//                Container(
+              ) //                Container(
 //
 //                  margin: EdgeInsets.only(left: 8,right: 8),
 ////                  width: 350,
@@ -284,7 +278,7 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
 
   getPopulatedList(List<User> leaderboard) {
     return ListView.builder(
-//        physics: const NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.all(12),

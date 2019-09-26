@@ -24,7 +24,16 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
 
     FirebaseAuth.instance.currentUser().then((res) {
-      checkValidity(res);
+      if (res != null)
+        checkValidity(res);
+      else {
+        Timer(
+            Duration(seconds: 3),
+            () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (BuildContext context) => LoginScreen()),
+                (_) => false));
+      }
     });
 
     controller = AnimationController(

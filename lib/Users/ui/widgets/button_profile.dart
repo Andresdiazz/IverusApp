@@ -110,9 +110,10 @@ class ButtonProfile extends StatelessWidget {
       height: height,
       width: width,
       child: CircularPercentIndicator(
+        animation: true,
         radius: width / 1.2,
         lineWidth: width / 20,
-        percent: getPercent(121),
+        percent: getPercent(user.points),
         progressColor: Colors.black,
         center: Container(
           width: width / 1.3,

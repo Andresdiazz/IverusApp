@@ -86,6 +86,7 @@ class Single_prod extends StatelessWidget {
         child: InkWell(
           onTap: () {
             bloc.itemController.sink.add(documentData);
+            if (documentData.video != null) bloc.videoClick();
 
             showCupertinoDialog(
               context: context,
