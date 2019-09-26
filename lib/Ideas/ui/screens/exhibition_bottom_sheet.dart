@@ -83,12 +83,12 @@ class _ExhibitionBottomSheetState extends State<ExhibitionBottomSheet>
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                     colors: [
-                      Colors.cyanAccent,
+                      const Color(0xFF05C3DD),
                       //Colors.deepPurpleAccent,
-                      Colors.deepPurple,
+                      const Color(0xFF87189d),
                     ],
                     //stops: [0.2, 0.7],
-                    begin: Alignment.topLeft,
+                    begin: Alignment.topRight,
                     end: Alignment.bottomLeft),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
               ),

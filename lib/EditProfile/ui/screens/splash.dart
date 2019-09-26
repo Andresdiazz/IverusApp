@@ -73,7 +73,18 @@ class _SplashScreenState extends State<SplashScreen>
 
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.blueGrey,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [
+                const Color(0xFF05C3DD),
+                //Colors.deepPurpleAccent,
+                const Color(0xFF87189d),
+              ],
+              //stops: [0.2, 0.7],
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft
+          ),
+        ),
         child: ScaleTransition(
             scale: controller,
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [

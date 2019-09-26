@@ -213,7 +213,7 @@ class _AuthphoneState extends State<Authphone> {
             color: Colors.white,
             child: Center(
                 child: Container(
-              margin: EdgeInsets.only(top: 250),
+              margin: EdgeInsets.only(top: 150),
               child: Column(
                 //crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
