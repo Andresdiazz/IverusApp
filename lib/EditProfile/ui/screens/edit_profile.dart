@@ -531,18 +531,20 @@ class _EditProfileState extends State<EditProfile> {
                   if (_validatePhoto) {
                     _editProfileBloc.updateData().then((_) {
                       if (this.widget.completeProfile) {
-                        Navigator.push(
-                            context,
+                        Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
-                                builder: (context) => HomePage()));
+                                builder: (BuildContext context) => HomePage()),
+                            (_) => false);
                       }
                     });
                   }
                 } else {
                   _editProfileBloc.updateData().then((_) {
                     if (this.widget.completeProfile) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => HomePage()),
+                          (_) => false);
                     }
                   });
                 }

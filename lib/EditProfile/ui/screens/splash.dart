@@ -58,14 +58,14 @@ class _SplashScreenState extends State<SplashScreen>
 //            user signed in and exited
         User user = User.fromJson(snapshot.data);
         if (user.name.isEmpty || user.photoURL.isEmpty) {
-          Navigator.push(context,
+          Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => EditProfile(true)));
         } else {
-          Navigator.push(
+          Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => LoginScreen()));
         }
       } else {
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => EditProfile(true)));
       }
     });

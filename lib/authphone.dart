@@ -169,15 +169,21 @@ class _AuthphoneState extends State<Authphone> {
 //            user signed in and exited
             User user = User.fromJson(snapshot.data);
             if (user.name.isEmpty || user.photoURL.isEmpty) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EditProfile(true)));
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => EditProfile(true)),
+                  (_) => false);
             } else {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => HomePage()),
+                  (_) => false);
             }
           } else {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EditProfile(true)));
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (BuildContext context) => EditProfile(true)),
+                (_) => false);
           }
         });
 //        userBloc.updateUserData(User(
