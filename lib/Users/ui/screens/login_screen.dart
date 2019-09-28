@@ -23,8 +23,9 @@ class _LoginScreenState extends State<LoginScreen> {
   //Facebook sign in
   void startFacebookLogin() async {
     var facebooklogin = new FacebookLogin();
-    var result = await facebooklogin
-        .logInWithReadPermissions(['email', 'public_profile']);
+    var result = await facebooklogin.logIn(['email', 'public_profile']);
+//    var result = await facebooklogin
+//        .logInWithReadPermissions(['email', 'public_profile']);
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         final FacebookAccessToken accessToken = result.accessToken;

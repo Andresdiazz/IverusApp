@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
 class IdeasUserInfo extends StatelessWidget {
-
   UserBloc userBloc;
   User user;
 
@@ -15,71 +14,60 @@ class IdeasUserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     userBloc = BlocProvider.of<UserBloc>(context);
 
-    Ideas ideas = Ideas(
-      title: "Hola",
-      likes: 0
-    );
+    Ideas ideas = Ideas(title: "Hola", likes: 0);
 
     final buttonBack = InkWell(
-        onTap: (){
-          Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ProfileScreen()));
-        },
-        child: Icon(Icons.arrow_back_ios),
-
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+      },
+      child: Icon(Icons.arrow_back_ios),
     );
-
 
     return Material(
       child: Stack(
         children: <Widget>[
           Container(
             height: 80.0,
-            decoration: BoxDecoration(
-              color: Colors.white
-            ),
+            decoration: BoxDecoration(color: Colors.white),
           ),
           Container(
             margin: EdgeInsets.only(top: 50.0),
             child: StreamBuilder(
                 stream: userBloc.ideasStream,
-                builder: (context, AsyncSnapshot snapshot){
-                    switch(snapshot.connectionState){
-                      case ConnectionState.waiting:
+                builder: (context, AsyncSnapshot snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
                       // TODO: Handle this case.
-                        return CircularProgressIndicator();
-                      case ConnectionState.active:
+                      return CircularProgressIndicator();
+                    case ConnectionState.active:
                       // TODO: Handle this case.
-                        return Column(
-                          children:
-                          userBloc.buildIdeas(snapshot.data.documents, user),
+                      return Column(
+                        children:
+                            userBloc.buildIdeas(snapshot.data.documents, user),
+                      );
+                    case ConnectionState.done:
+                      // TODO: Handle this case.
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children:
+                            userBloc.buildIdeas(snapshot.data.documents, user),
+                      );
+                    case ConnectionState.none:
+                      // TODO: Handle this case.
+                      return CircularProgressIndicator();
+                    default:
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children:
+                            userBloc.buildIdeas(snapshot.data.documents, user),
+                      );
+                  }
 
-                        );
-                      case ConnectionState.done:
-                      // TODO: Handle this case.
-                        return Column(
-                            mainAxisSize: MainAxisSize.min,
-                          children:
-                          userBloc.buildIdeas(snapshot.data.documents, user),
-                        );
-                      case ConnectionState.none:
-                      // TODO: Handle this case.
-                        return CircularProgressIndicator();
-                      default:
-                        return Column(
-                            mainAxisSize: MainAxisSize.min,
-                          children:
-                          userBloc.buildIdeas(snapshot.data.documents, user),
-                        );
-
-                    }
-
-                   /**/
-                }
-            ),
+                  /**/
+                }),
           ),
           Container(
             margin: EdgeInsets.only(top: 10.0, left: 10.0),

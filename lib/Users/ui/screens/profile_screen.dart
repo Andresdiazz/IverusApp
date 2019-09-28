@@ -12,6 +12,9 @@ import 'package:flutter_fluid_slider/flutter_fluid_slider.dart';
 
 class ProfileScreen extends StatelessWidget {
   User user;
+  var color, size, margin;
+
+  ProfileScreen({this.color, this.size, this.margin});
 
   UserBloc userBloc;
 
@@ -44,8 +47,14 @@ class ProfileScreen extends StatelessWidget {
                 child: Text('Cerrar sesión'),
                 onPressed: () {
                   userBloc.signOut();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+
+//                  Navigator.pushReplacement(
+//                    context,
+//                    MaterialPageRoute(
+//                      builder: (context) => LoginScreen(),
+//                    ),
+//                  );
                 },
               ),
             ],
@@ -59,7 +68,8 @@ class ProfileScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Container(
-              margin: EdgeInsets.only(top: 0, right: 32),
+              margin:
+                  EdgeInsets.only(top: 0, right: margin == null ? 32 : margin),
               child: InkWell(
                 onTap: () {
                   _neverSatisfied();
@@ -68,8 +78,8 @@ class ProfileScreen extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.exit_to_app,
-                  size: 30.0,
-                  color: Colors.white,
+                  size: size == null ? 30.0 : size,
+                  color: color == null ? Colors.white : color,
                 ),
               )),
           //BarScore()

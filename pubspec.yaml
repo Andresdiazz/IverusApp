@@ -32,7 +32,7 @@ dependencies:
   video_player: ^0.10.2
   country_pickers: ^1.1.0
   flushbar: ^1.8.2
-  flutter_facebook_login: ^2.0.1
+  flutter_facebook_login: ^3.0.0
   flutter_auth_buttons: ^0.5.0
   percent_indicator: "^2.1.1"
   rxdart: ^0.22.2

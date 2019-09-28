@@ -5,7 +5,9 @@ import 'package:cocreacion/EditProfile/model/image_model.dart';
 import 'package:cocreacion/EditProfile/ui/widgets/edit_profile_header.dart';
 import 'package:cocreacion/Ideas/ui/screens/home.dart';
 import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
+import 'package:cocreacion/Users/ui/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
 
@@ -34,8 +36,6 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _descController = TextEditingController();
 
-  GlobalKey<FormState> _formKey = GlobalKey();
-
   @override
   void initState() {
     super.initState();
@@ -44,46 +44,54 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Container(height: 230, child: EditProfileHeader()),
-              StreamBuilder<bool>(
-                  stream: _editProfileBloc.isEditing,
-                  builder: (context, snapshot) {
-                    bool d = snapshot.data == null || !snapshot.data;
-                    return Column(
-                      children: <Widget>[
-                        getUpper(context, snapshot),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        getName(context, !d),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        getEmail(context, !d),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        getPhone(context, !d),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        getDesc(context, !d),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        !d ? getSave(context) : Container()
-                      ],
-                    );
-                  }),
-            ],
-          )
-        ],
+    return WillPopScope(
+      child: Scaffold(
+        body: ListView(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Container(height: 230, child: EditProfileHeader()),
+                StreamBuilder<bool>(
+                    stream: _editProfileBloc.isEditing,
+                    builder: (context, snapshot) {
+                      bool d = snapshot.data == null || !snapshot.data;
+                      return Column(
+                        children: <Widget>[
+                          getUpper(context, snapshot),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          getName(context, !d),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          getEmail(context, !d),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          getPhone(context, !d),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          getDesc(context, !d),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          !d ? getSave(context) : Container()
+                        ],
+                      );
+                    }),
+                BackButton(
+                  color: Colors.white,
+                )
+              ],
+            )
+          ],
+        ),
       ),
+      onWillPop: () {
+        Navigator.of(context).pop(false);
+      },
     );
   }
 
@@ -179,10 +187,10 @@ class _EditProfileState extends State<EditProfile> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Icon(
-                  Icons.exit_to_app,
+                ProfileScreen(
                   color: Colors.deepPurple,
-                  size: 22,
+                  size: 25.0,
+                  margin: 50.0,
                 ),
                 Text(
                   "Logout",
@@ -203,7 +211,7 @@ class _EditProfileState extends State<EditProfile> {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
-      _editProfileBloc.updateImage(image);
+      if (image != null) _editProfileBloc.updateImage(image);
     });
   }
 
