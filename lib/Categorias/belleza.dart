@@ -141,7 +141,7 @@ class Single_prod extends StatelessWidget {
                                         size: 50.0,
                                         color: documentData.video != null
                                             ? Colors.white
-                                            : Colors.redAccent,
+                                            : Colors.black,
                                         //FontAwesomeIcons.heart,
                                         //size: 20.0,
                                       ),
