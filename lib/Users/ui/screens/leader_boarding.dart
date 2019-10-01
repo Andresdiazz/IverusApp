@@ -2,8 +2,8 @@ import 'package:cocreacion/Users/bloc/home_bloc.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class LeaderBoarding extends StatefulWidget {
   @override
@@ -23,15 +23,22 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
         return Column(
           children: <Widget>[
             Center(
-              child: Text(
-                "20",
-                style: TextStyle(color: Colors.white),
-              ),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    "0",
+                    style: TextStyle(color: Colors.black26),
+                  ),
+                  Icon(Icons.live_tv,
+                  size: 18,
+                  color: Colors.black26)
+                ],
+              )
             ),
             Center(
               child: Text(
                 "Lives",
-                style: TextStyle(color: Colors.white, fontFamily: "Lato"),
+                style: TextStyle(color: Colors.black26, fontFamily: "Lato"),
               ),
             )
           ],
@@ -45,10 +52,17 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
         return Column(
           children: <Widget>[
             Center(
-              child: Text(
-                snapshot.data == null ? "0" : snapshot.data.toString(),
-                style: TextStyle(color: Colors.white),
-              ),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    snapshot.data == null ? "0" : snapshot.data.toString(),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Icon(Icons.video_library,
+                  size: 18,
+                  color: Colors.deepOrange,)
+                ],
+              )
             ),
             Center(
               child: Text(
@@ -67,14 +81,22 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
         return Column(
           children: <Widget>[
             Center(
-              child: Text(
-                snapshot.data == null ||
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(
+                    snapshot.data == null ||
                         snapshot.data.shares == null ||
                         snapshot.data.shares.length == 0
-                    ? "No shares"
-                    : snapshot.data.shares.length.toString(),
-                style: TextStyle(color: Colors.white),
-              ),
+                        ? "No shares"
+                        : snapshot.data.shares.length.toString(),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Icon(FontAwesomeIcons.shareSquare,
+                  size: 18,
+                  color: Colors.lightGreen,)
+                ],
+              )
             ),
             Center(
               child: Text(
@@ -93,14 +115,21 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
         return Column(
           children: <Widget>[
             Center(
-              child: Text(
-                snapshot.data == null ||
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    snapshot.data == null ||
                         snapshot.data.points == null ||
                         snapshot.data.points == 0
-                    ? "0"
-                    : snapshot.data.points.toString(),
-                style: TextStyle(color: Colors.white),
-              ),
+                        ? "0"
+                        : snapshot.data.points.toString(),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Icon(Icons.local_parking,
+                  size: 18,
+                  color: Colors.amber,)
+                ],
+              )
             ),
             Center(
               child: Text(

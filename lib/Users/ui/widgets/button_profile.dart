@@ -70,7 +70,7 @@ class ButtonProfile extends StatelessWidget {
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
-              fit: BoxFit.cover, image: AssetImage("assets/img/profile.jpg"))),
+              fit: BoxFit.cover, image: AssetImage("assets/img/profile_final.jpg"))),
     );
   }
 
@@ -80,16 +80,25 @@ class ButtonProfile extends StatelessWidget {
     final userName = Container(
         margin: EdgeInsets.only(left: 40.0, top: 10.0),
         child: Center(
-          child: Text(
-            user.name == null ? "" : user.name,
-            //"Andres Diaz",
-            textAlign: TextAlign.end,
-            style: TextStyle(
-                fontFamily: "Lato",
-                fontSize: fontSize,
-                fontWeight: FontWeight.w900,
-                color: Colors.white),
-          ),
+          child: Container(
+            decoration: BoxDecoration(
+
+            ),
+            child: Text(
+              user.name == null ? "" : user.name ,
+              //"Andres Diaz",
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                  fontFamily: "Lato",
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                inherit: true,
+
+              ),
+
+            ),
+          )
         ));
 
     final photo = Container(
@@ -101,7 +110,7 @@ class ButtonProfile extends StatelessWidget {
           image: DecorationImage(
               fit: BoxFit.cover,
               image: user.photoURL == null
-                  ? AssetImage("assets/img/profile.jpg")
+                  ? AssetImage("assets/img/profile_final.jpg")
                   : NetworkImage(user.photoURL))),
     );
 

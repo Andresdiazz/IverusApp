@@ -57,8 +57,8 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
             //videoPlayerController: VideoPlayerController.asset('img/video_prueba.mp4'),
           ),
           SlidingCard(
-            name: 'Moda',
-            date: 'Live Tomorrow 7PM',
+            name: 'Fashion',
+            date: 'Live Tomorrow 7PM' ,
             assetName: 'img/gif.gif',
             offset: pageOffset - 1,
             onPressed: () {
@@ -69,7 +69,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
             //videoPlayerController: VideoPlayerController.asset('img/video_prueba.mp4'),
           ),
           SlidingCard(
-            name: 'Bienestar',
+            name: 'Beauty',
             date: 'Live Monday 8PM',
             assetName: 'img/bienestar.gif',
             offset: pageOffset - 2,
@@ -78,16 +78,16 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
                   context, MaterialPageRoute(builder: (context) => Belleza()));
             },
           ),
-          SlidingCard(
-            name: 'Cuidado Personal',
+          /*SlidingCard(
+            name: 'Personal Care',
             date: 'Live Today 8PM',
             assetName: 'img/moda.gif',
             offset: pageOffset - 3,
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Cpersonal()));
+             // Navigator.push(context,
+               //   MaterialPageRoute(builder: (context) => Cpersonal()));
             },
-          ),
+          ),*/
         ],
       ),
     );

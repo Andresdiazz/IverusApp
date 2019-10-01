@@ -25,7 +25,7 @@ class _BellezaState extends State<Belleza> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'BELLEZA',
+          'BEAUTY',
           style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -141,7 +141,7 @@ class Single_prod extends StatelessWidget {
                                         size: 50.0,
                                         color: documentData.video != null
                                             ? Colors.white
-                                            : Colors.black,
+                                            : Colors.red,
                                         //FontAwesomeIcons.heart,
                                         //size: 20.0,
                                       ),

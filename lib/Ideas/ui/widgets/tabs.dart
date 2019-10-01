@@ -8,7 +8,7 @@ class Tabs extends StatelessWidget {
       children: <Widget>[
         SizedBox(width: 24),
         MyTab(text: 'Shows', isSelected: true),
-        MyTab(text: 'Shopping', isSelected: false,)
+        //MyTab(text: 'Shopping', isSelected: false,)
       ],
     );
   }

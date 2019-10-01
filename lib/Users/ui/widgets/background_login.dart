@@ -41,11 +41,21 @@ class BackgroundImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
+        gradient: LinearGradient(
+            colors: [
+              const Color(0xFF05C3DD),
+              //Colors.deepPurpleAccent,
+              const Color(0xFF87189d),
+            ],
+            //stops: [0.2, 0.7],
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft
+        ),
+        /*image: DecorationImage(
             image: AssetImage("assets/img/fondos1.jpg"),
           fit: BoxFit.cover,
           //colorFilter: ColorFilter.mode(Colors.blueGrey),
-        ),
+        ),*/
       ),
     );
   }

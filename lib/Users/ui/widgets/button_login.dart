@@ -44,7 +44,7 @@ class _ButtonLoginState extends State<ButtonLogin> {
           )
         ),*/
         child: Center(
-          child: Icon(widget.iconData, size: 30.0, color: Colors.blueGrey,)
+          child: Icon(widget.iconData, size: 30.0, color: Colors.white,)
           /*Text(
             widget.text,
             style: TextStyle(

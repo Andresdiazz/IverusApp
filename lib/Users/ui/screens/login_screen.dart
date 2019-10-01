@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: 200,
                 child: Image(
                     image: AssetImage(
-                  "assets/img/iverus.png",
+                  "assets/img/iverus2.png",
                 )),
               ),
               Container(
@@ -100,32 +100,32 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       child: Icon(
                         FontAwesomeIcons.gripLines,
-                        color: Colors.blueGrey,
+                        color: Colors.white,
                       ),
                     ),
                     Container(
                       child: Icon(
                         FontAwesomeIcons.gripLines,
-                        color: Colors.blueGrey,
+                        color: Colors.white,
                       ),
                     ),
                     Container(
                       child: Icon(
                         FontAwesomeIcons.gripLines,
-                        color: Colors.blueGrey,
+                        color: Colors.white,
                       ),
                     ),
                     Container(
                       margin: EdgeInsets.only(right: 10.0),
                       child: Icon(
                         FontAwesomeIcons.gripLines,
-                        color: Colors.blueGrey,
+                        color: Colors.white,
                       ),
                     ),
                     Text(
                       "Login with",
                       style: TextStyle(
-                          color: Colors.blueGrey,
+                          color: Colors.white,
                           fontFamily: "Aileron",
                           fontSize: 20.0),
                     ),
@@ -133,25 +133,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       margin: EdgeInsets.only(left: 10.0),
                       child: Icon(
                         FontAwesomeIcons.gripLines,
-                        color: Colors.blueGrey,
+                        color: Colors.white,
                       ),
                     ),
                     Container(
                       child: Icon(
                         FontAwesomeIcons.gripLines,
-                        color: Colors.blueGrey,
+                        color: Colors.white,
                       ),
                     ),
                     Container(
                       child: Icon(
                         FontAwesomeIcons.gripLines,
-                        color: Colors.blueGrey,
+                        color: Colors.white,
                       ),
                     ),
                     Container(
                       child: Icon(
                         FontAwesomeIcons.gripLines,
-                        color: Colors.blueGrey,
+                        color: Colors.white,
                       ),
                     ),
                   ],

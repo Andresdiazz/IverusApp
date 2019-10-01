@@ -52,7 +52,7 @@ class ProfileHeader extends StatelessWidget {
           shape: BoxShape.circle,
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage("assets/img/profile.jpg")
+              image: AssetImage("assets/img/profile_final.jpg")
           )
       ),
     );

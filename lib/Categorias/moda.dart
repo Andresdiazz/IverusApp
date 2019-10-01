@@ -23,7 +23,7 @@ class _ModaState extends State<Moda> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'MODA',
+          'FASHION',
           style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -139,7 +139,7 @@ class Single_prod extends StatelessWidget {
                                         size: 50.0,
                                         color: documentData.video != null
                                             ? Colors.white
-                                            : Colors.black,
+                                            : Colors.red,
                                         //FontAwesomeIcons.heart,
                                         //size: 20.0,
                                       ),
