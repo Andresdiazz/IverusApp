@@ -16,6 +16,8 @@ class HomeBloc extends Bloc {
 
   Observable<User> get user => _userController.stream;
 
+  List<User> allUsers = List();
+
   Observable<List<User>> get leaderBoard => _leaderBoardController.stream;
 
   Observable<int> get videosCount => _videosCountController.stream;
@@ -32,13 +34,22 @@ class HomeBloc extends Bloc {
 
       _cloudFirestoreRepository.getLeaderBoard().then((res) {
         List<User> data = List();
-        data.addAll(res.data);
+        allUsers.addAll(res.data);
 
-        data[0].gift = '2K';
-        data[1].gift = '1K';
-        data[2].gift = '500K';
+        List<User> temp = allUsers.getRange(0, 5).toList();
 
-        _leaderBoardController.sink.add(res.data);
+//        User tempUser = temp.firstWhere((i) => i.uid == user.uid);
+        if (temp.where((i) => i.uid == user.uid).length == 0) {
+          int rank = allUsers.indexWhere((i) => i.uid == user.uid) + 1;
+          allUsers[rank - 1].rank = rank;
+          temp.add(allUsers[rank - 1]);
+        }
+
+        temp[0].gift = '2K';
+        temp[1].gift = '1K';
+        temp[2].gift = '500K';
+
+        _leaderBoardController.sink.add(temp);
       }).then((exc) {
         print(exc.toString());
       });

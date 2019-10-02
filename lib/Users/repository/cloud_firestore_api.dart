@@ -129,7 +129,6 @@ class CloudFirestoreAPI {
     return _db
         .collection(USERS)
         .orderBy("points", descending: true)
-        .limit(10)
         .getDocuments()
         .then((onValue) {
       List<User> data = List();

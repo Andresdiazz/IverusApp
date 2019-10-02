@@ -13,6 +13,7 @@ class User {
   String phone;
   String desc;
   int points;
+  int rank;
   List<dynamic> likes;
   List<dynamic> shares;
   List<Ideas> myIdeas;

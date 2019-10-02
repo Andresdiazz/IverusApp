@@ -23,18 +23,15 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
         return Column(
           children: <Widget>[
             Center(
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    "0",
-                    style: TextStyle(color: Colors.black26),
-                  ),
-                  Icon(Icons.live_tv,
-                  size: 18,
-                  color: Colors.black26)
-                ],
-              )
-            ),
+                child: Row(
+              children: <Widget>[
+                Text(
+                  "0",
+                  style: TextStyle(color: Colors.black26),
+                ),
+                Icon(Icons.live_tv, size: 18, color: Colors.black26)
+              ],
+            )),
             Center(
               child: Text(
                 "Lives",
@@ -52,18 +49,19 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
         return Column(
           children: <Widget>[
             Center(
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    snapshot.data == null ? "0" : snapshot.data.toString(),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Icon(Icons.video_library,
+                child: Row(
+              children: <Widget>[
+                Text(
+                  snapshot.data == null ? "0" : snapshot.data.toString(),
+                  style: TextStyle(color: Colors.white),
+                ),
+                Icon(
+                  Icons.video_library,
                   size: 18,
-                  color: Colors.deepOrange,)
-                ],
-              )
-            ),
+                  color: Colors.deepOrange,
+                )
+              ],
+            )),
             Center(
               child: Text(
                 "Videos",
@@ -81,23 +79,24 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
         return Column(
           children: <Widget>[
             Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Text(
-                    snapshot.data == null ||
-                        snapshot.data.shares == null ||
-                        snapshot.data.shares.length == 0
-                        ? "No shares"
-                        : snapshot.data.shares.length.toString(),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Icon(FontAwesomeIcons.shareSquare,
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Text(
+                  snapshot.data == null ||
+                          snapshot.data.shares == null ||
+                          snapshot.data.shares.length == 0
+                      ? "No shares"
+                      : snapshot.data.shares.length.toString(),
+                  style: TextStyle(color: Colors.white),
+                ),
+                Icon(
+                  FontAwesomeIcons.shareSquare,
                   size: 18,
-                  color: Colors.lightGreen,)
-                ],
-              )
-            ),
+                  color: Colors.lightGreen,
+                )
+              ],
+            )),
             Center(
               child: Text(
                 "Share",
@@ -115,22 +114,23 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
         return Column(
           children: <Widget>[
             Center(
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    snapshot.data == null ||
-                        snapshot.data.points == null ||
-                        snapshot.data.points == 0
-                        ? "0"
-                        : snapshot.data.points.toString(),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Icon(Icons.local_parking,
+                child: Row(
+              children: <Widget>[
+                Text(
+                  snapshot.data == null ||
+                          snapshot.data.points == null ||
+                          snapshot.data.points == 0
+                      ? "0"
+                      : snapshot.data.points.toString(),
+                  style: TextStyle(color: Colors.white),
+                ),
+                Icon(
+                  Icons.local_parking,
                   size: 18,
-                  color: Colors.amber,)
-                ],
-              )
-            ),
+                  color: Colors.amber,
+                )
+              ],
+            )),
             Center(
               child: Text(
                 "Points",
@@ -278,33 +278,6 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
     );
   }
 
-  getDataRow(User user) {
-    return DataRow(
-      cells: <DataCell>[
-        DataCell(Card(
-          child: CircleAvatar(
-            radius: 20,
-            backgroundImage: NetworkImage(user.photoURL),
-          ),
-          elevation: 2,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        )),
-        DataCell(Text(user.name)),
-        DataCell(CellText(
-          color: Colors.amber,
-          text: user.points.toString(),
-          icon: Icons.local_parking,
-        )),
-        DataCell(CellText(
-          color: Colors.lightGreen,
-          text: user.gift != null ? user.gift : '--',
-          icon: Icons.monetization_on,
-        ))
-      ],
-    );
-  }
-
   getPopulatedList(List<User> leaderboard) {
     return ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
@@ -322,9 +295,19 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.22,
                     child: Align(
-                      child: CircleAvatar(
-                        maxRadius: 20,
-                        backgroundImage: NetworkImage(leaderboard[i].photoURL),
+                      child: Stack(
+                        children: <Widget>[
+                          CircleAvatar(
+                            maxRadius: 20,
+                            backgroundImage:
+                                NetworkImage(leaderboard[i].photoURL),
+                          ),
+                          leaderboard[i].rank != null
+                              ? Align(
+                                  child: Text(leaderboard[i].rank.toString()),
+                                  alignment: Alignment(0, 1))
+                              : Container()
+                        ],
                       ),
                       alignment: Alignment(-1, 0),
                     ),
