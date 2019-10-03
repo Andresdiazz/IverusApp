@@ -60,7 +60,7 @@ class User {
     name = json['name'] == null ? null : json['name'];
     email = json['email'] == null ? null : json['email'];
     photoURL = json['photoURL'] == null ? null : json['photoURL'];
-    points = json['points'] == null ? null : json['points'];
+    points = json['points'] == null ? 0 : json['points'];
     phone = json['phone'] == null ? null : json['phone'];
     desc = json['desc'] == null ? null : json['desc'];
     likes = json['likes'] != null ? json['likes'] : null;
@@ -78,7 +78,7 @@ class User {
 
     if (this.photoURL != null) data['photoURL'] = this.photoURL;
 
-    if (this.points != null) data['points'] = this.points;
+    (this.points != null) ? data['points'] = this.points : data['points'] = 0;
     if (this.phone != null) data['phone'] = this.phone;
     if (this.desc != null) data['desc'] = this.desc;
     if (this.likes != null) data['likes'] = this.likes;
