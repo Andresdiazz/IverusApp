@@ -3,6 +3,7 @@ import 'package:cocreacion/Comments/model/comments.dart';
 import 'package:cocreacion/Ideas/model/ideas.dart';
 import 'package:cocreacion/Ideas/ui/screens/user_ideas.dart';
 import 'package:cocreacion/Ideas/ui/widgets/slide.dart';
+import 'package:cocreacion/Users/bloc/home_bloc.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_api.dart';
 
@@ -25,6 +26,11 @@ class CloudFirestoreRepository {
 
   Future<CommonResponse> getProfile(String uid) =>
       _cloudFirestoreAPI.getProfile(uid);
+
+  Future<CommonResponse> ownProfileStream(HomeBloc homeBloc, String uid) =>
+      _cloudFirestoreAPI.ownProfileStream(homeBloc, uid);
+
+  cancelOwnProfileStrem() => _cloudFirestoreAPI.cancelOwnProfileStrem();
 
   Future<CommonResponse> getLeaderBoard() =>
       _cloudFirestoreAPI.getLeaderBoard();

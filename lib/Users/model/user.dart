@@ -78,7 +78,7 @@ class User {
 
     if (this.photoURL != null) data['photoURL'] = this.photoURL;
 
-    (this.points != null) ? data['points'] = this.points : data['points'] = 0;
+    if (this.points != null) data['points'] = this.points;
     if (this.phone != null) data['phone'] = this.phone;
     if (this.desc != null) data['desc'] = this.desc;
     if (this.likes != null) data['likes'] = this.likes;

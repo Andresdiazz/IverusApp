@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of(context);
-    ;
+
     return _handleCurrentSession();
   }
 
@@ -69,7 +69,6 @@ class _LoginScreenState extends State<LoginScreen> {
         if (!snapshot.hasData || snapshot.hasError) {
           return signIn();
         } else {
-//          TODO handle this with case: user login with phone, exit app without completing profile
           return HomePage();
         }
       },

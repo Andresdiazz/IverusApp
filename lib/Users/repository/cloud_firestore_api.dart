@@ -1,14 +1,17 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Comments/model/comments.dart';
 import 'package:cocreacion/Ideas/model/ideas.dart';
 import 'package:cocreacion/Ideas/ui/widgets/slide.dart';
+import 'package:cocreacion/Users/bloc/home_bloc.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../CommonResponse.dart';
+import '../../SharedPref.dart';
 
 class CloudFirestoreAPI {
   final String USERS = "users";
@@ -22,6 +25,7 @@ class CloudFirestoreAPI {
 
   final Firestore _db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  StreamSubscription<DocumentSnapshot> profileStream;
 
   Future<void> updateUserData(User user) async {
     DocumentReference ref = _db.collection(USERS).document(user.uid);
@@ -33,7 +37,7 @@ class CloudFirestoreAPI {
       'myIdeas': user.myIdeas,
       'myFavoriteIdeas': user.myFavoriteIdeas,
       'lastSignIn': DateTime.now(),
-      'points': user.points,
+      'points': user.points == null ? 0 : user.points,
       'desc': user.desc,
       'phone': user.phone
     }, merge: true);
@@ -118,6 +122,36 @@ class CloudFirestoreAPI {
   }
 
   Future<CommonResponse> getProfile(String uid) async {
+    return _db.collection(USERS).document(uid).get().then((onValue) {
+      return CommonResponse(CommonResponse.successCode, onValue.data);
+    }).catchError((error) {
+      throw error;
+    });
+  }
+
+  ownProfileStream(HomeBloc homeBloc, String uid) {
+    if (profileStream != null) {
+      profileStream.cancel();
+    }
+
+    profileStream = Firestore.instance
+        .collection(USERS)
+        .document(uid)
+        .snapshots()
+        .listen((snapshot) {
+      homeBloc.userController.sink.add(User.fromJson(snapshot.data));
+      SharedPref()
+          .save(SharedPref.user, homeBloc.userController.value.toString());
+    });
+  }
+
+  cancelOwnProfileStrem() {
+    if (profileStream != null) {
+      profileStream.cancel();
+    }
+  }
+
+  Future<CommonResponse> getProfileStream(String uid) async {
     return _db.collection(USERS).document(uid).get().then((onValue) {
       return CommonResponse(CommonResponse.successCode, onValue.data);
     }).catchError((error) {
