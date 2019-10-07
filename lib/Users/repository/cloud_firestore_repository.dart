@@ -32,8 +32,8 @@ class CloudFirestoreRepository {
 
   cancelOwnProfileStrem() => _cloudFirestoreAPI.cancelOwnProfileStrem();
 
-  Future<CommonResponse> getLeaderBoard() =>
-      _cloudFirestoreAPI.getLeaderBoard();
+  getLeaderBoard(HomeBloc homeBlo) =>
+      _cloudFirestoreAPI.getLeaderBoard(homeBlo);
 
   Future<CommonResponse> updateImage(String uid, String filePath, String ext) =>
       _cloudFirestoreAPI.updateImage(uid, filePath, ext);

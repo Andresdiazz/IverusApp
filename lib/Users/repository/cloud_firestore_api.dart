@@ -26,6 +26,7 @@ class CloudFirestoreAPI {
   final Firestore _db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   StreamSubscription<DocumentSnapshot> profileStream;
+  StreamSubscription<QuerySnapshot> leaderboardStream;
 
   Future<void> updateUserData(User user) async {
     DocumentReference ref = _db.collection(USERS).document(user.uid);
@@ -129,6 +130,20 @@ class CloudFirestoreAPI {
     });
   }
 
+  cancelOwnProfileStrem() {
+    if (profileStream != null) {
+      profileStream.cancel();
+    }
+  }
+
+  Future<CommonResponse> getProfileStream(String uid) async {
+    return _db.collection(USERS).document(uid).get().then((onValue) {
+      return CommonResponse(CommonResponse.successCode, onValue.data);
+    }).catchError((error) {
+      throw error;
+    });
+  }
+
   ownProfileStream(HomeBloc homeBloc, String uid) {
     if (profileStream != null) {
       profileStream.cancel();
@@ -145,36 +160,45 @@ class CloudFirestoreAPI {
     });
   }
 
-  cancelOwnProfileStrem() {
-    if (profileStream != null) {
-      profileStream.cancel();
+  getLeaderBoard(HomeBloc homeBloc) async {
+    if (leaderboardStream != null) {
+      leaderboardStream.cancel();
     }
-  }
 
-  Future<CommonResponse> getProfileStream(String uid) async {
-    return _db.collection(USERS).document(uid).get().then((onValue) {
-      return CommonResponse(CommonResponse.successCode, onValue.data);
-    }).catchError((error) {
-      throw error;
-    });
-  }
-
-  Future<CommonResponse> getLeaderBoard() async {
-    return _db
+    leaderboardStream = Firestore.instance
         .collection(USERS)
-        .orderBy("points", descending: true)
-        .getDocuments()
-        .then((onValue) {
-      List<User> data = List();
-      onValue.documents.forEach((document) {
-        var user = User.fromJson(document.data);
-        data.add(user);
-      });
+        .snapshots()
+        .listen((querySnapshot) {
+      querySnapshot.documentChanges.forEach((change) {
+        print(change.document.data.toString());
 
-      return CommonResponse(CommonResponse.successCode, data);
-    }).catchError((error) {
-      throw error;
+        switch (change.type) {
+          case DocumentChangeType.added:
+            homeBloc.handleData(User.fromJson(change.document.data), false);
+            break;
+
+          case DocumentChangeType.modified:
+            homeBloc.handleData(User.fromJson(change.document.data), false);
+            break;
+
+          case DocumentChangeType.removed:
+            homeBloc.handleData(User.fromJson(change.document.data), true);
+            break;
+        }
+      });
     });
+
+//    return _db.collection(USERS).getDocuments().then((onValue) {
+//      List<User> data = List();
+//      onValue.documents.forEach((document) {
+//        var user = User.fromJson(document.data);
+//        data.add(user);
+//      });
+//
+//      return CommonResponse(CommonResponse.successCode, data);
+//    }).catchError((error) {
+//      throw error;
+//    });
   }
 
   Future<int> getVideosCount() async {

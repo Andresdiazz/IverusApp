@@ -299,8 +299,9 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                         children: <Widget>[
                           CircleAvatar(
                             maxRadius: 20,
-                            backgroundImage:
-                                NetworkImage(leaderboard[i].photoURL),
+                            backgroundImage: leaderboard[i].photoURL == null
+                                ? AssetImage("assets/img/profile.jpg")
+                                : NetworkImage(leaderboard[i].photoURL),
                           ),
                           leaderboard[i].rank != null
                               ? Align(
