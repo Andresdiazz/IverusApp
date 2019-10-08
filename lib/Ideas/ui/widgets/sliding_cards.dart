@@ -169,7 +169,11 @@ class CardContent extends StatelessWidget {
         color: Colors.cyan,
         child: Transform.translate(
           offset: Offset(24 * offset, 0),
-          child: Text('More'),
+          child: Text('More',
+          style: TextStyle(
+            fontFamily: "Aileron",
+            fontWeight: FontWeight.w600
+          ),),
         ),
         textColor: Colors.white,
         shape: RoundedRectangleBorder(
@@ -193,8 +197,8 @@ class CardContent extends StatelessWidget {
                     child: Text(name,
                         style: TextStyle(
                             fontSize: 20,
-                            fontFamily: "Lato",
-                            fontWeight: FontWeight.w600)),
+                            fontFamily: "AileronBold",
+                            fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(height: 8),
                   Transform.translate(
@@ -203,8 +207,9 @@ class CardContent extends StatelessWidget {
                       date,
                       style: TextStyle(
                           color: Colors.black,
-                          fontFamily: "Lato",
-                          fontStyle: FontStyle.italic),
+                          fontFamily: "Aileron",
+                          fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w500),
                     ),
                   ),
                 ]),

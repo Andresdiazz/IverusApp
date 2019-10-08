@@ -89,9 +89,9 @@ class ButtonProfile extends StatelessWidget {
               //"Andres Diaz",
               textAlign: TextAlign.end,
               style: TextStyle(
-                  fontFamily: "Lato",
+                  fontFamily: "Aileron",
                   fontSize: fontSize,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.bold,
                   color: Colors.white,
                 inherit: true,
 
@@ -120,10 +120,21 @@ class ButtonProfile extends StatelessWidget {
       width: width,
       child: CircularPercentIndicator(
         animation: true,
-        radius: width / 1.2,
+        radius: width / 1.15,
         lineWidth: width / 20,
         percent: getPercent(user.points == null ? 0 : user.points),
-        progressColor: Colors.black,
+        //progressColor: Colors.amber,
+        linearGradient: LinearGradient(
+            colors: [
+              //const Color(0xFF05C3DD),
+              Colors.deepPurpleAccent,
+              //const Color(0xFF87189d),
+              Colors.amberAccent
+            ],
+            //stops: [0.2, 0.7],
+            //begin: Alignment.topRight,
+            //end: Alignment.bottomLeft,
+        ),
         center: Container(
           width: width / 1.3,
           height: width / 1.3,
@@ -132,7 +143,7 @@ class ButtonProfile extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: user.photoURL == null
-                      ? AssetImage("assets/img/profile.jpg")
+                      ? AssetImage("assets/img/profile_final.jpg")
                       : NetworkImage(user.photoURL))),
         ),
       ),

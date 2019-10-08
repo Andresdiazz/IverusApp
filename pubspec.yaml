@@ -44,6 +44,7 @@ dependencies:
   image_picker: ^0.6.1+4
   gallery_saver: ^1.0.2
   toast: ^0.1.5
+  flare_flutter: ^1.5.13
 
   #  chewie: ^0.9.7
 
@@ -95,6 +96,8 @@ flutter:
     - assets/img/bienestar.gif
     - assets/img/edit.png
     - assets/img/profile_final.jpg
+    - assets/img/favorite.flr
+    - assets/img/Favourite.flr
 
 
 
@@ -110,11 +113,25 @@ flutter:
 
     - family: Aileron
       fonts:
+        - asset: fonts/Aileron-Thin.ttf
+
+
+    - family: AileronBold
+      fonts:
         - asset: fonts/Aileron-Bold.ttf
 
     - family: CustomIcons
       fonts:
         - asset: fonts/Iverus.ttf
+
+    - family: CarmenSans
+      fonts:
+        - asset: fonts/StudioJASO - Carmen Sans Light.ttf
+
+    - family: CarmenSansBold
+      fonts:
+        - asset: fonts/StudioJASO - Carmen Sans Bold.ttf
+
 
 
 

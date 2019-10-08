@@ -27,15 +27,15 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
               children: <Widget>[
                 Text(
                   "0",
-                  style: TextStyle(color: Colors.black26),
+                  style: TextStyle(color: Colors.black26, fontFamily: "Aileron"),
                 ),
-                Icon(Icons.live_tv, size: 18, color: Colors.black26)
+                Icon(Icons.live_tv, size: 18, color: Colors.black26,)
               ],
             )),
             Center(
               child: Text(
                 "Lives",
-                style: TextStyle(color: Colors.black26, fontFamily: "Lato"),
+                style: TextStyle(color: Colors.black26, fontFamily: "Aileron"),
               ),
             )
           ],
@@ -53,7 +53,7 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
               children: <Widget>[
                 Text(
                   snapshot.data == null ? "0" : snapshot.data.toString(),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontFamily: "Aileron"),
                 ),
                 Icon(
                   Icons.video_library,
@@ -65,7 +65,7 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
             Center(
               child: Text(
                 "Videos",
-                style: TextStyle(color: Colors.white, fontFamily: "Lato"),
+                style: TextStyle(color: Colors.white, fontFamily: "Aileron"),
               ),
             )
           ],
@@ -88,7 +88,7 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                           snapshot.data.shares.length == 0
                       ? "No shares"
                       : snapshot.data.shares.length.toString(),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontFamily: "Aileron" ),
                 ),
                 Icon(
                   FontAwesomeIcons.shareSquare,
@@ -100,7 +100,7 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
             Center(
               child: Text(
                 "Share",
-                style: TextStyle(color: Colors.white, fontFamily: "Lato"),
+                style: TextStyle(color: Colors.white, fontFamily: "Aileron"),
               ),
             )
           ],
@@ -122,7 +122,7 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                           snapshot.data.points == 0
                       ? "0"
                       : snapshot.data.points.toString(),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontFamily: "Aileron"),
                 ),
                 Icon(
                   Icons.local_parking,
@@ -134,7 +134,7 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
             Center(
               child: Text(
                 "Points",
-                style: TextStyle(color: Colors.white, fontFamily: "Lato"),
+                style: TextStyle(color: Colors.white, fontFamily: "Aileron"),
               ),
             )
           ],
@@ -162,7 +162,7 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                         style: Theme.of(context)
                             .textTheme
                             .body2
-                            .copyWith(color: Colors.white, fontSize: 12),
+                            .copyWith(color: Colors.white, fontSize: 12, fontFamily: "Aileron" ),
                       ),
                     );
                   }),
@@ -204,7 +204,7 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .body2
-                                      .copyWith(color: Colors.white),
+                                      .copyWith(color: Colors.white, fontFamily: "Aileron", fontWeight: FontWeight.bold),
                                 )
                               ],
                             ),
@@ -305,9 +305,24 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                           ),
                           leaderboard[i].rank != null
                               ? Align(
-                                  child: Text(leaderboard[i].rank.toString()),
+                                  child: Container(
+                                    width: 22,
+                                    height: 22,
+                                    decoration: BoxDecoration(
+                                      color: Colors.cyan,
+                                      borderRadius: BorderRadius.circular(32)
+                                    ),
+                                    child: Center(
+                                      child: Text(leaderboard[i].rank.toString(), style: TextStyle(
+                                          fontFamily: "Aileron",
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                      ),),
+                                    )
+                                  ),
                                   alignment: Alignment(0, 1))
-                              : Container()
+                              : Container(
+                          )
                         ],
                       ),
                       alignment: Alignment(-1, 0),
@@ -316,7 +331,11 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.3,
                     child: Align(
-                        child: Text(leaderboard[i].name),
+                        child: Text(leaderboard[i].name, style: TextStyle(
+                          fontFamily: "Aileron",
+                          fontWeight: FontWeight.w600
+                          //fontSize: 12
+                        ),),
                         alignment: Alignment(-1, 0)),
                   ),
                   SizedBox(
@@ -361,7 +380,8 @@ class CellText extends StatelessWidget {
           style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic),
+              fontStyle: FontStyle.italic,
+          fontFamily: "Aileron"),
         ),
         Icon(
           icon,
