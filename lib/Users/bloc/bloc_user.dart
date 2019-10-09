@@ -7,6 +7,7 @@ import 'package:cocreacion/Ideas/ui/widgets/slide.dart';
 
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_repository.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:cocreacion/Users/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,6 +20,10 @@ import 'home_bloc.dart';
 class UserBloc implements Bloc {
   final _auth_repository = AuthRepository();
 
+  UserBloc() {
+    scheduleNotification();
+  }
+
   //Flujo de datos - Streams
 
   //Stream - Firebase
@@ -28,6 +33,10 @@ class UserBloc implements Bloc {
       FirebaseAuth.instance.onAuthStateChanged;
 
   Stream<FirebaseUser> get authStatus => streamFirebase;
+
+  get onDidReceiveLocalNotification => null;
+
+  get onSelectNotification => null;
 
   //Casos uso
   //1. SignIn a la aplicacion Google
@@ -85,4 +94,42 @@ class UserBloc implements Bloc {
 
   @override
   void dispose() {}
+
+  scheduleNotification() async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        new FlutterLocalNotificationsPlugin();
+    var initializationSettingsAndroid =
+        new AndroidInitializationSettings('drawable/iverus');
+
+    var initializationSettingsIOS = new IOSInitializationSettings(
+        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+
+    var initializationSettings = new InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+
+    // initialisation complete
+
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectNotification);
+
+    var scheduledNotificationDateTime =
+        new DateTime.now().add(new Duration(seconds: 20));
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      '123',
+      '1',
+      'nothing',
+    );
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    NotificationDetails platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.schedule(
+        0,
+        'This is Title',
+        'This is body',
+        scheduledNotificationDateTime,
+        platformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.cancel(0);
+  }
 }

@@ -45,6 +45,7 @@ dependencies:
   gallery_saver: ^1.0.2
   toast: ^0.1.5
   flare_flutter: ^1.5.13
+  flutter_local_notifications: ^0.8.4
 
   #  chewie: ^0.9.7
 

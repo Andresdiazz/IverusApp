@@ -31,11 +31,10 @@ class MyTab extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-              fontSize: isSelected ? 16 : 14,
-              color: isSelected ? Colors.black : Colors.grey,
-              fontWeight: isSelected ? FontWeight.w900 : FontWeight.w500,
-              fontFamily: "Aileron"
-            ),
+                fontSize: isSelected ? 16 : 14,
+                color: isSelected ? Colors.black : Colors.grey,
+                fontWeight: isSelected ? FontWeight.w900 : FontWeight.w500,
+                fontFamily: "Aileron"),
           ),
           Container(
             height: 6,

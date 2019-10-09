@@ -58,7 +58,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
           ),
           SlidingCard(
             name: 'Fashion',
-            date: 'Live Tomorrow 7PM' ,
+            date: 'Live Tomorrow 7PM',
             assetName: 'img/gif.gif',
             offset: pageOffset - 1,
             onPressed: () {
@@ -125,7 +125,7 @@ class SlidingCard extends StatelessWidget {
               borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
               child: Image.asset(
                 'assets/$assetName',
-                height: MediaQuery.of(context).size.height * 0.46,
+                height: MediaQuery.of(context).size.height * 0.45,
                 alignment: Alignment(-offset.abs(), 1),
                 fit: BoxFit.cover,
               ),
@@ -169,11 +169,11 @@ class CardContent extends StatelessWidget {
         color: Colors.cyan,
         child: Transform.translate(
           offset: Offset(24 * offset, 0),
-          child: Text('More',
-          style: TextStyle(
-            fontFamily: "Aileron",
-            fontWeight: FontWeight.w600
-          ),),
+          child: Text(
+            'More',
+            style:
+                TextStyle(fontFamily: "Aileron", fontWeight: FontWeight.w600),
+          ),
         ),
         textColor: Colors.white,
         shape: RoundedRectangleBorder(
@@ -209,7 +209,7 @@ class CardContent extends StatelessWidget {
                           color: Colors.black,
                           fontFamily: "Aileron",
                           fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w500),
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                 ]),
