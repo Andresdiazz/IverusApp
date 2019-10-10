@@ -1,4 +1,5 @@
 import 'package:cocreacion/EditProfile/ui/screens/edit_profile.dart';
+import 'package:cocreacion/Ideas/ui/screens/home.dart';
 import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:cocreacion/Users/bloc/home_bloc.dart';
 import 'package:cocreacion/Users/model/user.dart';
