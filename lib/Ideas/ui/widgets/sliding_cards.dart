@@ -4,6 +4,7 @@ import 'package:cocreacion/Categorias/iverus.dart';
 import 'package:cocreacion/Ideas/ui/screens/home.dart';
 import 'package:cocreacion/Users/ui/screens/login_screen.dart';
 import 'package:cocreacion/example.dart';
+import 'package:cocreacion/tree/intro/intro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
@@ -47,7 +48,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
           SlidingCard(
             name: "I'm Iverus",
             date: 'Live Tomorrow 7PM',
-            assetName: 'img/iverus.png',
+            assetName: 'img/iverus.gif',
             offset: pageOffset,
             onPressed: () {
               Navigator.push(
@@ -71,13 +72,16 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
           SlidingCard(
             name: 'Beauty',
             date: 'Live Monday 8PM',
-            assetName: 'img/bienestar.gif',
+
+            assetName: 'img/beauty.gif',
             offset: pageOffset - 2,
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Belleza()));
+                  context, MaterialPageRoute(builder: (context) => Intro()));
             },
           ),
+
+
           /*SlidingCard(
             name: 'Personal Care',
             date: 'Live Today 8PM',

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Animated/Share.dart';
 import 'package:cocreacion/Animated/heart.dart';
+import 'package:cocreacion/tree/intro/intro.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -131,10 +132,16 @@ class _AnimationHeartState extends State<AnimationHeart> {
                           momentCount: 1,
                           momentDurationGetter: (idx) => Duration(seconds: 90),
                           momentBuilder: (context, idx) {
+
                             if (widget.documentData.video != null) {
                               print('lo logre cabron');
-                              return SimpleViewPlayer(widget.documentData.video,
-                                  isFullScreen: false);
+                              return InkWell(
+                                onTap: (){
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Intro()));
+
+                                },
+                              );
+
                             } else {
                               print('pinche wey lo lograstes');
                               return Container(
@@ -152,7 +159,7 @@ class _AnimationHeartState extends State<AnimationHeart> {
                   ));
             },
           );
-          print(widget.documentData.toString());
+          print(widget.documentData);
         },
         child: Container(
             margin: EdgeInsets.only(left:20.0,top: 0.0,right: 0.0),
