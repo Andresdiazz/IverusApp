@@ -7,8 +7,6 @@ import 'package:flutter_simple_video_player/flutter_simple_video_player.dart';
 
 import 'package:video_player/video_player.dart';
 
-import '../../Ideas/ui/screens/home_page.dart';
-
 
 
 class Video_2_2 extends StatefulWidget {
@@ -75,11 +73,11 @@ class _Video_2_2State extends State<Video_2_2> with SingleTickerProviderStateMix
                       children: <Widget>[
                         Container(
                           width: 200.0,
-                          height: 780.0,
+                          height: 810.0,
 
                           child: InkWell(
                             onTap: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                             // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Positiva()));
 
 
                             },
@@ -89,12 +87,12 @@ class _Video_2_2State extends State<Video_2_2> with SingleTickerProviderStateMix
                             visible: true,
                             child: Container(
 
-                              width: 150.0,
-                              height: 780.0,
+                              width: 175.0,
+                              height: 810.0,
 
                               child: InkWell(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                                  //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ()));
 
                                 },
                               ),

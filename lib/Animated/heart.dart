@@ -174,7 +174,7 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
             child: Opacity(
                 opacity: sprinklesOpacity,
                 child: Image.asset(
-                  "assets/img/sprinkle.png",
+                  "assets/sprinkle.png",
                   width: 14.0,
                   height: 14.0,
                 ))),
@@ -191,14 +191,7 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
             width: 50.0 + extraSize,
             decoration: ShapeDecoration(
               shape: CircleBorder(side: BorderSide.none),
-              gradient: LinearGradient(colors: [
-                const Color(0xFF05C3DD),
-                //Colors.deepPurpleAccent,
-                const Color(0xFF87189d),
-              ],
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,)
-              //color: Color(0xff721385),
+              color: Color(0xff721385),
             ),
             child: Center(
                 child: Text(
@@ -221,13 +214,11 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
     if (_likeWidgetStatus == LikeWidgetStatus.VISIBLE || _likeWidgetStatus == LikeWidgetStatus.BECOMING_VISIBLE) {
       imageIcon = Padding(
           padding: EdgeInsets.all(2),
-          child: ImageIcon(AssetImage("assets/img/heart.png"),
-              color: Color(0xFF87189d),
-              size: 40.0));
+          child: ImageIcon(AssetImage("assets/heart.png"), color: Color(0xff721385), size: 40.0));
     } else {
       imageIcon = Padding(
           padding: EdgeInsets.all(2),
-          child: ImageIcon(AssetImage("assets/img/heart_filled.png"), color: Color(0xFF87189d), size: 40.0));
+          child: ImageIcon(AssetImage("assets/heart_filled.png"), color: Color(0xff721385), size: 40.0));
     }
     return imageIcon;
   }

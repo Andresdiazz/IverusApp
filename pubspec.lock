@@ -56,7 +56,7 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.9+5"
+    version: "0.12.9+4"
   collection:
     dependency: transitive
     description:
@@ -126,14 +126,14 @@ packages:
       name: flare_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "1.4.9"
   flare_flutter:
     dependency: "direct main"
     description:
       name: flare_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.1"
+    version: "1.5.13"
   flushbar:
     dependency: "direct main"
     description:
@@ -201,7 +201,7 @@ packages:
       name: flutter_slidable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.4"
+    version: "0.5.3"
   flutter_staggered_grid_view:
     dependency: "direct main"
     description:
@@ -221,6 +221,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.3"
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -234,7 +241,7 @@ packages:
       name: gallery_saver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.6"
+    version: "1.0.4"
   generic_bloc_provider:
     dependency: "direct main"
     description:
@@ -250,7 +257,7 @@ packages:
     source: hosted
     version: "4.0.7"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"
@@ -333,6 +340,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.1"
+  preload_page_view:
+    dependency: "direct main"
+    description:
+      name: preload_page_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
+  provider:
+    dependency: "direct main"
+    description:
+      name: provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
   quiver:
     dependency: transitive
     description:
@@ -346,7 +367,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.22.3"
+    version: "0.22.2"
   screen:
     dependency: transitive
     description:
@@ -360,7 +381,7 @@ packages:
       name: share
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.2+3"
+    version: "0.6.2+1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -470,7 +491,7 @@ packages:
       name: video_player
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.2+3"
+    version: "0.10.2+1"
   wc_flutter_share:
     dependency: "direct main"
     description:

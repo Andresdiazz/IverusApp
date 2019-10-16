@@ -75,7 +75,7 @@ class _Video_2State extends State<Video_2> with SingleTickerProviderStateMixin {
                       children: <Widget>[
                         Container(
                           width: 200.0,
-                          height: 780.0,
+                          height: 810.0,
 
                           child: InkWell(
                             onTap: (){
@@ -89,8 +89,8 @@ class _Video_2State extends State<Video_2> with SingleTickerProviderStateMixin {
                             visible: true,
                             child: Container(
 
-                              width: 150.0,
-                              height: 780.0,
+                              width: 175.0,
+                              height: 810.0,
 
                               child: InkWell(
                                 onTap: (){

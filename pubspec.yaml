@@ -47,7 +47,14 @@ dependencies:
   flare_flutter: ^1.5.13
   flutter_local_notifications: ^0.8.4
   wc_flutter_share: ^0.1.1
-  cached_network_image: ^1.1.1
+
+  http: ^0.12.0+2
+  preload_page_view: ^0.1.4
+
+  cached_network_image: ^1.1.0
+
+  fluttertoast: ^3.1.0
+  provider:
 
   #  chewie: ^0.9.7
 
@@ -95,20 +102,17 @@ flutter:
     - assets/img/profile2.jpg
     - assets/img/profile3.jpg
     - assets/img/gif.gif
+    - assets/img/tree.gif
     - assets/img/moda.gif
     - assets/img/bienestar.gif
     - assets/img/edit.png
     - assets/img/profile_final.jpg
     - assets/img/favorite.flr
     - assets/img/Favourite.flr
-    - assets/img/heart.png
-    - assets/img/heart_filled.png
-    - assets/img/sprinkle.png
-    - assets/img/Sprinkle.psd
-    - assets/img/beauty.gif
-    - assets/img/iverus.gif
-    - assets/img/dani.gif
-
+    - assets/heart.png
+    - assets/heart_filled.png
+    - assets/sprinkle.png
+    - assets/Sprinkle.psd
 
 
 

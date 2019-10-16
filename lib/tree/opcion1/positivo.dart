@@ -1,4 +1,3 @@
-import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:cocreacion/tree/delayed_animation.dart';
 import 'package:flutter/material.dart';
 
@@ -58,11 +57,11 @@ class _PositivaState extends State<Positiva> with SingleTickerProviderStateMixin
                       children: <Widget>[
                         Container(
                           width: 200.0,
-                          height: 780.0,
+                          height: 810.0,
 
                           child: InkWell(
                             onTap: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                            //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Positiva()));
 
 
                             },
@@ -72,12 +71,12 @@ class _PositivaState extends State<Positiva> with SingleTickerProviderStateMixin
                             visible: true,
                             child: Container(
 
-                              width: 150.0,
-                              height: 780.0,
+                              width: 175.0,
+                              height: 810.0,
 
                               child: InkWell(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                               //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Negativa()));
 
                                 },
                               ),

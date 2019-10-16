@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:video_player/video_player.dart';
 
-import '../../Ideas/ui/screens/home_page.dart';
 import '../delayed_animation.dart';
 
 
@@ -59,10 +58,11 @@ class _NegativaState extends State<Negativa> with SingleTickerProviderStateMixin
                       children: <Widget>[
                         Container(
                           width: 200.0,
-                          height: 780.0,
+                          height: 810.0,
+
                           child: InkWell(
                             onTap: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                              //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Positiva()));
 
 
                             },
@@ -72,12 +72,12 @@ class _NegativaState extends State<Negativa> with SingleTickerProviderStateMixin
                             visible: true,
                             child: Container(
 
-                              width: 150.0,
-                              height: 780.0,
+                              width: 175.0,
+                              height: 810.0,
 
                               child: InkWell(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                                  //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Negativa()));
 
                                 },
                               ),

@@ -1,10 +1,6 @@
-import 'package:cocreacion/Categorias/belleza.dart';
-import 'package:cocreacion/Categorias/cuidado_personal.dart';
-import 'package:cocreacion/Categorias/iverus.dart';
-import 'package:cocreacion/Ideas/ui/screens/home.dart';
-import 'package:cocreacion/Users/ui/screens/login_screen.dart';
-import 'package:cocreacion/example.dart';
-import 'package:cocreacion/tree/intro/intro.dart';
+import 'package:cocreacion/Categorias/Beauty.dart';
+import 'package:cocreacion/Categorias/Fashion.dart';
+import 'package:cocreacion/Categorias/Iverus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
@@ -12,7 +8,6 @@ import 'dart:math' as math;
 
 //import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
-import 'package:cocreacion/Categorias/moda.dart';
 
 class SlidingCardsView extends StatefulWidget {
   @override
@@ -22,6 +17,7 @@ class SlidingCardsView extends StatefulWidget {
 class _SlidingCardsViewState extends State<SlidingCardsView> {
   PageController pageController;
   double pageOffset = 0;
+
 
   @override
   void initState() {
@@ -48,7 +44,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
           SlidingCard(
             name: "I'm Iverus",
             date: 'Live Tomorrow 7PM',
-            assetName: 'img/iverus.gif',
+            assetName: 'img/iverus.png',
             offset: pageOffset,
             onPressed: () {
               Navigator.push(
@@ -64,7 +60,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
             offset: pageOffset - 1,
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Moda()));
+                  context, MaterialPageRoute(builder: (context) => Fashion()));
             },
 
             //videoPlayerController: VideoPlayerController.asset('img/video_prueba.mp4'),
@@ -72,16 +68,13 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
           SlidingCard(
             name: 'Beauty',
             date: 'Live Monday 8PM',
-
-            assetName: 'img/beauty.gif',
+            assetName: 'img/bienestar.gif',
             offset: pageOffset - 2,
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Intro()));
+                  context, MaterialPageRoute(builder: (context) => Beauty()));
             },
           ),
-
-
           /*SlidingCard(
             name: 'Personal Care',
             date: 'Live Today 8PM',

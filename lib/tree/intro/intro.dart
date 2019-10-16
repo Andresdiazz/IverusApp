@@ -58,7 +58,7 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
                     children: <Widget>[
                       Container(
                         width: 200.0,
-                        height: 780.0,
+                        height: 810.0,
 
                         child: InkWell(
                           onTap: (){
@@ -72,8 +72,8 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
                         visible: true,
                           child: Container(
 
-                            width: 150.0,
-                            height: 780.0,
+                            width: 175.0,
+                            height: 810.0,
 
                             child: InkWell(
                               onTap: (){
