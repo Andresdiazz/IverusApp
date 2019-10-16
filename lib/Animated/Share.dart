@@ -69,13 +69,13 @@ class _AnimatedShareButtonState extends State<AnimatedShareButton> with TickerPr
 
   void _shareImageAndText() async {
     try {
-      final ByteData bytes = await rootBundle.load('assets/img/excited.png');
+      final ByteData bytes = await rootBundle.load('https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fexcited.png?alt=media&token=6b1d9929-44e0-4d46-8dce-5c42e438dd03');
       await WcFlutterShare.share(
           sharePopupTitle: 'share',
           subject: 'This is subject',
           text: 'This is text',
           fileName: 'share.png',
-          mimeType: 'assets/img/excited.png',
+          mimeType: 'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fexcited.png?alt=media&token=6b1d9929-44e0-4d46-8dce-5c42e438dd03',
           bytesOfFile: bytes.buffer.asUint8List());
     } catch (e) {
       print('error: $e');
@@ -86,11 +86,11 @@ class _AnimatedShareButtonState extends State<AnimatedShareButton> with TickerPr
 }
   void _shareImage() async {
     try {
-      final ByteData bytes = await rootBundle.load('assets/img/excited.png');
+      final ByteData bytes = await rootBundle.load('https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fexcited.png?alt=media&token=6b1d9929-44e0-4d46-8dce-5c42e438dd03');
       await WcFlutterShare.share(
           sharePopupTitle: 'share',
-          fileName: 'excited.png',
-          mimeType: 'assets/img/excited.png',
+          fileName: 'excited',
+          mimeType: 'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fexcited.png?alt=media&token=6b1d9929-44e0-4d46-8dce-5c42e438dd03',
           bytesOfFile: bytes.buffer.asUint8List());
     } catch (e) {
       print('error: $e');

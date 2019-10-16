@@ -88,31 +88,7 @@ flutter:
   uses-material-design: true
 
 
-  assets:
-    - assets/img/banner.png
-    - assets/img/fondos1.jpg
-    - assets/img/excited.png
-    - assets/img/excited_bco.png
-    - assets/img/iverus.png
-    - assets/img/iverus2.png
-    - assets/img/cuidado_personal.jpg
-    - assets/img/bienestar.jpg
-    - assets/img/moda.jpg
-    - assets/img/profile.jpg
-    - assets/img/profile2.jpg
-    - assets/img/profile3.jpg
-    - assets/img/gif.gif
-    - assets/img/tree.gif
-    - assets/img/moda.gif
-    - assets/img/bienestar.gif
-    - assets/img/edit.png
-    - assets/img/profile_final.jpg
-    - assets/img/favorite.flr
-    - assets/img/Favourite.flr
-    - assets/heart.png
-    - assets/heart_filled.png
-    - assets/sprinkle.png
-    - assets/Sprinkle.psd
+  #assets:
 
 
 

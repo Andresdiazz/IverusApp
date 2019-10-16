@@ -87,8 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 margin: EdgeInsets.only(top: 200.0),
                 width: 200,
                 child: Image(
-                    image: AssetImage(
-                  "assets/img/iverus2.png",
+                    image: NetworkImage(
+                  "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fiverus2.png?alt=media&token=82091d95-6aa1-41c3-a3cb-f140fbf2d4f3",
                 )),
               ),
               Container(

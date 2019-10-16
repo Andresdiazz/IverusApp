@@ -229,8 +229,8 @@ class _AuthphoneState extends State<Authphone> {
                       Container(
                         width: 200,
                         child: Image(
-                            image: AssetImage(
-                          "assets/img/iverus.png",
+                            image: NetworkImage(
+                          "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fiverus.png?alt=media&token=8bda555c-2603-4b97-bf71-564e630dd3c0",
                         )),
                       ),
                       SizedBox(height: 100),

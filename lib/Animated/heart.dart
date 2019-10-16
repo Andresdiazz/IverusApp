@@ -173,8 +173,8 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
             angle: currentAngle - pi / 2,
             child: Opacity(
                 opacity: sprinklesOpacity,
-                child: Image.asset(
-                  "assets/sprinkle.png",
+                child: Image.network(
+                  "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fsprinkle.png?alt=media&token=142e8666-03e2-479f-8b8b-19b7531ab241",
                   width: 14.0,
                   height: 14.0,
                 ))),
@@ -214,11 +214,11 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
     if (_likeWidgetStatus == LikeWidgetStatus.VISIBLE || _likeWidgetStatus == LikeWidgetStatus.BECOMING_VISIBLE) {
       imageIcon = Padding(
           padding: EdgeInsets.all(2),
-          child: ImageIcon(AssetImage("assets/heart.png"), color: Color(0xff721385), size: 40.0));
+          child: ImageIcon(NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fheart.png?alt=media&token=5db2c9ae-2875-4c32-910c-53bc6315821f"), color: Color(0xff721385), size: 40.0));
     } else {
       imageIcon = Padding(
           padding: EdgeInsets.all(2),
-          child: ImageIcon(AssetImage("assets/heart_filled.png"), color: Color(0xff721385), size: 40.0));
+          child: ImageIcon(NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fheart_filled.png?alt=media&token=cf2b9db9-24da-4f01-826a-d44a724025c9"), color: Color(0xff721385), size: 40.0));
     }
     return imageIcon;
   }

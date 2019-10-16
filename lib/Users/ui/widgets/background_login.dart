@@ -52,7 +52,6 @@ class BackgroundImage extends StatelessWidget {
             end: Alignment.bottomLeft
         ),
         /*image: DecorationImage(
-            image: AssetImage("assets/img/fondos1.jpg"),
           fit: BoxFit.cover,
           //colorFilter: ColorFilter.mode(Colors.blueGrey),
         ),*/

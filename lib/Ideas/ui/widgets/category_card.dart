@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
 
-  String pathImage = "assets/img/banner.png";
+  String pathImage = "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fbanner.png?alt=media&token=71ee4cd9-e756-43d9-b08d-5c26d5ec5653";
 
   CategoryCard( this.pathImage);
 
@@ -20,7 +20,7 @@ class CategoryCard extends StatelessWidget {
       decoration: BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage(pathImage)
+              image: NetworkImage(pathImage)
           ),
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           shape: BoxShape.rectangle,

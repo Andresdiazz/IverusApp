@@ -85,7 +85,7 @@ class _SubmmitCommentsState extends State<SubmmitComments> {
           shape: BoxShape.circle,
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage("assets/img/profile.jpg")
+              image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fprofile.jpg?alt=media&token=7621fac2-a428-44df-ab06-0336740602d7")
           )
       ),
 

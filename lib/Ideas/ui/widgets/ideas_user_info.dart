@@ -85,17 +85,13 @@ class IdeasUserInfo extends StatelessWidget {
 /*ListView(
       children: <Widget>[
         IdeasUser(name: "Alberto", comment: "Pueden desarrollar un bálsamo para labios que humecte los labios pero que no tenga color ni brillo. Me gustaría que fuera sabor maracuya.",
-          pathImage: "assets/img/profile.jpg",
+
         ),
         IdeasUser(name: "Carlos", comment: "Quiero un bálsamo para crecimiento de barba que pueda usar varias veces al día",
-            pathImage: "assets/img/profile2.jpg"),
         IdeasUser(name: "Alan", comment: "Me gustaría un desodorante que no tenga toxinas ni metales pesados.",
-            pathImage: "assets/img/profile3.jpg"),
         IdeasUser(name: "Carlos", comment: "Sugiero un exfoliante facial removedor de impurezas con carbon activado",
-            pathImage: "assets/img/profile2.jpg"),
         IdeasUser(name: "Alberto", comment: "Me gustaría una crema para afeitar que no me irrite la cara",
-            pathImage: "assets/img/profile.jpg"),
+
         IdeasUser(name: "Alan", comment: "Quiero un bubble butt con fragancia mango-coco",
-            pathImage: "assets/img/profile3.jpg")
       ],
     );*/

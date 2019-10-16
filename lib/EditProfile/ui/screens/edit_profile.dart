@@ -114,7 +114,7 @@ class _EditProfileState extends State<EditProfile> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
                                   Image(
-                                    image: AssetImage("assets/img/edit.png"),
+                                    image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fedit.png?alt=media&token=bceadb9e-4866-45c8-8f56-1739811e211e"),
                                     width: 20,
                                     color: Colors.deepPurple,
                                   ),
@@ -149,7 +149,7 @@ class _EditProfileState extends State<EditProfile> {
                           return CircleAvatar(
                             maxRadius: 60,
                             backgroundImage: snapshot.data == null
-                                ? AssetImage("assets/img/profile.jpg")
+                                ? NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fprofile.jpg?alt=media&token=7621fac2-a428-44df-ab06-0336740602d7")
                                 : snapshot.data.file == null
                                     ? NetworkImage(snapshot.data.path)
                                     : FileImage(snapshot.data.file),

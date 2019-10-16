@@ -44,7 +44,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
           SlidingCard(
             name: "I'm Iverus",
             date: 'Live Tomorrow 7PM',
-            assetName: 'img/iverus.png',
+            assetName: 'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fiverus.gif?alt=media&token=dd13f1bd-f1d2-4cb4-a173-09bd2bdee0c1',
             offset: pageOffset,
             onPressed: () {
               Navigator.push(
@@ -56,7 +56,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
           SlidingCard(
             name: 'Fashion',
             date: 'Live Tomorrow 7PM',
-            assetName: 'img/gif.gif',
+            assetName: 'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fgif.gif?alt=media&token=b6c5a543-22c3-435c-ab59-29e352d02736',
             offset: pageOffset - 1,
             onPressed: () {
               Navigator.push(
@@ -68,7 +68,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
           SlidingCard(
             name: 'Beauty',
             date: 'Live Monday 8PM',
-            assetName: 'img/bienestar.gif',
+            assetName: 'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fbeauty.gif?alt=media&token=be3e0e44-0ff5-49bc-a404-3eb21d157672',
             offset: pageOffset - 2,
             onPressed: () {
               Navigator.push(
@@ -120,8 +120,8 @@ class SlidingCard extends StatelessWidget {
           children: <Widget>[
             ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-              child: Image.asset(
-                'assets/$assetName',
+              child: Image.network(
+                '$assetName',
                 height: MediaQuery.of(context).size.height * 0.45,
                 alignment: Alignment(-offset.abs(), 1),
                 fit: BoxFit.cover,

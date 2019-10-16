@@ -225,7 +225,7 @@ class ExpandedEventItem extends StatelessWidget {
 }
 
 final List<Event> events = [
-  Event('img/moda.jpg', 'Shenzhen GLOBAL DESIGN AWARD 2018', '4.20-30'),
+  Event('https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fmoda.jpg?alt=media&token=6356ff76-6ecb-4530-bb45-989e871a9234', 'Shenzhen GLOBAL DESIGN AWARD 2018', '4.20-30'),
   //Event('img/bienestar.jpg', 'Shenzhen GLOBAL DESIGN AWARD 2018', '4.20-30'),
   //Event('img/cuidado_personal.jpg', 'Dawan District Guangdong Hong Kong', '4.28-31'),
 ];

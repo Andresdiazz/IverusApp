@@ -70,7 +70,7 @@ class ButtonProfile extends StatelessWidget {
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
-              fit: BoxFit.cover, image: AssetImage("assets/img/profile_final.jpg"))),
+              fit: BoxFit.cover, image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fprofile_final.jpg?alt=media&token=1ab94d3e-5a19-4cf2-ba7c-b973f8bfdf4c"))),
     );
   }
 
@@ -110,7 +110,7 @@ class ButtonProfile extends StatelessWidget {
           image: DecorationImage(
               fit: BoxFit.cover,
               image: user.photoURL == null
-                  ? AssetImage("assets/img/profile_final.jpg")
+                  ? NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fprofile_final.jpg?alt=media&token=1ab94d3e-5a19-4cf2-ba7c-b973f8bfdf4c")
                   : NetworkImage(user.photoURL))),
     );
 
@@ -143,7 +143,7 @@ class ButtonProfile extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: user.photoURL == null
-                      ? AssetImage("assets/img/profile_final.jpg")
+                      ? NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fprofile_final.jpg?alt=media&token=1ab94d3e-5a19-4cf2-ba7c-b973f8bfdf4c")
                       : NetworkImage(user.photoURL))),
         ),
       ),

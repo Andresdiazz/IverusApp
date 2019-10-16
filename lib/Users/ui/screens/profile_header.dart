@@ -52,7 +52,7 @@ class ProfileHeader extends StatelessWidget {
           shape: BoxShape.circle,
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage("assets/img/profile_final.jpg")
+              image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fprofile_final.jpg?alt=media&token=1ab94d3e-5a19-4cf2-ba7c-b973f8bfdf4c")
           )
       ),
     );
