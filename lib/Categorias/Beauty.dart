@@ -97,6 +97,16 @@ class _BeautyState extends State<Beauty> {
                     // description: hit?.tags,
                     documentData: hit,
                     bloc: _bloc,
+                    onPressed: (){
+                      if (_bloc.items != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImagePage(documentData: hit,),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 );
               },

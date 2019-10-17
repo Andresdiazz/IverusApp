@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
 import 'package:cocreacion/Categorias/card/custom_card.dart';
@@ -15,6 +17,8 @@ class _IverusState extends State<Iverus> {
   List<PreloadPageController> controllers = [];
   CategoriesBloc _bloc = CategoriesBloc("iverus");
   final _db = Firestore.instance;
+
+  var _opacity = 0.0;
 
   @override
   void initState() {
@@ -92,6 +96,16 @@ class _IverusState extends State<Iverus> {
                     // description: hit?.tags,
                     documentData: hit,
                     bloc: _bloc,
+                    onPressed: (){
+                      if (_bloc.items != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImagePage(documentData: hit,),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 );
               },
