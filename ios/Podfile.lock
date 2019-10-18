@@ -306,7 +306,7 @@ SPEC CHECKSUMS:
   agora_rtc_engine: 0e5f876b991c24d4410c3963868f28ad8ce1516a
   AgoraRtcEngine_iOS_Crypto: 9da4653262ff4de1a4d2dbe840e7a43cffb971a5
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
-  cloud_firestore: 0ac494d23db743f104b95d3291946afec187b74c
+  cloud_firestore: c9493dd01ad88934d926e18cc5a92a0129bf2c32
   FBSDKCoreKit: e7dcac0aabcfb09d0166998edd95fe3b05a0ce5d
   FBSDKLoginKit: 1b0cf04df0370b37404213157b060d6666ede814
   Firebase: 5e6b7b12bf9adb90986688edc06b156c37e109cd
@@ -340,16 +340,16 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
-  image_picker: 16e5fec1fbc87fd3b297c53e4048521eaf17cd06
+  image_picker: e3eacd46b94694dde7cf2705955cece853aa1a8f
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
+  path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
   screen: abd91ca7bf3426e1cc3646d27e9b2358d6bf07b0
-  share: 7d22fe8baedfe93aefd864bf0b73f29711fbb0a3
-  shared_preferences: 1feebfa37bb57264736e16865e7ffae7fc99b523
+  share: bae0a282aab4483288913fc4dc0b935d4b491f2e
+  shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
   sqflite: ff1d9da63c06588cc8d1faf7256d741f16989d5a
-  video_player: 3964090a33353060ed7f58aa6427c7b4b208ec21
+  video_player: 69c5f029fac4ffe4fc8a85ea7f7b793709661549
   wc_flutter_share: acdfe1a80d72f39da40378151fe50d5d86f15cbf
 
 PODFILE CHECKSUM: 286b83b73b0ae9ca618899aa9279e2cd4ca5f20d

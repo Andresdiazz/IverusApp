@@ -1,25 +1,21 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
 import 'package:cocreacion/Categorias/card/custom_card.dart';
 import 'package:cocreacion/Categorias/card/image_page.dart';
+import 'package:cocreacion/Categorias/card/video_page.dart';
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
-
 
 class Iverus extends StatefulWidget {
   @override
   _IverusState createState() => _IverusState();
 }
-
 class _IverusState extends State<Iverus> {
   List<PreloadPageController> controllers = [];
   CategoriesBloc _bloc = CategoriesBloc("iverus");
   final _db = Firestore.instance;
-
   var _opacity = 0.0;
-
   @override
   void initState() {
     _loadImage();
@@ -33,7 +29,6 @@ class _IverusState extends State<Iverus> {
     super.initState();
 
   }
-
   _animatePage(int page, int index) {
     for (int i = 0; i < 5; i++) {
       if (i != index) {
@@ -42,7 +37,6 @@ class _IverusState extends State<Iverus> {
       }
     }
   }
-
   _loadImage() async{
     int size = 0;
     return await  _db.collection('iverus').getDocuments().then((snap) {
@@ -50,10 +44,6 @@ class _IverusState extends State<Iverus> {
       setState(() {});
     });
   }
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,27 +73,47 @@ class _IverusState extends State<Iverus> {
                 return GestureDetector(
                   onTap: () {
                     if (_bloc.items != null) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ImagePage(documentData: hit,),
-                        ),
-                      );
-                    }
-                  },
-                  child: CustomCard(
-                    // title: hit?.user,
-                    // description: hit?.tags,
-                    documentData: hit,
-                    bloc: _bloc,
-                    onPressed: (){
-                      if (_bloc.items != null) {
+                      if(hit.toString().split('.gif?').length == 2  ){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoPage(documentData: hit,),
+                          ),
+                        );
+                        print('video ');
+                      }else if(hit.toString().split('.gif?').length == 1){
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ImagePage(documentData: hit,),
                           ),
                         );
+                        print('imagen ');
+                      }
+                    }
+                  },
+                  child: CustomCard(
+                    documentData: hit,
+                    bloc: _bloc,
+                    onPressed: (){
+                      if (_bloc.items != null) {
+                        if(hit.toString().split('.gif?').length == 2  ){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VideoPage(documentData: hit,),
+                            ),
+                          );
+                          print('video ');
+                        }else if(hit.toString().split('.gif?').length == 1){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImagePage(documentData: hit,),
+                            ),
+                          );
+                          print('imagen ');
+                        }
                       }
                     },
                   ),

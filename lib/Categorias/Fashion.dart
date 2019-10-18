@@ -5,17 +5,15 @@ import 'package:cocreacion/Categorias/card/image_page.dart';
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
-
+import 'card/video_page.dart';
 class Fashion extends StatefulWidget {
   @override
   _FashionState createState() => _FashionState();
 }
-
 class _FashionState extends State<Fashion> {
   List<PreloadPageController> controllers = [];
   CategoriesBloc _bloc = CategoriesBloc("moda");
   final _db = Firestore.instance;
-
   @override
   void initState() {
     _loadImage();
@@ -27,9 +25,7 @@ class _FashionState extends State<Fashion> {
       PreloadPageController(viewportFraction: 0.6, initialPage: 3),
     ];
     super.initState();
-
   }
-
   _animatePage(int page, int index) {
     for (int i = 0; i < 5; i++) {
       if (i != index) {
@@ -38,7 +34,6 @@ class _FashionState extends State<Fashion> {
       }
     }
   }
-
   _loadImage() async{
     int size = 0;
     return await  _db.collection('moda').getDocuments().then((snap) {
@@ -46,10 +41,6 @@ class _FashionState extends State<Fashion> {
       setState(() {});
     });
   }
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,12 +70,23 @@ class _FashionState extends State<Fashion> {
                 return GestureDetector(
                   onTap: () {
                     if (_bloc.items != null) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ImagePage(documentData: hit,),
-                        ),
-                      );
+                      if(hit.toString().split('.gif?').length == 2  ){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoPage(documentData: hit,),
+                          ),
+                        );
+                        print('video ');
+                      }else if(hit.toString().split('.gif?').length == 1){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImagePage(documentData: hit,),
+                          ),
+                        );
+                        print('imagen ');
+                      }
                     }
                   },
                   child: CustomCard(
@@ -94,12 +96,23 @@ class _FashionState extends State<Fashion> {
                     bloc: _bloc,
                     onPressed: (){
                       if (_bloc.items != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ImagePage(documentData: hit,),
-                          ),
-                        );
+                        if(hit.toString().split('.gif?').length == 2  ){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VideoPage(documentData: hit,),
+                            ),
+                          );
+                          print('video ');
+                        }else if(hit.toString().split('.gif?').length == 1){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImagePage(documentData: hit,),
+                            ),
+                          );
+                          print('imagen ');
+                        }
                       }
                     },
                   ),
