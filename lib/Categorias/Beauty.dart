@@ -4,16 +4,26 @@ import 'package:cocreacion/Categorias/card/custom_card.dart';
 import 'package:cocreacion/Categorias/card/image_page.dart';
 import 'package:cocreacion/Categorias/card/video_page.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
 class Beauty extends StatefulWidget {
+  Beauty({Key key, this.category}) : super(key: key);
+  final String category ;
+
+
   @override
   _BeautyState createState() => _BeautyState();
+
 }
-class _BeautyState extends State<Beauty> {
+class _BeautyState extends State<Beauty>  {
+
+
   List<PreloadPageController> controllers = [];
   final _db = Firestore.instance;
+
   CategoriesBloc _bloc = CategoriesBloc('belleza');
+
   @override
   void initState() {
     _loadImage();
@@ -36,14 +46,16 @@ class _BeautyState extends State<Beauty> {
     }
   }
   _loadImage() async{
+
     int size = 0;
-    return await  _db.collection('belleza').getDocuments().then((snap) {
+    return await  _db.collection(widget.category).getDocuments().then((snap) {
       size = size + snap.documents.length;
       setState(() {});
     });
   }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         extendBody: true,
         backgroundColor: Colors.black,

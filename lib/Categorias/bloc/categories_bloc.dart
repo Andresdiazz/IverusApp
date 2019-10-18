@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cocreacion/Categorias/Beauty.dart';
 import 'package:cocreacion/Categorias/model/category_item.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_repository.dart';
@@ -8,7 +9,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../SharedPref.dart';
 
-class CategoriesBloc extends Bloc {
+class CategoriesBloc extends Bloc   {
   List<CategoryItem> items;
   final _categoriesController = BehaviorSubject<List<CategoryItem>>();
 

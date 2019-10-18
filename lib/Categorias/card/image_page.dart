@@ -1,8 +1,14 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cocreacion/Categorias/model/category_item.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
+
 
 class ImagePage extends StatefulWidget {
 
@@ -116,9 +122,16 @@ class _ImagePageState extends State<ImagePage>
                             padding: const EdgeInsets.only(left: 10.0),
                             child: IconButton(
                               icon: Icon(Icons.share),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
+                              onPressed: () async {
+                                try {
+                                  var request = await HttpClient().getUrl(Uri.parse(
+                                      widget.documentData.image));
+                                  var response = await request.close();
+                                  Uint8List bytes = await consolidateHttpClientResponseBytes(response);
+                                  await Share.file('Iverus', 'iverus.jpg', bytes, 'image/jpg');
+                                } catch (e) {
+                                  print('error: $e');
+                                }                              },
                             ),
                           ),
                           Padding(
@@ -356,4 +369,7 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
     }
     return imageIcon;
   }
+
+
 }
+

@@ -72,7 +72,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
             offset: pageOffset - 2,
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Beauty()));
+                  context, MaterialPageRoute(builder: (context) => Beauty(category: 'belleza',)));
             },
           ),
           /*SlidingCard(

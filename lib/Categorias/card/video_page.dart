@@ -1,5 +1,10 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cocreacion/Categorias/model/category_item.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
@@ -130,9 +135,16 @@ class _VideoPageState extends State<VideoPage>
                             padding: const EdgeInsets.only(left: 10.0),
                             child: IconButton(
                               icon: Icon(Icons.share),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
+                              onPressed: () async {
+                                try {
+                                  var request = await HttpClient().getUrl(Uri.parse(
+                                      widget.documentData.video));
+                                  var response = await request.close();
+                                  Uint8List bytes = await consolidateHttpClientResponseBytes(response);
+                                  await Share.file('Iverus', 'iverus.mp4', bytes, 'image/mp4');
+                                } catch (e) {
+                                  print('error: $e');
+                                }                              },
                             ),
                           ),
                           Padding(
