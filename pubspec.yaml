@@ -90,6 +90,10 @@ flutter:
 
   assets:
     - assets/Like heart.flr
+    - assets/heart.png
+    - assets/heart_filled.png
+    - assets/sprinkle.png
+    - assets/Sprinkle.psd
 
 
 
