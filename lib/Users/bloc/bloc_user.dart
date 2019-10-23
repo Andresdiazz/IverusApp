@@ -113,23 +113,23 @@ class UserBloc implements Bloc {
         onSelectNotification: onSelectNotification);
 
     var scheduledNotificationDateTime =
-        new DateTime.now().add(new Duration(seconds: 20));
+        new DateTime.now().add(new Duration(days: 1));
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
       '123',
       '1',
-      'nothing',
+      'scheduled notification',
     );
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     NotificationDetails platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
+    await flutterLocalNotificationsPlugin.cancel(0);
+
     await flutterLocalNotificationsPlugin.schedule(
         0,
-        'This is Title',
-        'This is body',
+        'Long time no see',
+        'Come back to the app and win gifts',
         scheduledNotificationDateTime,
         platformChannelSpecifics);
-
-    await flutterLocalNotificationsPlugin.cancel(0);
   }
 }

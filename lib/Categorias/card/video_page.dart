@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
 import 'package:cocreacion/Categorias/model/category_item.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/foundation.dart';
@@ -12,20 +13,19 @@ import 'dart:math';
 import 'package:video_player/video_player.dart';
 
 class VideoPage extends StatefulWidget {
-
   final CategoryItem documentData;
-  VideoPage({this.documentData});
+  VideoPage({this.documentData, this.categoriesBloc, this.table});
+  final CategoriesBloc categoriesBloc;
+  final String table;
 
   @override
   _VideoPageState createState() => _VideoPageState();
-
 }
 
 class _VideoPageState extends State<VideoPage>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   VideoPlayerController _controllervideo;
-
 
   @override
   void initState() {
@@ -63,11 +63,11 @@ class _VideoPageState extends State<VideoPage>
                     _controller.forward();
                   }
                 },
-                child:_controllervideo.value.initialized
+                child: _controllervideo.value.initialized
                     ? AspectRatio(
-                  aspectRatio: _controllervideo.value.aspectRatio,
-                  child: VideoPlayer(_controllervideo),
-                )
+                        aspectRatio: _controllervideo.value.aspectRatio,
+                        child: VideoPlayer(_controllervideo),
+                      )
                     : Container(),
               ),
             ),
@@ -137,20 +137,25 @@ class _VideoPageState extends State<VideoPage>
                               icon: Icon(Icons.share),
                               onPressed: () async {
                                 try {
-                                  var request = await HttpClient().getUrl(Uri.parse(
-                                      widget.documentData.video));
+                                  var request = await HttpClient().getUrl(
+                                      Uri.parse(widget.documentData.video));
                                   var response = await request.close();
-                                  Uint8List bytes = await consolidateHttpClientResponseBytes(response);
-                                  await Share.file('Iverus', 'iverus.mp4', bytes, 'image/mp4');
+                                  Uint8List bytes =
+                                      await consolidateHttpClientResponseBytes(
+                                          response);
+                                  await Share.file('Iverus', 'iverus.mp4',
+                                      bytes, 'image/mp4');
+                                  widget.categoriesBloc.updateShare(
+                                      widget.documentData.id, widget.table);
                                 } catch (e) {
                                   print('error: $e');
-                                }                              },
+                                }
+                              },
                             ),
                           ),
                           Padding(
                               padding: const EdgeInsets.only(right: 1.0),
-                              child: AnimatedLikeButton()
-                          ),
+                              child: AnimatedLikeButton()),
                         ],
                       ),
                     ),
@@ -163,13 +168,13 @@ class _VideoPageState extends State<VideoPage>
       ),
     );
   }
+
   @override
   void dispose() {
     super.dispose();
     _controllervideo.dispose();
   }
 }
-
 
 class AnimatedLikeButton extends StatefulWidget {
   AnimatedLikeButton({Key key}) : super(key: key);
@@ -180,7 +185,8 @@ class AnimatedLikeButton extends StatefulWidget {
 
 enum LikeWidgetStatus { HIDDEN, BECOMING_VISIBLE, VISIBLE, BECOMING_INVISIBLE }
 
-class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProviderStateMixin {
+class _AnimatedLikeButtonState extends State<AnimatedLikeButton>
+    with TickerProviderStateMixin {
   int _counter = 0;
   double _sprinklesAngle = 0.0;
   LikeWidgetStatus _likeWidgetStatus = LikeWidgetStatus.HIDDEN;
@@ -210,7 +216,8 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
 
   Widget getLikeButton() {
     var extraSize = 0.0;
-    if (_likeWidgetStatus == LikeWidgetStatus.VISIBLE || _likeWidgetStatus == LikeWidgetStatus.BECOMING_VISIBLE) {
+    if (_likeWidgetStatus == LikeWidgetStatus.VISIBLE ||
+        _likeWidgetStatus == LikeWidgetStatus.BECOMING_VISIBLE) {
       extraSize = likeSizeAnimationController.value * 3;
     }
     return GestureDetector(
@@ -232,14 +239,17 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
   initState() {
     super.initState();
     random = Random();
-    likeInAnimationController = AnimationController(duration: Duration(milliseconds: 150), vsync: this);
+    likeInAnimationController =
+        AnimationController(duration: Duration(milliseconds: 150), vsync: this);
     likeInAnimationController.addListener(() {
       setState(() {}); // Calls render function
     });
 
-    likeOutAnimationController = AnimationController(vsync: this, duration: mainDuration);
-    likeOutPositionAnimation = Tween(begin: 100.0, end: 150.0)
-        .animate(CurvedAnimation(parent: likeOutAnimationController, curve: Curves.easeOut));
+    likeOutAnimationController =
+        AnimationController(vsync: this, duration: mainDuration);
+    likeOutPositionAnimation = Tween(begin: 100.0, end: 150.0).animate(
+        CurvedAnimation(
+            parent: likeOutAnimationController, curve: Curves.easeOut));
     likeOutPositionAnimation.addListener(() {
       setState(() {});
     });
@@ -249,7 +259,8 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
       }
     });
 
-    likeSizeAnimationController = AnimationController(vsync: this, duration: Duration(milliseconds: 150));
+    likeSizeAnimationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 150));
     likeSizeAnimationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         likeSizeAnimationController.reverse();
@@ -259,8 +270,10 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
       setState(() {});
     });
 
-    sparklesAnimationController = AnimationController(vsync: this, duration: mainDuration);
-    sparklesAnimation = CurvedAnimation(parent: sparklesAnimationController, curve: Curves.easeIn);
+    sparklesAnimationController =
+        AnimationController(vsync: this, duration: mainDuration);
+    sparklesAnimation = CurvedAnimation(
+        parent: sparklesAnimationController, curve: Curves.easeIn);
     sparklesAnimation.addListener(() {
       setState(() {});
     });
@@ -360,9 +373,12 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
             ),
             child: Center(
                 child: Text(
-                  "+" + _counter.toString(),
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.0),
-                )))));
+              "+" + _counter.toString(),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0),
+            )))));
 
     var widget = Positioned(
         child: Stack(
@@ -376,15 +392,18 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
 
   Widget getHeartIcon() {
     Widget imageIcon;
-    if (_likeWidgetStatus == LikeWidgetStatus.VISIBLE || _likeWidgetStatus == LikeWidgetStatus.BECOMING_VISIBLE) {
+    if (_likeWidgetStatus == LikeWidgetStatus.VISIBLE ||
+        _likeWidgetStatus == LikeWidgetStatus.BECOMING_VISIBLE) {
       imageIcon = Padding(
           padding: EdgeInsets.all(2),
-          child: ImageIcon(AssetImage("assets/heart.png"), color: Color(0xff721385), size: 10.0));
+          child: ImageIcon(AssetImage("assets/heart.png"),
+              color: Color(0xff721385), size: 10.0));
     } else {
       imageIcon = Padding(
           padding: EdgeInsets.all(2),
-          child: ImageIcon(AssetImage("assets/heart_filled.png"), color: Color(0xff721385), size: 10.0));
+          child: ImageIcon(AssetImage("assets/heart_filled.png"),
+              color: Color(0xff721385), size: 10.0));
     }
     return imageIcon;
   }
-   }
+}

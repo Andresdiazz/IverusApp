@@ -9,7 +9,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../SharedPref.dart';
 
-class CategoriesBloc extends Bloc   {
+class CategoriesBloc extends Bloc {
   List<CategoryItem> items;
   final _categoriesController = BehaviorSubject<List<CategoryItem>>();
 

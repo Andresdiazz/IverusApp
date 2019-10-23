@@ -11,11 +11,13 @@ class Iverus extends StatefulWidget {
   @override
   _IverusState createState() => _IverusState();
 }
+
 class _IverusState extends State<Iverus> {
   List<PreloadPageController> controllers = [];
   CategoriesBloc _bloc = CategoriesBloc("iverus");
   final _db = Firestore.instance;
   var _opacity = 0.0;
+
   @override
   void initState() {
     _loadImage();
@@ -27,8 +29,8 @@ class _IverusState extends State<Iverus> {
       PreloadPageController(viewportFraction: 0.6, initialPage: 3),
     ];
     super.initState();
-
   }
+
   _animatePage(int page, int index) {
     for (int i = 0; i < 5; i++) {
       if (i != index) {
@@ -37,13 +39,15 @@ class _IverusState extends State<Iverus> {
       }
     }
   }
-  _loadImage() async{
+
+  _loadImage() async {
     int size = 0;
-    return await  _db.collection('iverus').getDocuments().then((snap) {
+    return await _db.collection('iverus').getDocuments().then((snap) {
       size = size + snap.documents.length;
       setState(() {});
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +55,7 @@ class _IverusState extends State<Iverus> {
         backgroundColor: Colors.black,
         body: PreloadPageView.builder(
           controller:
-          PreloadPageController(viewportFraction: 0.7, initialPage: 3),
+              PreloadPageController(viewportFraction: 0.7, initialPage: 3),
           itemCount: 5,
           preloadPagesCount: 5,
           itemBuilder: (context, mainIndex) {
@@ -67,25 +71,33 @@ class _IverusState extends State<Iverus> {
               itemBuilder: (context, index) {
                 var hitIndex = (mainIndex * 5) + index;
                 var hit;
-                if ( _bloc.items != null) {
+                if (_bloc.items != null) {
                   hit = _bloc.items[hitIndex];
                 }
                 return GestureDetector(
                   onTap: () {
                     if (_bloc.items != null) {
-                      if(hit.toString().split('.gif?').length == 2  ){
+                      if (hit.toString().split('.gif?').length == 2) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => VideoPage(documentData: hit,),
+                            builder: (context) => VideoPage(
+                              documentData: hit,
+                              categoriesBloc: _bloc,
+                              table: "iverus",
+                            ),
                           ),
                         );
                         print('video ');
-                      }else if(hit.toString().split('.gif?').length == 1){
+                      } else if (hit.toString().split('.gif?').length == 1) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ImagePage(documentData: hit,),
+                            builder: (context) => ImagePage(
+                              documentData: hit,
+                              categoriesBloc: _bloc,
+                              table: "iverus",
+                            ),
                           ),
                         );
                         print('imagen ');
@@ -95,21 +107,29 @@ class _IverusState extends State<Iverus> {
                   child: CustomCard(
                     documentData: hit,
                     bloc: _bloc,
-                    onPressed: (){
+                    onPressed: () {
                       if (_bloc.items != null) {
-                        if(hit.toString().split('.gif?').length == 2  ){
+                        if (hit.toString().split('.gif?').length == 2) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => VideoPage(documentData: hit,),
+                              builder: (context) => VideoPage(
+                                documentData: hit,
+                                categoriesBloc: _bloc,
+                                table: "iverus",
+                              ),
                             ),
                           );
                           print('video ');
-                        }else if(hit.toString().split('.gif?').length == 1){
+                        } else if (hit.toString().split('.gif?').length == 1) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ImagePage(documentData: hit,),
+                              builder: (context) => ImagePage(
+                                documentData: hit,
+                                categoriesBloc: _bloc,
+                                table: "iverus",
+                              ),
                             ),
                           );
                           print('imagen ');
@@ -121,7 +141,6 @@ class _IverusState extends State<Iverus> {
               },
             );
           },
-        )
-    );
+        ));
   }
 }

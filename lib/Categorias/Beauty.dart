@@ -9,16 +9,13 @@ import 'package:preload_page_view/preload_page_view.dart';
 
 class Beauty extends StatefulWidget {
   Beauty({Key key, this.category}) : super(key: key);
-  final String category ;
-
+  final String category;
 
   @override
   _BeautyState createState() => _BeautyState();
-
 }
-class _BeautyState extends State<Beauty>  {
 
-
+class _BeautyState extends State<Beauty> {
   List<PreloadPageController> controllers = [];
   final _db = Firestore.instance;
 
@@ -35,8 +32,8 @@ class _BeautyState extends State<Beauty>  {
       PreloadPageController(viewportFraction: 0.6, initialPage: 3),
     ];
     super.initState();
-
   }
+
   _animatePage(int page, int index) {
     for (int i = 0; i < 5; i++) {
       if (i != index) {
@@ -45,23 +42,23 @@ class _BeautyState extends State<Beauty>  {
       }
     }
   }
-  _loadImage() async{
 
+  _loadImage() async {
     int size = 0;
-    return await  _db.collection(widget.category).getDocuments().then((snap) {
+    return await _db.collection(widget.category).getDocuments().then((snap) {
       size = size + snap.documents.length;
       setState(() {});
     });
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         extendBody: true,
         backgroundColor: Colors.black,
         body: PreloadPageView.builder(
           controller:
-          PreloadPageController(viewportFraction: 0.7, initialPage: 3),
+              PreloadPageController(viewportFraction: 0.7, initialPage: 3),
           itemCount: 5,
           preloadPagesCount: 5,
           itemBuilder: (context, mainIndex) {
@@ -77,53 +74,65 @@ class _BeautyState extends State<Beauty>  {
               itemBuilder: (context, index) {
                 var hitIndex = (mainIndex * 5) + index;
                 var hit;
-                if ( _bloc.items != null) {
+                if (_bloc.items != null) {
                   hit = _bloc.items[hitIndex];
                 }
                 return GestureDetector(
                   onTap: () {
-                  if (_bloc.items != null) {
-                    if(hit.toString().split('.gif?').length == 2  ){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => VideoPage(documentData: hit,),
-                        ),
-                      );
-                      print('video ');
-                    }else if(hit.toString().split('.gif?').length == 1){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ImagePage(documentData: hit,),
-                        ),
-                      );
-                      print('imagen ');
-                    }
-                  }
-                },
-                  child: CustomCard(
-                    documentData: hit,
-                    bloc: _bloc,
-                    onPressed: (){
-                      if (_bloc.items != null) {
-                        if(hit.toString().split('.gif?').length == 2  ){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => VideoPage(documentData: hit,),
-                            ),
-                          );
-                          print('video ');
-                        }else if(hit.toString().split('.gif?').length == 1){
-
+                    if (_bloc.items != null) {
+                      if (hit.toString().split('.gif?').length == 2) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ImagePage(documentData: hit,),
+                            builder: (context) => VideoPage(
+                                documentData: hit,
+                                categoriesBloc: _bloc,
+                                table: "belleza"),
+                          ),
+                        );
+                        print('video ');
+                      } else if (hit.toString().split('.gif?').length == 1) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImagePage(
+                              documentData: hit,
+                              categoriesBloc: _bloc,
+                              table: "belleza",
+                            ),
                           ),
                         );
                         print('imagen ');
+                      }
+                    }
+                  },
+                  child: CustomCard(
+                    documentData: hit,
+                    bloc: _bloc,
+                    onPressed: () {
+                      if (_bloc.items != null) {
+                        if (hit.toString().split('.gif?').length == 2) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VideoPage(
+                                  documentData: hit,
+                                  categoriesBloc: _bloc,
+                                  table: "belleza"),
+                            ),
+                          );
+                          print('video ');
+                        } else if (hit.toString().split('.gif?').length == 1) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImagePage(
+                                  documentData: hit,
+                                  categoriesBloc: _bloc,
+                                  table: "belleza"),
+                            ),
+                          );
+                          print('imagen ');
                         }
                       }
                     },
@@ -132,7 +141,6 @@ class _BeautyState extends State<Beauty>  {
               },
             );
           },
-        )
-    );
+        ));
   }
 }

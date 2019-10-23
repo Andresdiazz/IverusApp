@@ -82,8 +82,7 @@ class _SplashScreenState extends State<SplashScreen>
               ],
               //stops: [0.2, 0.7],
               begin: Alignment.topRight,
-              end: Alignment.bottomLeft
-          ),
+              end: Alignment.bottomLeft),
         ),
         child: ScaleTransition(
             scale: controller,
@@ -91,7 +90,8 @@ class _SplashScreenState extends State<SplashScreen>
               Container(
                 child: Image(
                   width: 150,
-                  image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fiverus2.png?alt=media&token=82091d95-6aa1-41c3-a3cb-f140fbf2d4f3"),
+                  image: NetworkImage(
+                      "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fiverus2.png?alt=media&token=82091d95-6aa1-41c3-a3cb-f140fbf2d4f3"),
                 ),
               )
             ])));
