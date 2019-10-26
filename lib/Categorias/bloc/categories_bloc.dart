@@ -32,27 +32,55 @@ class CategoriesBloc extends Bloc {
     getCategories(category);
   }
 
-  updateLike(String videoId, String table, bool isLike) {
+  updateLike(String videoId, String table) {
     CategoryItem i = items.lastWhere((q) => q.id == videoId);
 
-    List<String> likes;
+    Map<dynamic, dynamic> likes;
 
-    likes = i.likes == null ? List() : List<String>.from(i.likes);
+    likes = i.likes == null ? Map() : i.likes;
 
-    if (isLike)
-      likes.add(user.uid);
-    else
-      likes.remove(user.uid);
+//    check if user have liked this video before
+    if (likes[user.uid] != null) {
+      int noLikes = likes[user.uid];
+      noLikes++;
+      likes[user.uid] = noLikes;
+    } else {
+      int noLikes = 0;
+      noLikes++;
+      likes[user.uid] = noLikes;
+    }
 
-    i.likes = likes;
+    _cloudFirestoreRepository.updateLikes(user.uid, videoId, table, likes);
 
-    itemController.sink.add(i);
+//    if (isLike)
+//      likes.add(user.uid);
+//    else
+//      likes.remove(user.uid);
+//
+//    i.likes = likes;
+//
+//    itemController.sink.add(i);
+//
+//    _cloudFirestoreRepository
+//        .updateLikes(user.uid, videoId, table, isLike)
+//        .then((res) {
+//      getCategories(category);
+//    }).then((error) {});
+  }
 
-    _cloudFirestoreRepository
-        .updateLikes(user.uid, videoId, table, isLike)
-        .then((res) {
-      getCategories(category);
-    }).then((error) {});
+  int getLikes(String videoId) {
+    CategoryItem i = items.lastWhere((q) => q.id == videoId);
+
+    Map<dynamic, dynamic> likes;
+
+    likes = i.likes == null ? List() : Map<String, String>.from(i.likes);
+
+//    check if user have liked this video before
+    if (likes[user.uid] != null) {
+      return likes[user.uid];
+    } else {
+      return 0;
+    }
   }
 
   updateShare(String videoId, String table) {

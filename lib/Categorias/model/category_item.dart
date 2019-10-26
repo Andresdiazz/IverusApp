@@ -3,7 +3,9 @@ import 'dart:convert';
 class CategoryItem {
   String image;
   String video;
-  List<dynamic> likes;
+  Map<dynamic, dynamic> likes;
+
+  // list of user and no of likes
   List<dynamic> shares;
   String id;
 
@@ -28,7 +30,7 @@ class CategoryItem {
     if (json == null) return;
     image = json['image'] == null ? null : json['image'];
     video = json['video'] == null ? null : json['video'];
-    likes = json['likes'] == null ? List() : json['likes'];
+    likes = json['likes'] == null ? Map() : json['likes'];
     shares = json['shares'] == null ? List() : json['shares'];
   }
 
@@ -36,7 +38,7 @@ class CategoryItem {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['image'] = this.image;
     data['video'] = this.video;
-    if (this.likes != List()) data['likes'] = this.likes;
+    if (this.likes != Map()) data['likes'] = this.likes;
     if (this.shares != List()) data['shares'] = this.shares;
     return data;
   }

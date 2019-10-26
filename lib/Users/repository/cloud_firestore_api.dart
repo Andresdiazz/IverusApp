@@ -258,48 +258,41 @@ class CloudFirestoreAPI {
   }
 
 //  Likes api
-  Future<CommonResponse> updateLikes(
-      String uid, String videoId, String table, bool isLike) async {
+  Future<CommonResponse> updateLikes(String uid, String videoId, String table,
+      Map<dynamic, dynamic> likes) async {
 //    get likes first
     return getProfile(uid).then((res) {
-      List<String> likes;
+      Map<dynamic, dynamic> noLikes;
       var user = User.fromJson(res.data);
-      likes = user.likes != null ? List<String>.from(user.likes) : List();
+      noLikes = user.likes != null ? user.likes : Map();
 
-      if (isLike)
-        likes.add(table + "_" + videoId);
-      else
-        likes.remove(table + "_" + videoId);
+//      if likes alre already there, just update else create an entry and update videos and user table
+      noLikes[table + "_" + videoId] = likes[uid];
 
-//      user.likes=null;
-      user.likes = likes;
-      return updateUser(user, videoId, table, isLike);
+      user.likes = noLikes;
+      return updateUser(user, videoId, table, likes);
     });
   }
 
 //  to update likes
   Future<CommonResponse> updateUser(
-      User user, String videoId, String table, bool isLike) {
+      User user, String videoId, String table, Map<dynamic, dynamic> likes) {
     DocumentReference ref = _db.collection(USERS).document(user.uid);
     return ref.setData(user.getMap()).then((res) {
-      return updateLikesTable(user.uid, videoId, table, isLike);
+      return updateLikesTable(videoId, table, likes, user.uid);
     });
   }
 
   Future<CommonResponse> updateLikesTable(
-      String uid, String videoId, String table, bool isLike) {
+      String videoId, String table, Map<dynamic, dynamic> likes, String uid) {
     DocumentReference ref = _db.collection(table).document(videoId);
     return ref.get().then((res) {
-      List<String> likes;
-      likes = res.data['likes'] != null
-          ? List<String>.from(res.data['likes'])
-          : List();
+      Map<dynamic, dynamic> noLikes;
 
-      if (isLike)
-        likes.add(uid);
-      else
-        likes.remove(uid);
-      return ref.setData({'likes': likes}, merge: true).then((res) {
+      noLikes = res.data['likes'] != null ? res.data['likes'] : Map();
+      noLikes[uid] = likes[uid];
+
+      return ref.setData({'likes': noLikes}, merge: true).then((res) {
         return CommonResponse(CommonResponse.successCode, "Success");
       }).catchError((error) {
         return CommonResponse(CommonResponse.errorCode, error);

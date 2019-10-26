@@ -14,7 +14,7 @@ class User {
   String desc;
   int points;
   int rank;
-  List<dynamic> likes;
+  Map<dynamic, dynamic> likes;
   List<dynamic> shares;
   List<Ideas> myIdeas;
   List<Ideas> myFavoriteIdeas;

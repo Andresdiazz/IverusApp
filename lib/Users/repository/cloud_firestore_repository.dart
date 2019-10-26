@@ -41,9 +41,9 @@ class CloudFirestoreRepository {
   Future<CommonResponse> checkIfUserExists(String id) =>
       _cloudFirestoreAPI.checkIfUserExists(id);
 
-  Future<CommonResponse> updateLikes(
-          String uid, String videoId, String table, bool isLike) =>
-      _cloudFirestoreAPI.updateLikes(uid, videoId, table, isLike);
+  Future<CommonResponse> updateLikes(String uid, String videoId, String table,
+          Map<dynamic, dynamic> likes) =>
+      _cloudFirestoreAPI.updateLikes(uid, videoId, table, likes);
 
   Future<CommonResponse> updateShare(
           String uid, String videoId, String table) =>
