@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'EditProfile/ui/screens/splash.dart';
 import 'Users/bloc/bloc_user.dart';
-
+import 'live_videos/live_videos.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'IverusApp',
             home: SplashScreen()),
+//            home: LiveVideos()),
         bloc: UserBloc());
   }
 }
