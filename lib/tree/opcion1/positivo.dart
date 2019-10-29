@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/tree/delayed_animation.dart';
 import 'package:flutter/material.dart';
 
@@ -5,26 +6,35 @@ import 'package:video_player/video_player.dart';
 
 
 class Positiva extends StatefulWidget {
+  String idVideo;
+  Positiva(this.idVideo);
   @override
-  _PositivaState createState() => _PositivaState();
+  _PositivaState createState() => _PositivaState(this.idVideo);
 }
 
 class _PositivaState extends State<Positiva> with SingleTickerProviderStateMixin {
 
   VideoPlayerController _controllervideo;
 
+  _PositivaState(String idVideo);
+
   @override
   void initState() {
 
     super.initState();
-    _controllervideo = VideoPlayerController.network(
-        'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/TREE%2Favena_inglehs%2FEXCESO%20GRASA%20ZONA%20T%20SIEMPRE.mp4?alt=media&token=6e312730-c663-4cab-969c-27cd4803ca98')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {
-          _controllervideo.play();
-        });
-      });
+    Firestore.instance
+        .collection ("tree")
+        .document(widget.idVideo).collection('0').document('1_positivo')
+        .snapshots().forEach((doc)=> {
+      _controllervideo = VideoPlayerController.network( doc.data['video'])
+        ..initialize().then((_) {
+          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          setState(() {
+            _controllervideo.play();
+          });
+        })
+
+    });
   }
 
 

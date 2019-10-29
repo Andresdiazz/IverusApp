@@ -9,8 +9,11 @@ import 'package:video_player/video_player.dart';
 
 
 class Video_2_1 extends StatefulWidget {
+
+  String idVideo;
+  Video_2_1(this.idVideo);
   @override
-  _Video_2_1State createState() => _Video_2_1State();
+  _Video_2_1State createState() => _Video_2_1State(this.idVideo);
 }
 
 class _Video_2_1State extends State<Video_2_1> with SingleTickerProviderStateMixin {
@@ -19,27 +22,25 @@ class _Video_2_1State extends State<Video_2_1> with SingleTickerProviderStateMix
   AnimationController _controller;
   VideoPlayerController _controllervideo;
 
+  _Video_2_1State(String idVideo);
+
   @override
   void initState() {
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(
-        milliseconds: 200,
-      ),
-      lowerBound: 0.0,
-      upperBound: 0.1,
-    )..addListener(() {
-      setState(() {});
-    });
+
     super.initState();
-    _controllervideo = VideoPlayerController.network(
-        'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/TREE%2Favena_inglehs%2FNORMAL%20HIDRATAS%20SIEMPRE.mp4?alt=media&token=ae6c67be-639b-4574-b801-0985eb0116cb')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {
-          _controllervideo.play();
-        });
-      });
+    Firestore.instance
+        .collection ("moda")
+        .document(widget.idVideo).collection('0').document('2_1')
+        .snapshots().forEach((doc)=> {
+      _controllervideo = VideoPlayerController.network( doc.data['video'])
+        ..initialize().then((_) {
+          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          setState(() {
+            _controllervideo.play();
+          });
+        })
+
+    });
   }
 
 

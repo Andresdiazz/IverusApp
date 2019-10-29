@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:video_player/video_player.dart';
@@ -7,26 +8,35 @@ import '../delayed_animation.dart';
 
 
 class Negativa extends StatefulWidget {
+  String idVideo;
+  Negativa(this.idVideo);
   @override
-  _NegativaState createState() => _NegativaState();
+  _NegativaState createState() => _NegativaState(this.idVideo);
 }
 
 class _NegativaState extends State<Negativa> with SingleTickerProviderStateMixin {
 
   VideoPlayerController _controllervideo;
 
+  _NegativaState(String idVideo);
+
   @override
   void initState() {
 
     super.initState();
-    _controllervideo = VideoPlayerController.network(
-        'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/TREE%2Favena_inglehs%2FEXCESO%20GRASA%20ZONA%20T%20CASI%20NUNCA%201.mp4?alt=media&token=829216d0-e47d-482f-bba2-fe94786c560c')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {
-          _controllervideo.play();
-        });
-      });
+    Firestore.instance
+        .collection ("moda")
+        .document(widget.idVideo).collection('0').document('1_negativo')
+        .snapshots().forEach((doc)=> {
+      _controllervideo = VideoPlayerController.network( doc.data['video'])
+        ..initialize().then((_) {
+          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          setState(() {
+            _controllervideo.play();
+          });
+        })
+
+    });
   }
 
 

@@ -1,42 +1,46 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cocreacion/Categorias/model/category_item.dart';
 import 'package:cocreacion/tree/opcion1/video_1.dart';
 import 'package:cocreacion/tree/opcion2/video_2.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-import '../delayed_animation.dart';
 
 class Intro extends StatefulWidget {
+  final CategoryItem documentData;
+  Intro({this.documentData});
+
   @override
   _IntroState createState() => _IntroState();
-}
 
+}
 class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
+
   VideoPlayerController _controllervideo;
 
+
+
+  //_IntroState(String id_video);
   @override
   void initState() {
     super.initState();
-    _controllervideo = VideoPlayerController.network(
-        'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/TREE%2Favena_inglehs%2FINTRO%20GRASA%20ZONA%20T.mp4?alt=media&token=6ecb446d-b7c9-4898-8cc5-7e837c609ede')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {
-          _controllervideo.play();
-        });
-      });
+    Firestore.instance
+        .collection ("moda")
+        .document(widget.documentData.name).collection('0').document('0')
+        .snapshots().forEach((doc)=> {
+      _controllervideo = VideoPlayerController.network( doc.data['video'])
+        ..initialize().then((_) {
+          setState(() {
+            _controllervideo.play();
+          });
+        })
+
+    });
   }
-
-
-
-
-  var _opacity = 0.0;
-
   @override
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
 
@@ -45,12 +49,11 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
               Container(
                 height: 812.0,
                 width: 420.0,
-                child: _controllervideo.value.initialized
+                child:  _controllervideo.value.initialized
                     ? AspectRatio(
                   aspectRatio: _controllervideo.value.aspectRatio,
                   child: VideoPlayer(_controllervideo),
-                )
-                    : Container(),
+                ) : Container()
               ),
               Column(
                 children: <Widget>[
@@ -62,7 +65,7 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
 
                         child: InkWell(
                           onTap: (){
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1()));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1(widget.documentData.name)));
 
 
                           },
@@ -77,7 +80,7 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
 
                             child: InkWell(
                               onTap: (){
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_2()));
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_2(widget.documentData.name)));
 
                               },
                             ),
@@ -102,4 +105,10 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
     super.dispose();
     _controllervideo.dispose();
   }
+
+
 }
+
+
+
+

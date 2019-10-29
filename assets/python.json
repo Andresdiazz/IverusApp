@@ -1,0 +1,88 @@
+[
+    {
+        "1": "¿Cuál será el resultado del siguiente código?\na = \"p\" * 3\nimprimir (a)",
+        "2": "¿Qué función descubre el tipo de variable en Python?",
+        "3": "¿Cuál de las siguientes palabras clave se usa para definir una función en Python?",
+        "4": "¿Cuál de las siguientes es una función de impresión en Python?",
+        "5": "¿Qué función descubre el tipo de variable en Python?",
+        "6": "¿Presidente de México?",
+        "7": "¿Presidente de Ecuador?",
+        "8": "¿Presidente de Colombia?",
+        "9": "¿Presidente de EEUU?",
+        "10": "Quienes somos"
+    },
+    {
+        "1": {
+            "a": "pp",
+            "b": "ppp",
+            "c": "3p",
+            "d": "p3"
+        },
+        "2": {
+            "a": "typedef",
+            "b": "typeof",
+            "c": "type",
+            "d": "find"
+        },
+        "3": {
+            "a": "func",
+            "b": "def",
+            "c": "void",
+            "d": "function"
+        },
+        "4": {
+            "a": "cout",
+            "b": "print",
+            "c": "println",
+            "d": "stderr"
+        },
+        "5": {
+            "a": "typedef",
+            "b": "typeof",
+            "c": "type",
+            "d": "find"
+        },
+        "6": {
+            "a": "LM",
+            "b": "AMLO",
+            "c": "IDM",
+            "d": "DT"
+        },
+        "7": {
+            "a": "LM",
+            "b": "AMLO",
+            "c": "IDM",
+            "d": "DT"
+        },
+        "8": {
+            "a": "LM",
+            "b": "AMLO",
+            "c": "IDM",
+            "d": "DT"
+        },
+        "9": {
+            "a": "LM",
+            "b": "AMLO",
+            "c": "IDM",
+            "d": "DT"
+        },
+        "10": {
+            "a": "EXCITED",
+            "b": "TOTTO",
+            "c": "ZARA",
+            "d": "tt"
+        }
+    },
+    {
+        "1": "ppp",
+        "2": "type",
+        "3": "def",
+        "4": "print",
+        "5": "type",
+        "6": "AMLO",
+        "7": "LM",
+        "8": "IDM",
+        "9": "DT",
+        "10": "EXCITED"
+    }
+]

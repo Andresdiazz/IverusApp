@@ -1,0 +1,88 @@
+[
+    {
+        "1": "¿Cuál es el presidente de México?",
+        "2": "¿Cuál es  el presidente de EEUU?",
+        "3": "¿Cuál es el presidente de Ecuador?",
+        "4": "¿Cuál es la Capital de México?",
+        "5": "¿Cuál es la Capital de EEUU?",
+        "6": "¿Cuál es la Capital de Ecuador?",
+        "7": "¿Cuál es el color de Barni ?",
+        "8": "¿Cuál es la fecha actual?",
+        "9": "¿Quienes Somos?",
+        "10": "¿Dónde nos encontramos?"
+    },
+    {
+        "1": {
+            "a": "LM",
+            "b": "AMLO",
+            "c": "IDM",
+            "d": "DT"
+        },
+        "2": {
+            "a": "DT",
+            "b": "IDM",
+            "c": "AMLO",
+            "d": "LM"
+        },
+        "3": {
+            "a": "AMLO",
+            "b": "IDM",
+            "c": "DT",
+            "d": "LM"
+        },
+        "4": {
+            "a": "Quito",
+            "b": "Bogota",
+            "c": "Washington",
+            "d": "Ciudad de México"
+        },
+        "5": {
+            "a": "Washington",
+            "b": "Ciudad de México",
+            "c": "Quito",
+            "d": "Bogota"
+        },
+        "6": {
+           "a": "Bogota",
+            "b": "Ciudad de México",
+            "c": "Quito",
+            "d": "Washington"
+        },
+        "7": {
+            "a": "Azul",
+            "b": "Amarillo",
+            "c": "Rosado Barni",
+            "d": "Rojo"
+        },
+        "8": {
+            "a": "2019-10-28",
+            "b": "2019-10-20",
+            "c": "0009-10-03",
+            "d": "2019-10-02"
+        },
+        "9": {
+            "a": "EXCITED",
+            "b": "TOTTO",
+            "c": "ZARA",
+            "d": "tt"
+        },
+        "10": {
+            "a": "The Pool",
+            "b": "Corporativo Chapultepec",
+            "c": "ZARA",
+            "d": "tt"
+        }
+    },
+    {
+        "1": "AMLO",
+        "2": "DT",
+        "3": "LM",
+        "4": "Ciudad de México",
+        "5": "Washington",
+        "6": "Quito",
+        "7": "Rosado Barni",
+        "8": "2019-10-28",
+        "9": "EXCITED",
+        "10": "Corporativo Chapultepec"
+    }
+]

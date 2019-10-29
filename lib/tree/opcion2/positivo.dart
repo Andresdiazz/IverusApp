@@ -81,7 +81,7 @@ class _PositivaState extends State<Positiva> with SingleTickerProviderStateMixin
                                 });
                               },
                               onTap: (){
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Intro()));
+                              //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Intro()));
                               },
                               child: Center(
                                   child: AnimatedOpacity(
@@ -111,7 +111,7 @@ class _PositivaState extends State<Positiva> with SingleTickerProviderStateMixin
                                 });
                               },
                               onTap: (){
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1_2()));
+                              //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1_2()));
                               },
                               child: Center(
                                   child: AnimatedOpacity(

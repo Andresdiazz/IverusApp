@@ -96,7 +96,8 @@ flutter:
     - assets/heart_filled.png
     - assets/sprinkle.png
     - assets/Sprinkle.psd
-    - assets/videos/ACNE_QUESTION.MP4
+    - assets/python.json
+    - assets/test.json
 
 
 

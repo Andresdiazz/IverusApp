@@ -12,26 +12,35 @@ import 'package:video_player/video_player.dart';
 
 
 class Video_1 extends StatefulWidget {
+  String idVideo;
+  Video_1(this.idVideo);
   @override
-  _Video_1State createState() => _Video_1State();
+  _Video_1State createState() => _Video_1State(this.idVideo);
 }
 
 class _Video_1State extends State<Video_1> with SingleTickerProviderStateMixin {
 
   VideoPlayerController _controllervideo;
 
+  _Video_1State(String idVideo);
+
   @override
   void initState() {
 
     super.initState();
-    _controllervideo = VideoPlayerController.network(
-        'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/TREE%2Favena_inglehs%2FGRASA%20ZONA%20T%20SI%CC%81.mp4?alt=media&token=1ba14292-0ef1-4b37-b6e7-1bccb35c8dbd')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {
-          _controllervideo.play();
-        });
-      });
+    Firestore.instance
+        .collection ("moda")
+        .document(widget.idVideo).collection('0').document('1')
+        .snapshots().forEach((doc)=> {
+      _controllervideo = VideoPlayerController.network( doc.data['video'])
+        ..initialize().then((_) {
+          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          setState(() {
+            _controllervideo.play();
+          });
+        })
+
+    });
   }
 
 
@@ -68,7 +77,7 @@ class _Video_1State extends State<Video_1> with SingleTickerProviderStateMixin {
 
                           child: InkWell(
                             onTap: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1_1()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1_1(widget.idVideo)));
 
 
                             },
@@ -83,7 +92,7 @@ class _Video_1State extends State<Video_1> with SingleTickerProviderStateMixin {
 
                               child: InkWell(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1_2()));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1_2(widget.idVideo)));
 
                                 },
                               ),
