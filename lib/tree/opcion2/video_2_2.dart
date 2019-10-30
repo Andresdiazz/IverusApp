@@ -11,9 +11,10 @@ import 'package:video_player/video_player.dart';
 
 class Video_2_2 extends StatefulWidget {
   String idVideo;
-  Video_2_2(this.idVideo);
+  String tipo;
+  Video_2_2(this.idVideo,this.tipo);
   @override
-  _Video_2_2State createState() => _Video_2_2State(this.idVideo);
+  _Video_2_2State createState() => _Video_2_2State(this.idVideo,this.tipo);
 }
 
 class _Video_2_2State extends State<Video_2_2> with SingleTickerProviderStateMixin {
@@ -22,14 +23,14 @@ class _Video_2_2State extends State<Video_2_2> with SingleTickerProviderStateMix
   AnimationController _controller;
   VideoPlayerController _controllervideo;
 
-  _Video_2_2State(String idVideo);
+  _Video_2_2State(String idVideo,String tipo);
 
   @override
   void initState() {
 
     super.initState();
     Firestore.instance
-        .collection ("moda")
+        .collection (widget.tipo)
         .document(widget.idVideo).collection('0').document('2_2')
         .snapshots().forEach((doc)=> {
       _controllervideo = VideoPlayerController.network( doc.data['video'])

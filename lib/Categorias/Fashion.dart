@@ -16,6 +16,7 @@ class _FashionState extends State<Fashion> {
   List<PreloadPageController> controllers = [];
   CategoriesBloc _bloc = CategoriesBloc("moda");
   final _db = Firestore.instance;
+  var tipo = 'moda';
   @override
   void initState() {
     _loadImage();
@@ -72,19 +73,43 @@ class _FashionState extends State<Fashion> {
                 return GestureDetector(
                   onTap: () {
                     if (_bloc.items != null) {
-                      if(hit.toString().split('.gif?').length == 2  ){
+                      if (hit.tree == 'yes') {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => VideoPage(documentData: hit,),
+                            builder: (context) => Intro( documentData: hit,),
                           ),
                         );
                         print('video ');
-                      }else if(hit.toString().split('.gif?').length == 1){
+                      }
+                      else if (hit.trivia == 'yes') {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ImagePage(documentData: hit,),
+                            builder: (context) => getjson( hit.name),
+                          ),
+                        );
+                        print('video ');
+                      }else if (hit.video != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoPage(
+                                documentData: hit,
+                                categoriesBloc: _bloc,
+                                table: tipo),
+                          ),
+                        );
+                        print('video ');
+                      } else if (hit.image != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImagePage(
+                              documentData: hit,
+                              categoriesBloc: _bloc,
+                              table: tipo,
+                            ),
                           ),
                         );
                         print('imagen ');
@@ -98,46 +123,48 @@ class _FashionState extends State<Fashion> {
                     bloc: _bloc,
                     onPressed: (){
                       if (_bloc.items != null) {
-                        //Split trivia
-
-                        if(hit.toString().split('trivia').length == 3){
+                        if (hit.tree == 'yes') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => getjson(hit.name),
-
-
+                              builder: (context) => Intro( documentData: hit,),
                             ),
                           );
-                          print('trivia');
-                        } else
-                          //split video
-                        if(hit.toString().split('.gif?').length == 2  ){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => VideoPage(documentData: hit,),
-                            ),
-                          );
-                          print('video:  ');
-
-                          //split image
-                        }else if(hit.toString().split('.gif?').length == 1){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                             // builder: (context) => ImagePage(documentData: hit,),
-                               builder: (context) => Intro(documentData: hit,),
-
-
-
-                            ),
-                          );
-                          print('image');
+                          print('video ');
                         }
-
+                        else if (hit.trivia == 'yes') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => getjson( hit.name),
+                            ),
+                          );
+                          print('video ');
+                        }else if (hit.video != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VideoPage(
+                                  documentData: hit,
+                                  categoriesBloc: _bloc,
+                                  table: tipo),
+                            ),
+                          );
+                          print('video ');
+                        } else if (hit.image != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImagePage(
+                                documentData: hit,
+                                categoriesBloc: _bloc,
+                                table: tipo,
+                              ),
+                            ),
+                          );
+                          print('imagen ');
+                        }
                       }
-
                     },
                   ),
                 );

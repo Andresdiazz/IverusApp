@@ -13,23 +13,24 @@ import 'package:video_player/video_player.dart';
 
 class Video_1 extends StatefulWidget {
   String idVideo;
-  Video_1(this.idVideo);
+  String tipo;
+  Video_1(this.idVideo,this.tipo);
   @override
-  _Video_1State createState() => _Video_1State(this.idVideo);
+  _Video_1State createState() => _Video_1State(this.idVideo,this.tipo);
 }
 
 class _Video_1State extends State<Video_1> with SingleTickerProviderStateMixin {
 
   VideoPlayerController _controllervideo;
 
-  _Video_1State(String idVideo);
+  _Video_1State(String idVideo ,String tipo );
 
   @override
   void initState() {
 
     super.initState();
     Firestore.instance
-        .collection ("moda")
+        .collection (widget.tipo)
         .document(widget.idVideo).collection('0').document('1')
         .snapshots().forEach((doc)=> {
       _controllervideo = VideoPlayerController.network( doc.data['video'])
@@ -77,7 +78,7 @@ class _Video_1State extends State<Video_1> with SingleTickerProviderStateMixin {
 
                           child: InkWell(
                             onTap: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1_1(widget.idVideo)));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1_1(widget.idVideo,widget.tipo)));
 
 
                             },
@@ -92,7 +93,7 @@ class _Video_1State extends State<Video_1> with SingleTickerProviderStateMixin {
 
                               child: InkWell(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1_2(widget.idVideo)));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1_2(widget.idVideo,widget.tipo)));
 
                                 },
                               ),

@@ -9,23 +9,24 @@ import '../delayed_animation.dart';
 
 class Negativa extends StatefulWidget {
   String idVideo;
-  Negativa(this.idVideo);
+  String tipo;
+  Negativa(this.idVideo,this.tipo);
   @override
-  _NegativaState createState() => _NegativaState(this.idVideo);
+  _NegativaState createState() => _NegativaState(this.idVideo,this.tipo);
 }
 
 class _NegativaState extends State<Negativa> with SingleTickerProviderStateMixin {
 
   VideoPlayerController _controllervideo;
 
-  _NegativaState(String idVideo);
+  _NegativaState(String idVideo, String tipo);
 
   @override
   void initState() {
 
     super.initState();
     Firestore.instance
-        .collection ("moda")
+        .collection (widget.tipo)
         .document(widget.idVideo).collection('0').document('1_negativo')
         .snapshots().forEach((doc)=> {
       _controllervideo = VideoPlayerController.network( doc.data['video'])

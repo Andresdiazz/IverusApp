@@ -80,9 +80,9 @@ class _VideoPageState extends State<VideoPage>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Transform.translate(
-                    offset: Offset(0, -_controller.value * 64),
+                    offset: Offset(0, -_controller.value * 84),
                     child: Container(
-                      height: 64.0,
+                      height: 84.0,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -114,9 +114,9 @@ class _VideoPageState extends State<VideoPage>
                     ),
                   ),
                   Transform.translate(
-                    offset: Offset(0, _controller.value * 64),
+                    offset: Offset(0, _controller.value * 84),
                     child: Container(
-                      height: 64.0,
+                      height: 84.0,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(

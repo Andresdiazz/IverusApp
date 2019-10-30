@@ -25,7 +25,7 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     Firestore.instance
-        .collection ("moda")
+        .collection (widget.documentData.tipo)
         .document(widget.documentData.name).collection('0').document('0')
         .snapshots().forEach((doc)=> {
       _controllervideo = VideoPlayerController.network( doc.data['video'])
@@ -65,7 +65,7 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
 
                         child: InkWell(
                           onTap: (){
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1(widget.documentData.name)));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_1(widget.documentData.name,widget.documentData.tipo)));
 
 
                           },
@@ -80,7 +80,7 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
 
                             child: InkWell(
                               onTap: (){
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_2(widget.documentData.name)));
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_2(widget.documentData.name,widget.documentData.tipo)));
 
                               },
                             ),

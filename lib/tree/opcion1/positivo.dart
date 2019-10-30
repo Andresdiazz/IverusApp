@@ -7,23 +7,24 @@ import 'package:video_player/video_player.dart';
 
 class Positiva extends StatefulWidget {
   String idVideo;
-  Positiva(this.idVideo);
+  String tipo;
+  Positiva(this.idVideo,this.tipo);
   @override
-  _PositivaState createState() => _PositivaState(this.idVideo);
+  _PositivaState createState() => _PositivaState(this.idVideo,this.tipo);
 }
 
 class _PositivaState extends State<Positiva> with SingleTickerProviderStateMixin {
 
   VideoPlayerController _controllervideo;
 
-  _PositivaState(String idVideo);
+  _PositivaState(String idVideo ,String tipo);
 
   @override
   void initState() {
 
     super.initState();
     Firestore.instance
-        .collection ("tree")
+        .collection (widget.tipo)
         .document(widget.idVideo).collection('0').document('1_positivo')
         .snapshots().forEach((doc)=> {
       _controllervideo = VideoPlayerController.network( doc.data['video'])

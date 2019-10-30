@@ -4,8 +4,11 @@ import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
 import 'package:cocreacion/Categorias/card/custom_card.dart';
 import 'package:cocreacion/Categorias/card/image_page.dart';
 import 'package:cocreacion/Categorias/card/video_page.dart';
+import 'package:cocreacion/Trivia/quizpage.dart';
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
+
+import '../tree/intro/intro.dart';
 
 class Iverus extends StatefulWidget {
   @override
@@ -17,7 +20,7 @@ class _IverusState extends State<Iverus> {
   CategoriesBloc _bloc = CategoriesBloc("iverus");
   final _db = Firestore.instance;
   var _opacity = 0.0;
-
+  var tipo = 'iverus';
   @override
   void initState() {
     _loadImage();
@@ -75,60 +78,92 @@ class _IverusState extends State<Iverus> {
                   hit = _bloc.items[hitIndex];
                 }
                 return GestureDetector(
-                  onTap: () {
-                    if (_bloc.items != null) {
-                      if (hit.toString().split('.gif?').length == 2) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => VideoPage(
-                              documentData: hit,
-                              categoriesBloc: _bloc,
-                              table: "iverus",
-                            ),
-                          ),
-                        );
-                        print('video ');
-                      } else if (hit.toString().split('.gif?').length == 1) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ImagePage(
-                              documentData: hit,
-                              categoriesBloc: _bloc,
-                              table: "iverus",
-                            ),
-                          ),
-                        );
-                        print('imagen ');
-                      }
-                    }
-                  },
-                  child: CustomCard(
-                    documentData: hit,
-                    bloc: _bloc,
-                    onPressed: () {
+                    onTap: () {
                       if (_bloc.items != null) {
-                        if (hit.toString().split('.gif?').length == 2) {
+                        if (hit.tree == 'yes') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Intro( documentData: hit,),
+                            ),
+                          );
+                          print('video ');
+                        }
+                        else if (hit.trivia == 'yes') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => getjson( hit.name),
+                            ),
+                          );
+                          print('video ');
+                        }else if (hit.video != null) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => VideoPage(
-                                documentData: hit,
-                                categoriesBloc: _bloc,
-                                table: "iverus",
-                              ),
+                                  documentData: hit,
+                                  categoriesBloc: _bloc,
+                                  table: tipo),
                             ),
                           );
                           print('video ');
-                        } else if (hit.toString().split('.gif?').length == 1) {
+                        } else if (hit.image != null) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => ImagePage(
                                 documentData: hit,
                                 categoriesBloc: _bloc,
-                                table: "iverus",
+                                table: tipo,
+                              ),
+                            ),
+                          );
+                          print('imagen ');
+                        }
+                      }
+                    },
+                  child: CustomCard(
+                    documentData: hit,
+                    bloc: _bloc,
+                    onPressed: (){
+                      if (_bloc.items != null) {
+                        if (hit.tree == 'yes') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Intro( documentData: hit,),
+                            ),
+                          );
+                          print('video ');
+                        }
+                        else if (hit.trivia == 'yes') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => getjson( hit.name),
+                            ),
+                          );
+                          print('video ');
+                        }else if (hit.video != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VideoPage(
+                                  documentData: hit,
+                                  categoriesBloc: _bloc,
+                                  table: tipo),
+                            ),
+                          );
+                          print('video ');
+                        } else if (hit.image != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ImagePage(
+                                documentData: hit,
+                                categoriesBloc: _bloc,
+                                table: tipo,
                               ),
                             ),
                           );

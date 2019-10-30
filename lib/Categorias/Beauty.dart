@@ -3,9 +3,12 @@ import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
 import 'package:cocreacion/Categorias/card/custom_card.dart';
 import 'package:cocreacion/Categorias/card/image_page.dart';
 import 'package:cocreacion/Categorias/card/video_page.dart';
+import 'package:cocreacion/Trivia/quizpage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:preload_page_view/preload_page_view.dart';
+
+import '../tree/intro/intro.dart';
 
 class Beauty extends StatefulWidget {
   Beauty({Key key, this.category}) : super(key: key);
@@ -21,6 +24,7 @@ class _BeautyState extends State<Beauty> {
 
   CategoriesBloc _bloc = CategoriesBloc('belleza');
 
+  var tipo ='belleza';
   @override
   void initState() {
     _loadImage();
@@ -80,25 +84,42 @@ class _BeautyState extends State<Beauty> {
                 return GestureDetector(
                   onTap: () {
                     if (_bloc.items != null) {
-                      if (hit.toString().split('.gif?').length == 2) {
+                      if (hit.tree == 'yes') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Intro( documentData: hit,),
+                          ),
+                        );
+                        print('video ');
+                      }
+                      else if (hit.trivia == 'yes') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => getjson( hit.name),
+                          ),
+                        );
+                        print('video ');
+                      }else if (hit.video != null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => VideoPage(
                                 documentData: hit,
                                 categoriesBloc: _bloc,
-                                table: "belleza"),
+                                table: tipo),
                           ),
                         );
                         print('video ');
-                      } else if (hit.toString().split('.gif?').length == 1) {
+                      } else if (hit.image != null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ImagePage(
                               documentData: hit,
                               categoriesBloc: _bloc,
-                              table: "belleza",
+                              table: tipo,
                             ),
                           ),
                         );
@@ -109,27 +130,45 @@ class _BeautyState extends State<Beauty> {
                   child: CustomCard(
                     documentData: hit,
                     bloc: _bloc,
-                    onPressed: () {
+                    onPressed: (){
                       if (_bloc.items != null) {
-                        if (hit.toString().split('.gif?').length == 2) {
+                        if (hit.tree == 'yes') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Intro( documentData: hit,),
+                            ),
+                          );
+                          print('video ');
+                        }
+                        else if (hit.trivia == 'yes') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => getjson( hit.name),
+                            ),
+                          );
+                          print('video ');
+                        }else if (hit.video != null) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => VideoPage(
                                   documentData: hit,
                                   categoriesBloc: _bloc,
-                                  table: "belleza"),
+                                  table: tipo),
                             ),
                           );
                           print('video ');
-                        } else if (hit.toString().split('.gif?').length == 1) {
+                        } else if (hit.image != null) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => ImagePage(
-                                  documentData: hit,
-                                  categoriesBloc: _bloc,
-                                  table: "belleza"),
+                                documentData: hit,
+                                categoriesBloc: _bloc,
+                                table: tipo,
+                              ),
                             ),
                           );
                           print('imagen ');

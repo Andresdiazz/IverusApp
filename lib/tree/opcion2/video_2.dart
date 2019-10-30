@@ -11,9 +11,10 @@ import 'package:video_player/video_player.dart';
 class Video_2 extends StatefulWidget {
 
   String idVideo;
-  Video_2(this.idVideo);
+  String tipo;
+  Video_2(this.idVideo,this.tipo);
   @override
-  _Video_2State createState() => _Video_2State(this.idVideo);
+  _Video_2State createState() => _Video_2State(this.idVideo, this.tipo);
 }
 
 class _Video_2State extends State<Video_2> with SingleTickerProviderStateMixin {
@@ -22,14 +23,14 @@ class _Video_2State extends State<Video_2> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   VideoPlayerController _controllervideo;
 
-  _Video_2State(String idVideo);
+  _Video_2State(String idVideo,String tipo);
 
   @override
   void initState() {
 
     super.initState();
     Firestore.instance
-        .collection ("tree")
+        .collection (widget.tipo)
         .document(widget.idVideo).collection('0').document('2')
         .snapshots().forEach((doc)=> {
       _controllervideo = VideoPlayerController.network( doc.data['video'])
@@ -76,7 +77,7 @@ class _Video_2State extends State<Video_2> with SingleTickerProviderStateMixin {
 
                           child: InkWell(
                             onTap: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_2_1(widget.idVideo)));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_2_1(widget.idVideo,widget.tipo)));
 
 
                             },
@@ -91,7 +92,7 @@ class _Video_2State extends State<Video_2> with SingleTickerProviderStateMixin {
 
                               child: InkWell(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_2_2(widget.idVideo)));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Video_2_2(widget.idVideo,widget.tipo)));
 
                                 },
                               ),
