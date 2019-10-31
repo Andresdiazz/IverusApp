@@ -73,7 +73,7 @@ class CategoriesBloc extends Bloc {
 
     Map<dynamic, dynamic> likes;
 
-    likes = i.likes == null ? List() : Map<String, String>.from(i.likes);
+    likes = i.likes == null ? List() : Map<String, int>.from(i.likes);
 
 //    check if user have liked this video before
     if (likes[user.uid] != null) {

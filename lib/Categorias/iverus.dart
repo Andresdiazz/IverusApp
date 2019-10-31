@@ -124,6 +124,7 @@ class _IverusState extends State<Iverus> {
                       }
                     },
                   child: CustomCard(
+                    table: "iverus",
                     documentData: hit,
                     bloc: _bloc,
                     onPressed: (){

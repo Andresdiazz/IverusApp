@@ -11,20 +11,24 @@ import 'image_page.dart';
 
 class CustomCard extends StatefulWidget {
   CustomCard({
-  this.documentData,
+    this.table,
+    this.documentData,
     this.bloc,
     this.onPressed,
   });
+
+  final String table;
   final CategoryItem documentData;
   final CategoriesBloc bloc;
   final VoidCallback onPressed;
+
   @override
   _CustomCardState createState() => _CustomCardState();
 }
 
 class _CustomCardState extends State<CustomCard> {
-
   var _opacity = 0.0;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -35,35 +39,39 @@ class _CustomCardState extends State<CustomCard> {
           Container(
             child: (widget.documentData.image != null)
                 ? CachedNetworkImage(
-                      imageUrl: widget.documentData.image,
-                      fit: BoxFit.cover,
-                  ) : null,
+                    imageUrl: widget.documentData.image,
+                    fit: BoxFit.cover,
+                  )
+                : null,
             width: double.infinity,
             height: double.infinity,
           ),
           InkWell(
-            onDoubleTap: () {
-              Timer(Duration(milliseconds: 1), () {
-                setState(() {
-                  _opacity = _opacity == 0.0 ? 1.0 : 0.0;
-                  print('aparece');
+              onDoubleTap: () {
+                Timer(Duration(milliseconds: 1), () {
+                  setState(() {
+                    _opacity = _opacity == 0.0 ? 1.0 : 0.0;
+                    print('aparece');
+                  });
                 });
-              });
-              Timer(Duration(seconds: 1), () {
-                setState(() {
-                  _opacity = _opacity == 0.0 ? 1.0 : 0.0;
-                  print('aparece');
+                Timer(Duration(seconds: 1), () {
+                  setState(() {
+                    _opacity = _opacity == 0.0 ? 1.0 : 0.0;
+                    print('aparece');
+                    widget.bloc
+                        .updateLike(widget.documentData.id, widget.table);
+                  });
                 });
-              });
-            }
-            ,
-            onTap: widget.onPressed,
-            child: AnimatedOpacity(
+              },
+              onTap: widget.onPressed,
+              child: AnimatedOpacity(
                 opacity: _opacity,
                 duration: Duration(milliseconds: 60),
-            child: FlareActor("assets/Like heart.flr", animation: "Like heart",),
-            )
-          ),
+                child: FlareActor(
+                  "assets/Like heart.flr",
+                  animation: "Like heart",
+                ),
+              )),
         ],
       ),
     );
