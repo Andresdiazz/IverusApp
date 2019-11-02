@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Comments/model/comments.dart';
@@ -7,11 +9,13 @@ import 'package:cocreacion/Ideas/ui/widgets/slide.dart';
 
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_repository.dart';
+import 'package:countdown/countdown.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:cocreacion/Users/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_api.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../CommonResponse.dart';
 import '../../SharedPref.dart';

@@ -54,7 +54,7 @@ dependencies:
   preload_page_view: ^0.1.4
 
   cached_network_image: ^1.1.0
-
+  countdown: ^0.1.0
   fluttertoast: ^3.1.0
   provider:
 
@@ -98,6 +98,7 @@ flutter:
     - assets/Sprinkle.psd
     - assets/python.json
     - assets/test.json
+    - assets/videos/test.MP4
 
 
 

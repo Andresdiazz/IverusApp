@@ -1,3 +1,4 @@
+import 'package:cocreacion/Ideas/ui/screens/timer.dart';
 import 'package:cocreacion/Ideas/ui/widgets/sliding_cards.dart';
 import 'package:cocreacion/Ideas/ui/widgets/tabs.dart';
 import 'package:cocreacion/Users/bloc/home_bloc.dart';
@@ -20,7 +21,12 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(height: 8),
-                  Header(),
+                  Row(
+                    children: <Widget>[
+                      Header(),
+                      CountDownTimer(),
+                    ],
+                  ),
                   SizedBox(height: 40),
                   Tabs(),
                   SizedBox(height: 20),
@@ -42,7 +48,8 @@ class Header extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         child: Image(
-          image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fiverus.png?alt=media&token=8bda555c-2603-4b97-bf71-564e630dd3c0"),
+          image: NetworkImage(
+              "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fiverus.png?alt=media&token=8bda555c-2603-4b97-bf71-564e630dd3c0"),
           width: 150,
         )
         /*Text(

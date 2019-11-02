@@ -15,6 +15,7 @@ import '../../SharedPref.dart';
 
 class CloudFirestoreAPI {
   final String USERS = "users";
+  final String LIVE = "live";
   final String IDEAS = "ideas";
   final String COMMENTS = "comments";
   final String VIDEOS = "videos";
@@ -354,6 +355,18 @@ class CloudFirestoreAPI {
       user.points = points;
       DocumentReference ref = _db.collection(USERS).document(user.uid);
       return ref.setData(user.getMap()).then((res) {});
+    });
+  }
+
+  Future<CommonResponse> getTutorial() {
+    return _db
+        .collection(LIVE)
+        .document('0SpRp4sseF0DSvc19g5V')
+        .get()
+        .then((onValue) {
+      return CommonResponse(CommonResponse.successCode, onValue.data);
+    }).catchError((error) {
+      throw error;
     });
   }
 }

@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'IverusApp',
-            home: SplashScreen()),
-//            home: LiveVideos()),
+//            home: SplashScreen()),
+            home: LiveVideos()),
         bloc: UserBloc());
   }
 }

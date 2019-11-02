@@ -60,4 +60,6 @@ class CloudFirestoreRepository {
 
   updatePointsOnVideoWatch(String uid, String table) =>
       _cloudFirestoreAPI.updatePointsOnVideoWatch(uid, table);
+
+  Future<CommonResponse> getTutorial() => _cloudFirestoreAPI.getTutorial();
 }
