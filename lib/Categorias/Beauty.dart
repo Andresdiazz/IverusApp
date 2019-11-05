@@ -97,7 +97,7 @@ class _BeautyState extends State<Beauty> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => getjson( hit.name),
+                            builder: (context) => getjson( hit.name ,hit.punto ,hit.ask),
                           ),
                         );
                         print('video ');
@@ -145,7 +145,7 @@ class _BeautyState extends State<Beauty> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => getjson( hit.name),
+                              builder: (context) => getjson( hit.name ,hit.punto, hit.ask),
                             ),
                           );
                           print('video ');

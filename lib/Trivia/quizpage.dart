@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 
 class getjson extends StatelessWidget {
   String langname;
-  getjson(this.langname);
+  dynamic punto;
+  dynamic ask;
+  getjson(this.langname,this.punto,this.ask);
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -23,7 +25,7 @@ class getjson extends StatelessWidget {
             ),
           );
         } else {
-          return quizpage(mydata: mydata);
+          return quizpage(mydata: mydata,  punto: punto,ask: ask,);
         }
       },
     );
@@ -32,16 +34,20 @@ class getjson extends StatelessWidget {
 
 class quizpage extends StatefulWidget {
   var mydata;
+  var punto;
+  var ask;
 
-  quizpage({Key key, @required this.mydata}) : super(key: key);
+  quizpage({Key key, @required this.mydata,@required this.punto,@required this.ask}) : super(key: key);
   @override
-  _quizpageState createState() => _quizpageState(mydata);
+  _quizpageState createState() => _quizpageState(mydata,punto,ask);
 }
 
 class _quizpageState extends State<quizpage> {
 
   var mydata;
-  _quizpageState(this.mydata);
+  var punto;
+  var ask;
+  _quizpageState(this.mydata, this.punto, this.ask);
 
   Color colortoshow = Colors.indigoAccent;
   Color right = Colors.green;
@@ -96,7 +102,8 @@ class _quizpageState extends State<quizpage> {
     canceltimer = false;
     timer = 30;
     setState(() {
-      if (i < 10) {
+      if (i < ask) {
+        print(ask);
         i++;
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -115,7 +122,8 @@ class _quizpageState extends State<quizpage> {
 
     if (mydata[2][i.toString()] == mydata[1][i.toString()][k]) {
 
-      marks = marks + 5;
+      marks = marks + punto;
+      print(punto);
       colortoshow = right;
     } else {
 

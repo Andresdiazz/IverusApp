@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:cocreacion/Ideas/ui/widgets/slide_info.dart';
-import 'package:cocreacion/Trivia/home.dart';
 import 'package:cocreacion/Users/bloc/bloc_user.dart';
 import 'package:flutter/material.dart';
 

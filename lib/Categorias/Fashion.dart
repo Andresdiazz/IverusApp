@@ -86,7 +86,7 @@ class _FashionState extends State<Fashion> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => getjson( hit.name),
+                            builder: (context) => getjson( hit.name ,hit.punto ,hit.ask),
                           ),
                         );
                         print('video ');
@@ -136,7 +136,7 @@ class _FashionState extends State<Fashion> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => getjson( hit.name),
+                              builder: (context) => getjson(hit.name ,hit.punto,hit.ask),
                             ),
                           );
                           print('video ');

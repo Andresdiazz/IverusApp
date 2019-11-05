@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'IverusApp',
 //            home: SplashScreen()),
-            home: LiveVideos()),
+            home: SplashScreen()),
         bloc: UserBloc());
   }
 }

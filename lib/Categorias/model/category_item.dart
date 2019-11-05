@@ -7,12 +7,16 @@ class CategoryItem {
   String name;
   String tipo;
   String tree;
+  String formato;
+  dynamic punto;
+  dynamic ask;
+
   Map<dynamic, dynamic> likes;
   // list of user and no of likes
   List<dynamic> shares;
   String id;
 
-  CategoryItem(this.image, this.likes, this.id, this.shares, this.video ,this.trivia,this.name,this.tipo,this.tree);
+  CategoryItem(this.image, this.likes, this.id, this.shares, this.video ,this.trivia,this.name,this.tipo,this.tree,this.punto,this.ask,this.formato);
 
   @override
   String toString() {
@@ -23,6 +27,9 @@ class CategoryItem {
       'name': name,
       'tipo': tipo,
       'tree': tree,
+      'formato': formato,
+      'punto':punto,
+      'ask':ask,
       'likes': likes,
       'shares': shares,
     });
@@ -41,6 +48,9 @@ class CategoryItem {
     trivia = json['trivia'] == null ? null : json['trivia'];
     tipo = json['tipo'] == null ? null : json['tipo'];
     tree = json['tree'] == null ? null : json['tree'];
+    punto = json['punto'] == null ? null : json['punto'];
+    formato = json['formato'] == null ? null : json['formato'];
+    ask = json['ask'] == null ? null : json['ask'];
     likes = json['likes'] == null ? Map() : json['likes'];
     shares = json['shares'] == null ? List() : json['shares'];
   }
@@ -53,6 +63,9 @@ class CategoryItem {
     data['name'] = this.name;
     data['tipo'] = this.tipo;
     data['tree'] = this.tree;
+    data['formato'] = this.formato;
+    data['punto'] = this.punto;
+    data['ask'] = this.ask;
     if (this.likes != Map()) data['likes'] = this.likes;
     if (this.shares != List()) data['shares'] = this.shares;
     return data;

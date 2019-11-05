@@ -5,6 +5,7 @@ import 'package:cocreacion/Categorias/card/custom_card.dart';
 import 'package:cocreacion/Categorias/card/image_page.dart';
 import 'package:cocreacion/Categorias/card/video_page.dart';
 import 'package:cocreacion/Trivia/quizpage.dart';
+import 'package:cocreacion/tree_2_x_2/intro/intro.dart';
 import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
@@ -80,7 +81,16 @@ class _IverusState extends State<Iverus> {
                 return GestureDetector(
                     onTap: () {
                       if (_bloc.items != null) {
-                        if (hit.tree == 'yes') {
+
+                        if (hit.tree == 'yes' && hit.formato == '2') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Intro_2_x_2( documentData: hit,),
+                            ),
+                          );
+                          print('video ');
+                        }else if (hit.tree == 'yes' && hit.formato == '3') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -93,7 +103,7 @@ class _IverusState extends State<Iverus> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => getjson( hit.name),
+                              builder: (context) => getjson( hit.name ,hit.punto, hit.ask),
                             ),
                           );
                           print('video ');
@@ -124,7 +134,6 @@ class _IverusState extends State<Iverus> {
                       }
                     },
                   child: CustomCard(
-                    table: "iverus",
                     documentData: hit,
                     bloc: _bloc,
                     onPressed: (){
@@ -142,7 +151,7 @@ class _IverusState extends State<Iverus> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => getjson( hit.name),
+                              builder: (context) => getjson( hit.name ,hit.punto,hit.ask),
                             ),
                           );
                           print('video ');
