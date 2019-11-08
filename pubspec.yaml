@@ -57,6 +57,8 @@ dependencies:
   countdown: ^0.1.0
   fluttertoast: ^3.1.0
   provider:
+  intl: ^0.16.0
+
 
   #  chewie: ^0.9.7
 

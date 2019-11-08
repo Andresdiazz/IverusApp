@@ -11,9 +11,8 @@ class _CountDownTimer extends State<CountDownTimer> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    timerBloc = TimerBloc();
+    timerBloc = TimerBloc(context);
   }
 
   @override

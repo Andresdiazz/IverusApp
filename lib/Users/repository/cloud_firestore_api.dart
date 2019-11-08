@@ -369,4 +369,16 @@ class CloudFirestoreAPI {
       throw error;
     });
   }
+
+  Future<CommonResponse> getRank() async {
+    return _db
+        .collection(USERS)
+        .orderBy('points', descending: true)
+        .getDocuments()
+        .then((res) {
+      return CommonResponse(CommonResponse.successCode, res.documents);
+    }).catchError((error) {
+      return CommonResponse(CommonResponse.errorCode, error.toString());
+    });
+  }
 }

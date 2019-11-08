@@ -62,4 +62,6 @@ class CloudFirestoreRepository {
       _cloudFirestoreAPI.updatePointsOnVideoWatch(uid, table);
 
   Future<CommonResponse> getTutorial() => _cloudFirestoreAPI.getTutorial();
+
+  Future<CommonResponse> getRank() => _cloudFirestoreAPI.getRank();
 }
