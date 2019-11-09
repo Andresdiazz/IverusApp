@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
-          "client_id": "896146491506-jsquucugfid46o8cteekfotbm10vgm1u.apps.googleusercontent.com",
+          "client_id": "896146491506-h7v9km95kpscqo2s88u4943u8btsf2aa.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "excited.andresdiaz.com.cocreacion",
-            "certificate_hash": "3dc2a84ea42cc0298069d6cf13e7e0c62182a783"
+            "certificate_hash": "2f9803851909ba744c8eb84ea4dd05ffe5602934"
+          }
+        },
+        {
+          "client_id": "896146491506-aecd5gooldti52u87ub9igu62gg3qku8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com.cocreacion",
+            "certificate_hash": "a26414e3afd8e88d044f6c0a0b435b192ce24e91"
+          }
+        },
+        {
+          "client_id": "896146491506-351j44d9uc40noejc6h3jnuopjt538sh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com.cocreacion",
+            "certificate_hash": "da424ca2101d05cebc0704d1a949d8f48ce959f5"
           }
         },
         {
