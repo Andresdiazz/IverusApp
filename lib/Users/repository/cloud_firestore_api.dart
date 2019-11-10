@@ -4,17 +4,20 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Comments/model/comments.dart';
 import 'package:cocreacion/Ideas/model/ideas.dart';
+import 'package:cocreacion/Ideas/model/result_model.dart';
 import 'package:cocreacion/Ideas/ui/widgets/slide.dart';
 import 'package:cocreacion/Users/bloc/home_bloc.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:intl/intl.dart';
 
 import '../../CommonResponse.dart';
 import '../../SharedPref.dart';
 
 class CloudFirestoreAPI {
   final String USERS = "users";
+  final String RESULT_DATES = "result_dates";
   final String LIVE = "live";
   final String IDEAS = "ideas";
   final String COMMENTS = "comments";
@@ -370,15 +373,57 @@ class CloudFirestoreAPI {
     });
   }
 
-  Future<CommonResponse> getRank() async {
-    return _db
-        .collection(USERS)
-        .orderBy('points', descending: true)
-        .getDocuments()
-        .then((res) {
-      return CommonResponse(CommonResponse.successCode, res.documents);
+  Future<CommonResponse> getRank(String id) async {
+    return _db.collection(RESULT_DATES).document(id).get().then((res) {
+      return CommonResponse(CommonResponse.successCode, res.data);
     }).catchError((error) {
       return CommonResponse(CommonResponse.errorCode, error.toString());
+    });
+  }
+
+  Future<CommonResponse> getResultTime() async {
+    try {
+      var snapshot = await _db.collection(RESULT_DATES).getDocuments();
+      List<ResultModel> results = List();
+      snapshot.documents.forEach((document) {
+        results.add(ResultModel.fromJson(document.data));
+      });
+      DateFormat _df = DateFormat('yyyy-MM-dd HH:mm:ss');
+
+      results.sort((a, b) {
+        return _df.parse(a.time).compareTo(_df.parse(b.time));
+      });
+
+      ResultModel result;
+      for (var i = 0; i < results.length; i++) {
+        if (!_df.parse(results[i].time).isBefore(DateTime.now())) {
+          result = results[i];
+          break;
+        }
+      }
+
+      return CommonResponse(CommonResponse.successCode, result.getMap());
+    } catch (exception) {
+      return CommonResponse(CommonResponse.successCode, exception.toString());
+    }
+  }
+
+  Future<CommonResponse> getUsers() async {
+    try {
+      QuerySnapshot snapshot = await _db.collection(USERS).getDocuments();
+      return CommonResponse(CommonResponse.successCode, snapshot.documents);
+    } catch (exception) {
+      return CommonResponse(CommonResponse.errorCode, exception.toString());
+    }
+  }
+
+  updateResults(String id, map) {
+    _db
+        .collection(RESULT_DATES)
+        .document(id)
+        .updateData(map)
+        .catchError((error) {
+      print(error.toString());
     });
   }
 }

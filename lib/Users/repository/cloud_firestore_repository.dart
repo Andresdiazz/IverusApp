@@ -63,5 +63,11 @@ class CloudFirestoreRepository {
 
   Future<CommonResponse> getTutorial() => _cloudFirestoreAPI.getTutorial();
 
-  Future<CommonResponse> getRank() => _cloudFirestoreAPI.getRank();
+  Future<CommonResponse> getRank(String id) => _cloudFirestoreAPI.getRank(id);
+
+  Future<CommonResponse> getResultTime() => _cloudFirestoreAPI.getResultTime();
+
+  Future<CommonResponse> getUsers() => _cloudFirestoreAPI.getUsers();
+
+  updateResults(String id, map) => _cloudFirestoreAPI.updateResults(id, map);
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cocreacion/Ideas/model/result_model.dart';
 import 'package:cocreacion/Ideas/ui/widgets/rank_dioalog.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/repository/cloud_firestore_repository.dart';
@@ -17,62 +18,105 @@ class TimerBloc extends Bloc {
   CountDown _cd;
   final timerController = BehaviorSubject<String>();
   final BuildContext context;
+
   Observable<String> get timer => timerController.stream;
-  String _resultDate = "2019-11-07 20:11:00";
+
+//  String _resultDate = "2019-11-09 23:01:00";
   final DateFormat _df = DateFormat('yyyy-MM-dd HH:mm:ss');
+  ResultModel resultModel;
 
   TimerBloc(this.context) {
-    int second = _df.parse(_resultDate).difference(DateTime.now()).inSeconds;
-//    second = second.abs();
+    _cloudFiretoreRepository.getResultTime().then((value) {
+      resultModel = ResultModel.fromJson(value.data);
 
-    if (second > 0) {
-      scheduleNotification(second);
-      _cd = CountDown(Duration(seconds: second));
-      var sub = _cd.stream.listen(null);
+      int second =
+          _df.parse(resultModel.time).difference(DateTime.now()).inSeconds;
+      if (second > 0) {
+        scheduleNotification(second);
+        _cd = CountDown(Duration(seconds: second));
+        var sub = _cd.stream.listen(null);
 
-      sub.onData((Duration d) {
-        int seconds = d.inSeconds;
-        int days = seconds ~/ (24 * 3600);
-        seconds = seconds % (24 * 3600);
-        int hour = seconds ~/ 3600;
+        sub.onData((Duration d) {
+          int seconds = d.inSeconds;
+          int days = seconds ~/ (24 * 3600);
+          seconds = seconds % (24 * 3600);
+          int hour = seconds ~/ 3600;
 
-        seconds %= 3600;
-        int minutes = seconds ~/ 60;
-        seconds %= 60;
+          seconds %= 3600;
+          int minutes = seconds ~/ 60;
+          seconds %= 60;
 
-        timerController.add('$days:$hour:$minutes:$seconds');
-      });
+//          DateFormat dateFormat = DateFormat('dd:HH:mm:ss');
+//          String date = "$days:$hour:$minutes:$seconds";
+//
+//          dateFormat.format(dateFormat.parse(date));
+          timerController.add('$days:$hour:$minutes:$seconds');
+        });
 
-      sub.onDone(() {
-        getRankAndShowDialog();
-      });
-    } else {
-      timerController.add('');
-    }
+        sub.onDone(() {
+          getRankAndShowDialog();
+        });
+      } else {
+        timerController.add('');
+      }
+    });
   }
 
-  initTime() {}
+  getRankAndShowDialog() async {
+    try {
+      var result = await _cloudFiretoreRepository.getRank(resultModel.id);
+      if (result.code == CommonResponse.successCode) {
+        ResultModel resultModel = ResultModel.fromJson(result.data);
+        if (resultModel.ranks == null || resultModel.ranks.length == 0) {
+//          No one has opened the ranks yet. So put get points from all users and put them in ranks
+          Map<String, int> points = await getUsersPoints();
+          resultModel.ranks = points;
+          _cloudFiretoreRepository.updateResults(
+              resultModel.id, resultModel.getMap());
+//          show dialog now
+        } else {
+          //            continue normally
+          Map<String, int> points = await getUsersPoints();
+          resultModel.ranks = points;
+//          show dialog now
+        }
 
-  getRankAndShowDialog() {
-    _cloudFiretoreRepository.getRank().then((data) {
-      if (data.code == CommonResponse.successCode) {
-        var users = data.data as List<DocumentSnapshot>;
-        List<User> usersList = List();
-        users.forEach((user) {
-          usersList.add(User.fromJson(user.data));
-        });
+        var user = await SharedPref().get(SharedPref.user);
+        var userObj = User.stringToObject(user);
+        userObj.points = 0;
+        _cloudFiretoreRepository.updateUserDataFiretore(userObj);
 
-        SharedPref().get(SharedPref.user).then((user) {
-          User userObj = User.stringToObject(user);
-          int index = usersList.indexWhere((users) => users.uid == userObj.uid);
+        SharedPref().save(SharedPref.user, userObj.toString());
 
-          if (index == 0)
-            RankDialog().showCongoRankDialog(context);
-          else
-            RankDialog().showRankDialog(context, index + 1);
-        });
+        int rank = resultModel.ranks.keys
+            .toList()
+            .indexWhere((value) => userObj.uid == value);
+
+        if (rank == 0)
+          RankDialog().showCongoRankDialog(context);
+        else
+          RankDialog().showRankDialog(context, rank + 1);
       }
-    }).catchError((error) {});
+    } catch (exception) {}
+  }
+
+  Future<Map<String, int>> getUsersPoints() async {
+    CommonResponse result = await _cloudFiretoreRepository.getUsers();
+    List<DocumentSnapshot> documents = result.data;
+    Map<String, int> points = Map();
+
+    documents.forEach((document) {
+      var user = User.fromJson(document.data);
+      points[user.uid] = user.points;
+    });
+    return points;
+  }
+
+  updatePointsInResults(Map<dynamic, dynamic> map) {
+//    resultModel.getMap();
+//    resultModel.ranks = map;
+    _cloudFiretoreRepository.updateResults(
+        resultModel.id, resultModel.getMap());
   }
 
 // Notification part
@@ -114,13 +158,9 @@ class TimerBloc extends Bloc {
         platformChannelSpecifics);
   }
 
-  get onDidReceiveLocalNotification => () {
-        getRankAndShowDialog();
-      };
+  get onDidReceiveLocalNotification => null;
 
-  get onSelectNotification => () {
-        getRankAndShowDialog();
-      };
+  get onSelectNotification => null;
 
   @override
   void dispose() {}
