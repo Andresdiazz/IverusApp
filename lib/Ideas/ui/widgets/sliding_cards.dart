@@ -53,7 +53,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
 
             //videoPlayerController: VideoPlayerController.asset('img/video_prueba.mp4'),
           ),
-          SlidingCard(
+          /*SlidingCard(
             name: 'Fashion',
             date: 'Live Tomorrow 7PM',
             assetName: 'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fgif.gif?alt=media&token=b6c5a543-22c3-435c-ab59-29e352d02736',
@@ -74,7 +74,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Beauty(category: 'belleza',)));
             },
-          ),
+          ),*/
           /*SlidingCard(
             name: 'Personal Care',
             date: 'Live Today 8PM',

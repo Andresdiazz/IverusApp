@@ -49,7 +49,7 @@ class Header extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         child: Image(
           image: NetworkImage(
-              "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fiverus.png?alt=media&token=8bda555c-2603-4b97-bf71-564e630dd3c0"),
+              "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2FLOGO-IVERUS-NEGRO.png?alt=media&token=af898df2-cd8d-44f8-bc83-864000bab447"),
           width: 150,
         )
         /*Text(

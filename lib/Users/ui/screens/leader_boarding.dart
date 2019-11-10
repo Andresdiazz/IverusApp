@@ -27,15 +27,15 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
               children: <Widget>[
                 Text(
                   "0",
-                  style: TextStyle(color: Colors.black26, fontFamily: "Aileron"),
+                  style: TextStyle(color: Colors.white, fontFamily: "Aileron"),
                 ),
-                Icon(Icons.live_tv, size: 18, color: Colors.black26,)
+                Icon(Icons.offline_pin, size: 18, color: Colors.pinkAccent,)
               ],
             )),
             Center(
               child: Text(
-                "Lives",
-                style: TextStyle(color: Colors.black26, fontFamily: "Aileron"),
+                "Quiz",
+                style: TextStyle(color: Colors.white, fontFamily: "Aileron"),
               ),
             )
           ],

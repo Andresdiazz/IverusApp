@@ -35,7 +35,7 @@ class _AuthphoneState extends State<Authphone> {
   @override
   void initState() {
     super.initState();
-    _phoneController.text = "7696379802";
+    _phoneController.text = "";
   }
 
   var _keyField = GlobalKey<FormFieldState>();
@@ -43,7 +43,7 @@ class _AuthphoneState extends State<Authphone> {
   _buildCountryPickerDropdown() => Row(
         children: <Widget>[
           CountryPickerDropdown(
-            initialValue: 'in',
+            initialValue: 'mx',
             itemBuilder: _buildDropdownItem,
             onValuePicked: (Country country) {
               print("${country.name}");
@@ -61,7 +61,11 @@ class _AuthphoneState extends State<Authphone> {
               key: _keyField,
               controller: _phoneController,
               keyboardType: TextInputType.phone,
-              decoration: InputDecoration(labelText: "Phone"),
+              decoration: InputDecoration(labelText: "Phone Number",
+                  labelStyle: TextStyle(
+                    fontFamily: "Aileron",
+                    fontWeight: FontWeight.w600
+              )),
               validator: (val) {
                 if (val.isEmpty) {
                   return "this field cannot be empty";
@@ -208,10 +212,14 @@ class _AuthphoneState extends State<Authphone> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.white,
+        //const Color(0xFF05C3DD),
         title: Text(
           "Autenticación Telefono",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black,
+              fontFamily: "Aileron",
+              fontWeight: FontWeight.bold
+          ),
         ),
       ),
       body: Center(
@@ -230,7 +238,7 @@ class _AuthphoneState extends State<Authphone> {
                         width: 200,
                         child: Image(
                             image: NetworkImage(
-                          "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fiverus.png?alt=media&token=8bda555c-2603-4b97-bf71-564e630dd3c0",
+                          "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2FLOGO-IVERUS-NEGRO.png?alt=media&token=af898df2-cd8d-44f8-bc83-864000bab447",
                         )),
                       ),
                       SizedBox(height: 100),
@@ -259,7 +267,15 @@ class _AuthphoneState extends State<Authphone> {
                         width: 200,
                         height: 40,
                         decoration: BoxDecoration(
-                            color: Colors.cyan,
+                            gradient: LinearGradient(
+                                colors: [
+                                  const Color(0xFF05C3DD),
+                                  //Colors.deepPurpleAccent,
+                                  const Color(0xFF87189d),
+                                ],
+                                //stops: [0.2, 0.7],
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft),
                             borderRadius: BorderRadius.circular(30)),
                         child: Center(
                           child: Text(
@@ -267,7 +283,9 @@ class _AuthphoneState extends State<Authphone> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                                fontSize: 15,
+                                fontFamily: "Aileron"
+                            ),
                           ),
                         )),
                   )
