@@ -61,7 +61,7 @@ class _Video_1_1_2_X_2State extends State<Video_1_1_2_X_2> with SingleTickerProv
                 Container(
                   height: 812.0,
                   width: 420.0,
-                  child: _controllervideo.value.initialized
+                  child:  _controllervideo?.value?.initialized ?? false
                       ? AspectRatio(
                     aspectRatio: _controllervideo.value.aspectRatio,
                     child: VideoPlayer(_controllervideo),

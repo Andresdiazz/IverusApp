@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Categorias/model/category_item.dart';
+import 'package:cocreacion/Loading/Indicator/bull_loading.dart';
 import 'package:cocreacion/tree/opcion1/video_1.dart';
 import 'package:cocreacion/tree/opcion2/video_2.dart';
 import 'package:cocreacion/tree_2_x_2/opcion1/video_1.dart';
 import 'package:cocreacion/tree_2_x_2/opcion2/video_2.dart';
 import 'package:flutter/material.dart';
+import 'package:loading/loading.dart';
 import 'package:video_player/video_player.dart';
 
 
@@ -25,10 +27,16 @@ class _Intro_2_x_2State extends State<Intro_2_x_2> with SingleTickerProviderStat
         .collection (widget.documentData.tipo)
         .document(widget.documentData.name).collection('0').document('0')
         .snapshots().forEach((doc)=> {
+
+
+
       _controllervideo = VideoPlayerController.network( doc.data['video'])
         ..initialize().then((_) {
           setState(() {
-            _controllervideo.play();
+
+
+              _controllervideo.play();
+
           });
         })
 
@@ -53,12 +61,12 @@ class _Intro_2_x_2State extends State<Intro_2_x_2> with SingleTickerProviderStat
               Container(
                 height: 812.0,
                 width: 420.0,
-                child: _controllervideo.value.initialized
+                child:   _controllervideo?.value?.initialized ?? false
                     ? AspectRatio(
                   aspectRatio: _controllervideo.value.aspectRatio,
                   child: VideoPlayer(_controllervideo),
                 )
-                    : Container(),
+                    : Loading(indicator: BallPulseIndicator(), size: 200.0 ),
               ),
               Column(
                 children: <Widget>[

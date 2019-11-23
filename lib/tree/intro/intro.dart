@@ -23,12 +23,12 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
   //_IntroState(String id_video);
   @override
   void initState() {
-    super.initState();
     Firestore.instance
         .collection (widget.documentData.tipo)
         .document(widget.documentData.name).collection('0').document('0')
         .snapshots().forEach((doc)=> {
-      _controllervideo = VideoPlayerController.network( doc.data['video'])
+
+      _controllervideo = VideoPlayerController.network(doc.data['video'].toString())
         ..initialize().then((_) {
           setState(() {
             _controllervideo.play();
@@ -36,6 +36,8 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
         })
 
     });
+    super.initState();
+
   }
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class _IntroState extends State<Intro> with SingleTickerProviderStateMixin {
               Container(
                 height: 812.0,
                 width: 420.0,
-                child:  _controllervideo.value.initialized
+                child:  _controllervideo?.value?.initialized ?? false
                     ? AspectRatio(
                   aspectRatio: _controllervideo.value.aspectRatio,
                   child: VideoPlayer(_controllervideo),

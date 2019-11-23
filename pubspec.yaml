@@ -53,11 +53,14 @@ dependencies:
   http: ^0.12.0+2
   preload_page_view: ^0.1.4
 
-  cached_network_image: ^1.1.0
+  cached_network_image: ^2.0.0-rc
+
   countdown: ^0.1.0
   fluttertoast: ^3.1.0
   provider:
   intl: ^0.16.0
+  loading: ^1.0.1
+
 
 
   #  chewie: ^0.9.7
