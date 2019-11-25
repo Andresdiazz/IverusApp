@@ -14,11 +14,10 @@ import 'package:video_player/video_player.dart';
 
 class VideoPage extends StatefulWidget {
   final CategoryItem documentData;
-
-  VideoPage({this.documentData, this.categoriesBloc, this.table});
-
   final CategoriesBloc categoriesBloc;
   final String table;
+
+  VideoPage({this.documentData, this.categoriesBloc, this.table});
 
   @override
   _VideoPageState createState() => _VideoPageState();

@@ -143,7 +143,11 @@ class _ImagePageState extends State<ImagePage>
                           ),
                           Padding(
                               padding: const EdgeInsets.only(right: 1.0),
-                              child: AnimatedLikeButton()),
+                              child: AnimatedLikeButton(
+                                documentData: widget.documentData,
+                                categoriesBloc: widget.categoriesBloc,
+                                table: widget.table,
+                              )),
                         ],
                       ),
                     ),
@@ -159,7 +163,13 @@ class _ImagePageState extends State<ImagePage>
 }
 
 class AnimatedLikeButton extends StatefulWidget {
-  AnimatedLikeButton({Key key}) : super(key: key);
+  final CategoryItem documentData;
+  final CategoriesBloc categoriesBloc;
+  final String table;
+
+  AnimatedLikeButton(
+      {this.documentData, this.categoriesBloc, this.table, Key key})
+      : super(key: key);
 
   @override
   _AnimatedLikeButtonState createState() => _AnimatedLikeButtonState();
@@ -221,6 +231,8 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton>
   initState() {
     super.initState();
     random = Random();
+    _counter = widget.categoriesBloc.getLikes(widget.documentData.id);
+
     likeInAnimationController =
         AnimationController(duration: Duration(milliseconds: 150), vsync: this);
     likeInAnimationController.addListener(() {
@@ -268,6 +280,8 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton>
   }
 
   void increment(Timer t) {
+    widget.categoriesBloc.updateLike(widget.documentData.id, widget.table);
+
     likeSizeAnimationController.forward(from: 0.0);
     sparklesAnimationController.forward(from: 0.0);
     setState(() {

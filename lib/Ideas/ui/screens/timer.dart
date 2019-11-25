@@ -21,7 +21,7 @@ class _CountDownTimer extends State<CountDownTimer> {
         stream: timerBloc.timer,
         builder: (context, AsyncSnapshot<String> snapshot) {
           return Text(
-            snapshot.data.toString(),
+            snapshot.data == null ? "" : snapshot.data.toString(),
             style:
                 Theme.of(context).textTheme.body1.copyWith(color: Colors.black),
           );

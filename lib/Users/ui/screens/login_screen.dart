@@ -172,6 +172,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             email: user.email,
                             photoURL: user.photoUrl,
                           ));
+                        }).catchError((error) {
+                          print(error);
                         });
                       }),
                   ButtonLogin(

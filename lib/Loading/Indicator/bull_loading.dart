@@ -32,7 +32,7 @@ class BallPulseIndicator extends Indicator {
       AnimationController sizeController = new AnimationController(
           duration: const Duration(milliseconds: 750), vsync: context);
       var delayedAnimation =
-      Tween(begin: 0.3, end: 1.0).animate(sizeController);
+          Tween(begin: 0.3, end: 1.0).animate(sizeController);
       delayedAnimation.addListener(() {
         scaleDoubles[i] = delayedAnimation.value;
         postInvalidate();
