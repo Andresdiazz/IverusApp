@@ -70,4 +70,10 @@ class CloudFirestoreRepository {
   Future<CommonResponse> getUsers() => _cloudFirestoreAPI.getUsers();
 
   updateResults(String id, map) => _cloudFirestoreAPI.updateResults(id, map);
+
+  Future<CommonResponse> getTriviaPoints(String id) =>
+      _cloudFirestoreAPI.getTriviaPoints(id);
+
+  updateTriviaPoints(String id, int points) =>
+      _cloudFirestoreAPI.updateTriviaPoints(id, points);
 }

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
+import 'package:cocreacion/Categorias/model/category_item.dart';
 import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:cocreacion/Ideas/ui/widgets/slide_info.dart';
 import 'package:cocreacion/Users/bloc/bloc_user.dart';
@@ -9,13 +11,23 @@ import 'dart:math';
 
 class resultpage extends StatefulWidget {
   int marks;
-  resultpage({Key key , @required this.marks}) : super(key : key);
+  final CategoryItem documentData;
+  final CategoriesBloc categoriesBloc;
+  final String table;
+
+  resultpage(
+      {Key key,
+      @required this.marks,
+      @required this.categoriesBloc,
+      this.documentData,
+      this.table})
+      : super(key: key);
+
   @override
   _resultpageState createState() => _resultpageState(marks);
 }
 
 class _resultpageState extends State<resultpage> {
-
   List<String> images = [
     "images/success.png",
     "images/good.png",
@@ -26,14 +38,15 @@ class _resultpageState extends State<resultpage> {
   String image;
 
   @override
-  void initState(){
-    if(marks < 20){
+  void initState() {
+    if (marks < 20) {
       image = images[2];
-      message = "Deberías esforzarte mucho ...\n" + "obtuvo una puntuación $marks";
-    }else if(marks < 35){
+      message =
+          "Deberías esforzarte mucho ...\n" + "obtuvo una puntuación $marks";
+    } else if (marks < 35) {
       image = images[1];
       message = "Puedes hacerlo mejor..\n" + "obtuvo una puntuación $marks";
-    }else{
+    } else {
       image = images[0];
       message = "Lo hiciste muy bien..\n" + "obtuvo una puntuación  $marks";
     }
@@ -41,7 +54,9 @@ class _resultpageState extends State<resultpage> {
   }
 
   int marks;
+
   _resultpageState(this.marks);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,24 +88,23 @@ class _resultpageState extends State<resultpage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 5.0,
-                        horizontal: 15.0,
-                      ),
-                      child: Center(
-                      child: Text(
-                        message,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontFamily: "Quando",
+                        padding: EdgeInsets.symmetric(
+                          vertical: 5.0,
+                          horizontal: 15.0,
                         ),
-                      ),
-                    )
-                    ),
+                        child: Center(
+                          child: Text(
+                            message,
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontFamily: "Quando",
+                            ),
+                          ),
+                        )),
                   ],
                 ),
               ),
-            ),            
+            ),
           ),
           Expanded(
             flex: 4,
@@ -98,8 +112,8 @@ class _resultpageState extends State<resultpage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 OutlineButton(
-                  onPressed: (){
-                    Firestore.instance.collection('trivia').add({'puntos':'$marks'});
+                  onPressed: () {
+                    widget.categoriesBloc.updateTriviaPoints(marks);
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => HomePage(),
                     ));
@@ -117,7 +131,11 @@ class _resultpageState extends State<resultpage> {
                   borderSide: BorderSide(width: 3.0, color: Colors.indigo),
                   splashColor: Colors.indigoAccent,
                 ),
-                AnimatedLikeButton()
+                AnimatedLikeButton(
+                  categoriesBloc: this.widget.categoriesBloc,
+                  documentData: widget.documentData,
+                  table: widget.table,
+                )
               ],
             ),
           )
@@ -128,7 +146,13 @@ class _resultpageState extends State<resultpage> {
 }
 
 class AnimatedLikeButton extends StatefulWidget {
-  AnimatedLikeButton({Key key}) : super(key: key);
+  final CategoryItem documentData;
+  final CategoriesBloc categoriesBloc;
+  final String table;
+
+  AnimatedLikeButton(
+      {Key key, this.categoriesBloc, this.documentData, this.table})
+      : super(key: key);
 
   @override
   _AnimatedLikeButtonState createState() => _AnimatedLikeButtonState();
@@ -189,6 +213,8 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton>
 
   initState() {
     super.initState();
+    _counter = widget.categoriesBloc.getLikes(widget.documentData.id);
+
     random = Random();
     likeInAnimationController =
         AnimationController(duration: Duration(milliseconds: 150), vsync: this);
@@ -237,6 +263,8 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton>
   }
 
   void increment(Timer t) {
+    widget.categoriesBloc.updateLike(widget.documentData.id, widget.table);
+
     likeSizeAnimationController.forward(from: 0.0);
     sparklesAnimationController.forward(from: 0.0);
     setState(() {
@@ -324,12 +352,12 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton>
             ),
             child: Center(
                 child: Text(
-                  "+" + _counter.toString(),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0),
-                )))));
+              "+" + _counter.toString(),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0),
+            )))));
 
     var widget = Positioned(
         child: Stack(

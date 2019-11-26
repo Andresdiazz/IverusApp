@@ -18,6 +18,7 @@ import '../../SharedPref.dart';
 class CloudFirestoreAPI {
   final String USERS = "users";
   final String RESULT_DATES = "result_dates";
+  final String TRIVIA = "trivia";
   final String LIVE = "live";
   final String IDEAS = "ideas";
   final String COMMENTS = "comments";
@@ -424,6 +425,37 @@ class CloudFirestoreAPI {
         .updateData(map)
         .catchError((error) {
       print(error.toString());
+    });
+  }
+
+  Future<CommonResponse> getTriviaPoints(String id) {
+    return _db.collection(TRIVIA).document(id).get().then((snapshot) {
+      var data = Map<String, dynamic>();
+      data['puntos'] = 0;
+
+      return snapshot.data == null
+          ? CommonResponse(CommonResponse.successCode, data)
+          : CommonResponse(CommonResponse.successCode, snapshot.data);
+      ;
+    }).catchError((error) {
+      print(error.toString());
+      return CommonResponse(CommonResponse.errorCode, error);
+    });
+  }
+
+  updateTriviaPoints(String uid, int points) {
+    getTriviaPoints(uid).then((res) {
+      print(res.toString());
+      var data = res.data as Map<String, dynamic>;
+      if (data['puntos'] != null) {
+        points += data['puntos'];
+      }
+
+      Map<String, dynamic> pointsMap = Map();
+      pointsMap['puntos'] = points;
+
+      _db.collection(TRIVIA).document(uid).setData(pointsMap);
+      _db.collection(USERS).document(uid).updateData(pointsMap);
     });
   }
 }

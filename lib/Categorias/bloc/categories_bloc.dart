@@ -68,6 +68,10 @@ class CategoriesBloc extends Bloc {
 //    }).then((error) {});
   }
 
+  updateTriviaPoints(int points) {
+    _cloudFirestoreRepository.updateTriviaPoints(user.uid, points);
+  }
+
   int getLikes(String videoId) {
     CategoryItem i = items.lastWhere((q) => q.id == videoId);
 

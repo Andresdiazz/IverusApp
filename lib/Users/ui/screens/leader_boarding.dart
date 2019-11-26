@@ -25,11 +25,20 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
             Center(
                 child: Row(
               children: <Widget>[
-                Text(
-                  "0",
-                  style: TextStyle(color: Colors.white, fontFamily: "Aileron"),
-                ),
-                Icon(Icons.offline_pin, size: 18, color: Colors.pinkAccent,)
+                StreamBuilder<String>(
+                    stream: homeBloc.triviaPoints,
+                    builder: (context, snapshot) {
+                      return Text(
+                        snapshot.data == null ? "0" : snapshot.data,
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: "Aileron"),
+                      );
+                    }),
+                Icon(
+                  Icons.offline_pin,
+                  size: 18,
+                  color: Colors.pinkAccent,
+                )
               ],
             )),
             Center(
@@ -88,7 +97,7 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                           snapshot.data.shares.length == 0
                       ? "No shares"
                       : snapshot.data.shares.length.toString(),
-                  style: TextStyle(color: Colors.white, fontFamily: "Aileron" ),
+                  style: TextStyle(color: Colors.white, fontFamily: "Aileron"),
                 ),
                 Icon(
                   FontAwesomeIcons.shareSquare,
@@ -159,10 +168,10 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                         snapshot.data == null || snapshot.data.desc == null
                             ? ""
                             : snapshot.data.desc,
-                        style: Theme.of(context)
-                            .textTheme
-                            .body2
-                            .copyWith(color: Colors.white, fontSize: 12, fontFamily: "Aileron" ),
+                        style: Theme.of(context).textTheme.body2.copyWith(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontFamily: "Aileron"),
                       ),
                     );
                   }),
@@ -204,7 +213,10 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .body2
-                                      .copyWith(color: Colors.white, fontFamily: "Aileron", fontWeight: FontWeight.bold),
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontFamily: "Aileron",
+                                          fontWeight: FontWeight.bold),
                                 )
                               ],
                             ),
@@ -300,29 +312,30 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                           CircleAvatar(
                             maxRadius: 20,
                             backgroundImage: leaderboard[i].photoURL == null
-                                ? NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fprofile.jpg?alt=media&token=7621fac2-a428-44df-ab06-0336740602d7")
+                                ? NetworkImage(
+                                    "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fprofile.jpg?alt=media&token=7621fac2-a428-44df-ab06-0336740602d7")
                                 : NetworkImage(leaderboard[i].photoURL),
                           ),
                           leaderboard[i].rank != null
                               ? Align(
                                   child: Container(
-                                    width: 22,
-                                    height: 22,
-                                    decoration: BoxDecoration(
-                                      color: Colors.cyan,
-                                      borderRadius: BorderRadius.circular(32)
-                                    ),
-                                    child: Center(
-                                      child: Text(leaderboard[i].rank.toString(), style: TextStyle(
-                                          fontFamily: "Aileron",
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold
-                                      ),),
-                                    )
-                                  ),
+                                      width: 22,
+                                      height: 22,
+                                      decoration: BoxDecoration(
+                                          color: Colors.cyan,
+                                          borderRadius:
+                                              BorderRadius.circular(32)),
+                                      child: Center(
+                                        child: Text(
+                                          leaderboard[i].rank.toString(),
+                                          style: TextStyle(
+                                              fontFamily: "Aileron",
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      )),
                                   alignment: Alignment(0, 1))
-                              : Container(
-                          )
+                              : Container()
                         ],
                       ),
                       alignment: Alignment(-1, 0),
@@ -331,11 +344,13 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.3,
                     child: Align(
-                        child: Text(leaderboard[i].name, style: TextStyle(
-                          fontFamily: "Aileron",
-                          fontWeight: FontWeight.w600
-                          //fontSize: 12
-                        ),),
+                        child: Text(
+                          leaderboard[i].name,
+                          style: TextStyle(
+                              fontFamily: "Aileron", fontWeight: FontWeight.w600
+                              //fontSize: 12
+                              ),
+                        ),
                         alignment: Alignment(-1, 0)),
                   ),
                   SizedBox(
@@ -381,7 +396,7 @@ class CellText extends StatelessWidget {
               fontSize: 15,
               fontWeight: FontWeight.bold,
               fontStyle: FontStyle.italic,
-          fontFamily: "Aileron"),
+              fontFamily: "Aileron"),
         ),
         Icon(
           icon,

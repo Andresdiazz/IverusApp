@@ -8,10 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 
 import 'card/video_page.dart';
+
 class Fashion extends StatefulWidget {
   @override
   _FashionState createState() => _FashionState();
 }
+
 class _FashionState extends State<Fashion> {
   List<PreloadPageController> controllers = [];
   CategoriesBloc _bloc = CategoriesBloc("moda");
@@ -29,6 +31,7 @@ class _FashionState extends State<Fashion> {
     ];
     super.initState();
   }
+
   _animatePage(int page, int index) {
     for (int i = 0; i < 5; i++) {
       if (i != index) {
@@ -37,13 +40,15 @@ class _FashionState extends State<Fashion> {
       }
     }
   }
-  _loadImage() async{
+
+  _loadImage() async {
     int size = 0;
-    return await  _db.collection('moda').getDocuments().then((snap) {
+    return await _db.collection('moda').getDocuments().then((snap) {
       size = size + snap.documents.length;
       setState(() {});
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +56,7 @@ class _FashionState extends State<Fashion> {
         backgroundColor: Colors.black,
         body: PreloadPageView.builder(
           controller:
-          PreloadPageController(viewportFraction: 0.7, initialPage: 3),
+              PreloadPageController(viewportFraction: 0.7, initialPage: 3),
           itemCount: 5,
           preloadPagesCount: 5,
           itemBuilder: (context, mainIndex) {
@@ -67,7 +72,7 @@ class _FashionState extends State<Fashion> {
               itemBuilder: (context, index) {
                 var hitIndex = (mainIndex * 5) + index;
                 var hit;
-                if ( _bloc.items != null) {
+                if (_bloc.items != null) {
                   hit = _bloc.items[hitIndex];
                 }
                 return GestureDetector(
@@ -77,20 +82,28 @@ class _FashionState extends State<Fashion> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Intro( documentData: hit,),
+                            builder: (context) => Intro(
+                              documentData: hit,
+                            ),
                           ),
                         );
                         print('video ');
-                      }
-                      else if (hit.trivia == 'yes') {
+                      } else if (hit.trivia == 'yes') {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => getjson( hit.name ,hit.punto ,hit.ask),
+                            builder: (context) => getjson(
+                              hit.name,
+                              hit.punto,
+                              hit.ask,
+                              hit,
+                              _bloc,
+                              tipo,
+                            ),
                           ),
                         );
                         print('video ');
-                      }else if (hit.video != null) {
+                      } else if (hit.video != null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -121,26 +134,34 @@ class _FashionState extends State<Fashion> {
                     // description: hit?.tags,
                     documentData: hit,
                     bloc: _bloc,
-                    onPressed: (){
+                    onPressed: () {
                       if (_bloc.items != null) {
                         if (hit.tree == 'yes') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Intro( documentData: hit,),
+                              builder: (context) => Intro(
+                                documentData: hit,
+                              ),
                             ),
                           );
                           print('video ');
-                        }
-                        else if (hit.trivia == 'yes') {
+                        } else if (hit.trivia == 'yes') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => getjson(hit.name ,hit.punto,hit.ask),
+                              builder: (context) => getjson(
+                                hit.name,
+                                hit.punto,
+                                hit.ask,
+                                hit,
+                                _bloc,
+                                tipo,
+                              ),
                             ),
                           );
                           print('video ');
-                        }else if (hit.video != null) {
+                        } else if (hit.video != null) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -171,7 +192,6 @@ class _FashionState extends State<Fashion> {
               },
             );
           },
-        )
-    );
+        ));
   }
 }

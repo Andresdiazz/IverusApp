@@ -24,7 +24,7 @@ class _BeautyState extends State<Beauty> {
 
   CategoriesBloc _bloc = CategoriesBloc('belleza');
 
-  var tipo ='belleza';
+  var tipo = 'belleza';
   @override
   void initState() {
     _loadImage();
@@ -88,20 +88,28 @@ class _BeautyState extends State<Beauty> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Intro( documentData: hit,),
+                            builder: (context) => Intro(
+                              documentData: hit,
+                            ),
                           ),
                         );
                         print('video ');
-                      }
-                      else if (hit.trivia == 'yes') {
+                      } else if (hit.trivia == 'yes') {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => getjson( hit.name ,hit.punto ,hit.ask),
+                            builder: (context) => getjson(
+                              hit.name,
+                              hit.punto,
+                              hit.ask,
+                              hit,
+                              _bloc,
+                              tipo,
+                            ),
                           ),
                         );
                         print('video ');
-                      }else if (hit.video != null) {
+                      } else if (hit.video != null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -130,26 +138,34 @@ class _BeautyState extends State<Beauty> {
                   child: CustomCard(
                     documentData: hit,
                     bloc: _bloc,
-                    onPressed: (){
+                    onPressed: () {
                       if (_bloc.items != null) {
                         if (hit.tree == 'yes') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Intro( documentData: hit,),
+                              builder: (context) => Intro(
+                                documentData: hit,
+                              ),
                             ),
                           );
                           print('video ');
-                        }
-                        else if (hit.trivia == 'yes') {
+                        } else if (hit.trivia == 'yes') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => getjson( hit.name ,hit.punto, hit.ask),
+                              builder: (context) => getjson(
+                                hit.name,
+                                hit.punto,
+                                hit.ask,
+                                hit,
+                                _bloc,
+                                tipo,
+                              ),
                             ),
                           );
                           print('video ');
-                        }else if (hit.video != null) {
+                        } else if (hit.video != null) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(

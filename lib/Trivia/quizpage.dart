@@ -1,19 +1,27 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
+import 'package:cocreacion/Categorias/model/category_item.dart';
 import 'package:cocreacion/Trivia/resultpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class getjson extends StatelessWidget {
   String langname;
+  final CategoryItem documentData;
+  final CategoriesBloc categoriesBloc;
+  final String table;
+
   dynamic punto;
   dynamic ask;
-  getjson(this.langname,this.punto,this.ask);
+
+  getjson(this.langname, this.punto, this.ask, this.documentData,
+      this.categoriesBloc, this.table);
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future:
-      DefaultAssetBundle.of(context).loadString(langname, cache: true),
+      future: DefaultAssetBundle.of(context).loadString(langname, cache: true),
       builder: (context, snapshot) {
         List mydata = json.decode(snapshot.data.toString());
         if (mydata == null) {
@@ -25,7 +33,14 @@ class getjson extends StatelessWidget {
             ),
           );
         } else {
-          return quizpage(mydata: mydata,  punto: punto,ask: ask,);
+          return quizpage(
+            mydata: mydata,
+            punto: punto,
+            ask: ask,
+            categoriesBloc: this.categoriesBloc,
+            documentData: this.documentData,
+            table: this.table,
+          );
         }
       },
     );
@@ -36,17 +51,33 @@ class quizpage extends StatefulWidget {
   var mydata;
   var punto;
   var ask;
+  final CategoryItem documentData;
+  final CategoriesBloc categoriesBloc;
+  final String table;
 
-  quizpage({Key key, @required this.mydata,@required this.punto,@required this.ask}) : super(key: key);
+  quizpage(
+      {Key key,
+      @required this.mydata,
+      @required this.punto,
+      @required this.ask,
+      @required this.categoriesBloc,
+      @required this.documentData,
+      @required this.table})
+      : super(key: key);
+
   @override
-  _quizpageState createState() => _quizpageState(mydata,punto,ask);
+  _quizpageState createState() => _quizpageState(
+        mydata,
+        punto,
+        ask,
+      );
 }
 
 class _quizpageState extends State<quizpage> {
-
   var mydata;
   var punto;
   var ask;
+
   _quizpageState(this.mydata, this.punto, this.ask);
 
   Color colortoshow = Colors.indigoAccent;
@@ -107,7 +138,12 @@ class _quizpageState extends State<quizpage> {
         i++;
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => resultpage(marks: marks),
+          builder: (context) => resultpage(
+            marks: marks,
+            categoriesBloc: widget.categoriesBloc,
+            table: widget.table,
+            documentData: widget.documentData,
+          ),
         ));
       }
       btncolor["a"] = Colors.indigoAccent;
@@ -119,14 +155,11 @@ class _quizpageState extends State<quizpage> {
   }
 
   void checkanswer(String k) {
-
     if (mydata[2][i.toString()] == mydata[1][i.toString()][k]) {
-
       marks = marks + punto;
       print(punto);
       colortoshow = right;
     } else {
-
       colortoshow = wrong;
     }
     setState(() {
@@ -161,7 +194,7 @@ class _quizpageState extends State<quizpage> {
         minWidth: 200.0,
         height: 45.0,
         shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       ),
     );
   }
@@ -175,21 +208,21 @@ class _quizpageState extends State<quizpage> {
         return showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text(
-                "Iverus Trivia",
-              ),
-              content: Text("No puedes regresar en esta etapa."),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Ok',
+                  title: Text(
+                    "Iverus Trivia",
                   ),
-                )
-              ],
-            ));
+                  content: Text("No puedes regresar en esta etapa."),
+                  actions: <Widget>[
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Ok',
+                      ),
+                    )
+                  ],
+                ));
       },
       child: Scaffold(
         body: Column(

@@ -79,83 +79,100 @@ class _IverusState extends State<Iverus> {
                   hit = _bloc.items[hitIndex];
                 }
                 return GestureDetector(
-                    onTap: () {
-                      if (_bloc.items != null) {
-
-                        if (hit.tree == 'yes' && hit.formato == '2') {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Intro_2_x_2( documentData: hit,),
+                  onTap: () {
+                    if (_bloc.items != null) {
+                      if (hit.tree == 'yes' && hit.formato == '2') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Intro_2_x_2(
+                              documentData: hit,
                             ),
-                          );
-                          print('video ');
-                        }else if (hit.tree == 'yes' && hit.formato == '3') {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Intro( documentData: hit,),
+                          ),
+                        );
+                        print('video ');
+                      } else if (hit.tree == 'yes' && hit.formato == '3') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Intro(
+                              documentData: hit,
                             ),
-                          );
-                          print('video ');
-                        }
-                        else if (hit.trivia == 'yes') {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => getjson( hit.name ,hit.punto, hit.ask),
+                          ),
+                        );
+                        print('video ');
+                      } else if (hit.trivia == 'yes') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => getjson(
+                              hit.name,
+                              hit.punto,
+                              hit.ask,
+                              hit,
+                              _bloc,
+                              tipo,
                             ),
-                          );
-                          print('video ');
-                        }else if (hit.video != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => VideoPage(
-                                  documentData: hit,
-                                  categoriesBloc: _bloc,
-                                  table: tipo),
-                            ),
-                          );
-                          print('video ');
-                        } else if (hit.image != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ImagePage(
+                          ),
+                        );
+                        print('video ');
+                      } else if (hit.video != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoPage(
                                 documentData: hit,
                                 categoriesBloc: _bloc,
-                                table: tipo,
-                              ),
+                                table: tipo),
+                          ),
+                        );
+                        print('video ');
+                      } else if (hit.image != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImagePage(
+                              documentData: hit,
+                              categoriesBloc: _bloc,
+                              table: tipo,
                             ),
-                          );
-                          print('imagen ');
-                        }
+                          ),
+                        );
+                        print('imagen ');
                       }
-                    },
+                    }
+                  },
                   child: CustomCard(
                     documentData: hit,
                     bloc: _bloc,
-                    onPressed: (){
+                    onPressed: () {
                       if (_bloc.items != null) {
                         if (hit.tree == 'yes') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Intro( documentData: hit,),
+                              builder: (context) => Intro(
+                                documentData: hit,
+                              ),
                             ),
                           );
                           print('video ');
-                        }
-                        else if (hit.trivia == 'yes') {
+                        } else if (hit.trivia == 'yes') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => getjson( hit.name ,hit.punto,hit.ask),
+                              builder: (context) => getjson(
+                                hit.name,
+                                hit.punto,
+                                hit.ask,
+                                hit,
+                                _bloc,
+                                tipo,
+                              ),
                             ),
                           );
                           print('video ');
-                        }else if (hit.video != null) {
+                        } else if (hit.video != null) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(

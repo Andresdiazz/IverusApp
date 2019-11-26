@@ -13,6 +13,7 @@ class HomeBloc extends Bloc {
   final userController = BehaviorSubject<User>();
   final leaderBoardController = BehaviorSubject<List<User>>();
   final _videosCountController = BehaviorSubject<int>();
+  final _triviaPointsController = BehaviorSubject<String>();
   String ownId;
 
   Observable<User> get user => userController.stream;
@@ -23,11 +24,19 @@ class HomeBloc extends Bloc {
 
   Observable<int> get videosCount => _videosCountController.stream;
 
+  Observable<String> get triviaPoints => _triviaPointsController.stream;
+
   HomeBloc() {
     FirebaseAuth.instance.currentUser().then((user) {
       ownId = user.uid;
       _cloudFirestoreRepository.ownProfileStream(this, user.uid);
       _cloudFirestoreRepository.getLeaderBoard(this);
+      _cloudFirestoreRepository.getTriviaPoints(user.uid).then((res) {
+        var data = res.data as Map<String, dynamic>;
+        if (data['puntos'] != null) {
+          _triviaPointsController.add(data['puntos']);
+        }
+      }).catchError((error) {});
     });
 
     _cloudFirestoreRepository.getVideosCount().then((onValue) {
