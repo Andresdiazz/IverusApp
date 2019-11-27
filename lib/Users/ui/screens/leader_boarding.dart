@@ -25,15 +25,12 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
             Center(
                 child: Row(
               children: <Widget>[
-                StreamBuilder<String>(
-                    stream: homeBloc.triviaPoints,
-                    builder: (context, snapshot) {
-                      return Text(
-                        snapshot.data == null ? "0" : snapshot.data,
-                        style: TextStyle(
-                            color: Colors.white, fontFamily: "Aileron"),
-                      );
-                    }),
+                Text(
+                  snapshot.data.puntos == null
+                      ? "0"
+                      : snapshot.data.puntos.toString(),
+                  style: TextStyle(color: Colors.white, fontFamily: "Aileron"),
+                ),
                 Icon(
                   Icons.offline_pin,
                   size: 18,

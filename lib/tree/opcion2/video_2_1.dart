@@ -9,7 +9,9 @@ import 'package:video_player/video_player.dart';
 class Video_2_1 extends StatefulWidget {
   String idVideo;
   String tipo;
+
   Video_2_1(this.idVideo, this.tipo);
+
   @override
   _Video_2_1State createState() => _Video_2_1State(this.idVideo, this.tipo);
 }

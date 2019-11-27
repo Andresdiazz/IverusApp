@@ -13,6 +13,7 @@ class User {
   String phone;
   String desc;
   int points;
+  int puntos;
   int rank;
   Map<dynamic, dynamic> likes;
   List<dynamic> shares;
@@ -26,6 +27,7 @@ class User {
       @required this.photoURL,
       @required this.points,
       @required this.email,
+      @required this.puntos,
       this.gift,
       @required this.phone,
       @required this.desc,
@@ -40,6 +42,7 @@ class User {
       'uid': uid,
       'name': name,
       'email': email,
+      'puntos': puntos,
       'photoURL': photoURL,
       'points': points,
       'phone': phone,
@@ -61,6 +64,7 @@ class User {
     email = json['email'] == null ? null : json['email'];
     photoURL = json['photoURL'] == null ? null : json['photoURL'];
     points = json['points'] == null ? 0 : json['points'];
+    puntos = json['puntos'] == null ? 0 : json['puntos'];
     phone = json['phone'] == null ? null : json['phone'];
     desc = json['desc'] == null ? null : json['desc'];
     likes = json['likes'] != null ? json['likes'] : null;
@@ -79,6 +83,7 @@ class User {
     if (this.photoURL != null) data['photoURL'] = this.photoURL;
 
     if (this.points != null) data['points'] = this.points;
+    if (this.puntos != null) data['puntos'] = this.puntos;
     if (this.phone != null) data['phone'] = this.phone;
     if (this.desc != null) data['desc'] = this.desc;
     if (this.likes != null) data['likes'] = this.likes;
