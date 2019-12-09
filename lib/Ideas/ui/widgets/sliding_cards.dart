@@ -1,6 +1,8 @@
 import 'package:cocreacion/Categorias/Beauty.dart';
 import 'package:cocreacion/Categorias/Fashion.dart';
 import 'package:cocreacion/Categorias/Iverus.dart';
+import 'package:cocreacion/Insta/insta_home.dart';
+import 'package:cocreacion/newGrid/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
@@ -48,7 +50,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
             offset: pageOffset,
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Iverus()));
+                  context, MaterialPageRoute(builder: (context) => AnimationDemoHome()));
             },
 
             //videoPlayerController: VideoPlayerController.asset('img/video_prueba.mp4'),
