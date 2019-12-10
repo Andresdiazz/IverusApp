@@ -7,14 +7,14 @@ class InstHome extends StatelessWidget {
     backgroundColor: new Color(0xfff8faf8),
     centerTitle: true,
     elevation: 1.0,
-    leading: new Icon(Icons.camera_alt , color: Colors.black,),
+    leading: new Icon(Icons.arrow_back_ios , color: Colors.black,),
     title: SizedBox(
-      height: 35.0, child: Image.network("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2FLOGO-IVERUS-NEGRO.png?alt=media&token=af898df2-cd8d-44f8-bc83-864000bab447")),
+      height: 25.0, child: Image.network("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2FLOGO-IVERUS-NEGRO.png?alt=media&token=af898df2-cd8d-44f8-bc83-864000bab447")),
       actions: <Widget>[
-        Padding(
+        /*Padding(
           padding: const EdgeInsets.only(right: 12.0),
           child: Icon(Icons.send, color: Colors.black),
-        )
+        )*/
       ],
    );
 

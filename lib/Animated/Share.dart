@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 class AnimatedShareButton extends StatefulWidget {
   AnimatedShareButton({Key key }) : super(key: key);
@@ -18,7 +19,7 @@ class _AnimatedShareButtonState extends State<AnimatedShareButton> with TickerPr
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(left: 300.0,top:700.0),
+        //margin: EdgeInsets.only(left: 300.0,top:700.0),
         child: Stack(
           alignment: FractionalOffset.center,
           overflow: Overflow.visible,
@@ -37,14 +38,14 @@ class _AnimatedShareButtonState extends State<AnimatedShareButton> with TickerPr
          _shareImage();
        },
         child: Container(
-          height: 60.0 + extraSize,
-          width: 60.0 + extraSize,
+          height: 50.0 + extraSize,
+          width: 50.0 + extraSize,
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
               border: Border.all(color: Color(0xff23A8C5), width: 1.0),
               borderRadius: BorderRadius.circular(50.0),
               color: Colors.white,
-              boxShadow: [BoxShadow(color: Color(0xff23A8C5), blurRadius: 8.0)]),
+              boxShadow: [BoxShadow(color: Color(0xff23A8C5), blurRadius: 8.0)]),*/
           child: getHeartIcon(),
         ));
   }
@@ -62,7 +63,7 @@ class _AnimatedShareButtonState extends State<AnimatedShareButton> with TickerPr
 
   Widget getHeartIcon() {
     return Icon(
-      Icons.share
+        FontAwesomeIcons.paperPlane
     );
   }
 

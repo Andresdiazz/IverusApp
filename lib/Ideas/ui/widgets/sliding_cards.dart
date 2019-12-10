@@ -50,7 +50,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
             offset: pageOffset,
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => AnimationDemoHome()));
+                  context, MaterialPageRoute(builder: (context) => InstHome()));
             },
 
             //videoPlayerController: VideoPlayerController.asset('img/video_prueba.mp4'),

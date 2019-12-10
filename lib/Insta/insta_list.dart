@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../Animated/Share.dart';
+import '../Animated/heart.dart';
+
 class InstaList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -33,13 +36,13 @@ class InstaList extends StatelessWidget {
                          ),
                        ),
                        SizedBox(width: 10.0),
-                       Text('Alberto DT', style: TextStyle(fontWeight: FontWeight.bold)),
+                       Text('Alberto DT', style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Aileron')),
                      ],
                    ),
-                   IconButton(
+                   /*IconButton(
                      icon: Icon(Icons.more_vert),
                      onPressed: null,
-                   )
+                   )*/
                  ],
                ),
              ),
@@ -61,21 +64,11 @@ class InstaList extends StatelessWidget {
                    Row(
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: <Widget>[
-                       IconButton(
-                         icon: Icon(FontAwesomeIcons.heart,),
-                         onPressed: null,
-                       ),
+                       AnimatedLikeButton(),
+
                        SizedBox(width: 10.0,),
-                      IconButton(
-                         icon: Icon(FontAwesomeIcons.comment,),
-                         onPressed: null,
-                       ),
-                        SizedBox(width: 10.0,),
-                       IconButton(
-                         icon: Icon(FontAwesomeIcons.paperPlane,),
-                         onPressed: null,
-                       ),
-                        SizedBox(width: 10.0,),
+                       AnimatedShareButton(),
+                       SizedBox(width: 10.0,),
                      ],
                    ),
                    IconButton(
@@ -89,11 +82,11 @@ class InstaList extends StatelessWidget {
              Padding(
                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                child: Text("Liked by beto_dt, pk and 528,331 others",
-               style: TextStyle(fontWeight: FontWeight.bold)),
+               style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Aileron')),
              ),
 
              //5th row
-             Padding(
+             /*Padding(
                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 8.0),
                child: Row(
                 mainAxisAlignment:MainAxisAlignment.start,
@@ -122,14 +115,14 @@ class InstaList extends StatelessWidget {
                    )
                  ],
                ),
-             ),
+             ),*/
 
              //6th row
 
              Padding(
                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                child: Text(
-                 "1 Day Ago", style: TextStyle(color: Colors.grey),
+                 "1 Day Ago", style: TextStyle(color: Colors.grey, fontFamily: 'Aileron'),
                ),
              ),
 

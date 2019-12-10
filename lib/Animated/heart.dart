@@ -29,7 +29,7 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(left: 220.0,top:700.0),
+        //margin: EdgeInsets.only(left: 220.0,top:700.0),
         child: Stack(
           alignment: FractionalOffset.center,
           overflow: Overflow.visible,
@@ -49,14 +49,14 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
         onTapUp: onTapUp,
         onTapDown: onTapDown,
         child: Container(
-          height: 60.0 + extraSize,
-          width: 60.0 + extraSize,
+          height: 50.0 + extraSize,
+          width: 50.0 + extraSize,
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
               border: Border.all(color: Color(0xff23A8C5), width: 1.0),
               borderRadius: BorderRadius.circular(50.0),
               color: Colors.white,
-              boxShadow: [BoxShadow(color: Color(0xff23A8C5), blurRadius: 8.0)]),
+              boxShadow: [BoxShadow(color: Color(0xff23A8C5), blurRadius: 8.0)]),*/
           child: getHeartIcon(),
         ));
   }
