@@ -20,7 +20,6 @@ class _IverusState extends State<Iverus> {
   List<PreloadPageController> controllers = [];
   CategoriesBloc _bloc = CategoriesBloc("iverus");
   final _db = Firestore.instance;
-  var _opacity = 0.0;
   var tipo = 'iverus';
   @override
   void initState() {

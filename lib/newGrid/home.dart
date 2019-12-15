@@ -1,9 +1,3 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-// Based on https://material.uplabs.com/posts/google-newsstand-navigation-pattern
-// See also: https://material-motion.github.io/material-motion/documentation/
 
 import 'dart:async';
 import 'dart:math' as math;
@@ -344,9 +338,7 @@ class _AllSectionsView extends AnimatedWidget {
   }
 }
 
-// Support snapping scrolls to the midScrollOffset: the point at which the
-// app bar's height is _kAppBarMidHeight and only one section heading is
-// visible.
+
 class _SnappingScrollPhysics extends ClampingScrollPhysics {
   const _SnappingScrollPhysics({
     ScrollPhysics parent,
@@ -377,10 +369,7 @@ class _SnappingScrollPhysics extends ClampingScrollPhysics {
     final double offset = position.pixels;
 
     if (simulation != null) {
-      // The drag ended with sufficient velocity to trigger creating a simulation.
-      // If the simulation is headed up towards midScrollOffset but will not reach it,
-      // then snap it there. Similarly if the simulation is headed down past
-      // midScrollOffset but will not reach zero, then snap it to zero.
+
       final double simulationEnd = simulation.x(double.infinity);
       if (simulationEnd >= midScrollOffset)
         return simulation;
@@ -452,9 +441,7 @@ class _AnimationDemoHomeState extends State<AnimationDemoHome> {
 
 
   void _handleBackButton(double midScrollOffset) {
-    // if (_scrollController.offset >= midScrollOffset)
-    //   _scrollController.animateTo(0.0, curve: _kScrollCurve, duration: _kScrollDuration);
-    // else
+
      _scaffoldKey.currentState.openDrawer();
   }
 
@@ -476,8 +463,7 @@ class _AnimationDemoHomeState extends State<AnimationDemoHome> {
 
   void _maybeScroll(double midScrollOffset, int pageIndex, double xOffset) {
     if (_scrollController.offset < midScrollOffset) {
-      // Scroll the overall list to the point where only one section card shows.
-      // At the same time scroll the PageViews to the page at pageIndex.
+
       _headingPageController.animateToPage(pageIndex, curve: _kScrollCurve, duration: _kScrollDuration);
       _scrollController.animateTo(midScrollOffset, curve: _kScrollCurve, duration: _kScrollDuration);
     } else {

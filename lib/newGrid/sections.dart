@@ -64,7 +64,6 @@ final List<Section> allSections = <Section>[
     details: <SectionDetail>[
 
 
-
     ],
   ),
   const Section(
