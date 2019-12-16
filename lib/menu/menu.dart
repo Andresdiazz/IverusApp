@@ -1,6 +1,9 @@
 
 import 'package:cocreacion/Insta/insta_body.dart';
 import 'package:cocreacion/Insta/insta_home.dart';
+import 'package:cocreacion/insta_tree/insta_home.dart';
+import 'package:cocreacion/insta_trivia/insta_home.dart';
+import 'package:cocreacion/insta_video/insta_home.dart';
 import 'package:flutter/material.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -95,7 +98,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           ),
                           InkWell(
                             onTap: () {
-
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => InstHome_video()),
+                              );
                             },
                             child: Container(
                               height: size.height * 0.2,
@@ -125,9 +131,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               ),
                             ),
                           ),
-                         /* InkWell(
+                          InkWell(
                             onTap: () {
-                              Navigator.of(context).pushNamed('/Hard');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => InstHome_trivia()),
+                              );
                             },
                             child: Container(
                               height: size.height * 0.2,
@@ -145,33 +154,61 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Text(
-                                      "Hard",
+                                      "Trivia",
                                       style: TextStyle(
                                           color: Color(0xfff1e4d4),
                                           fontWeight: FontWeight.w900,
                                           fontStyle: FontStyle.italic,
                                           fontSize: 40),
                                     ),
-                                    Text(
-                                      ".... .- .-. -..",
-                                      style: TextStyle(
-                                          color: Color(0xfff1e4d4),
-                                          fontWeight: FontWeight.w900,
-                                          fontStyle: FontStyle.italic,
-                                          fontSize: 20),
-                                    )
                                   ],
                                 ),
                               ),
                             ),
-                          ),*/
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => InstHome_tree()),
+                              );
+                            },
+                            child: Container(
+                              height: size.height * 0.2,
+                              width: size.width * 0.8,
+                              decoration: BoxDecoration(
+                                borderRadius: new BorderRadius.all(
+                                  Radius.circular(30.0),
+                                ),
+                                color: Color(0xff262da7),
+                              ),
+                              padding: EdgeInsets.all(20.0),
+                              child: FittedBox(
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Text(
+                                      "Arbol",
+                                      style: TextStyle(
+                                          color: Color(0xfff1e4d4),
+                                          fontWeight: FontWeight.w900,
+                                          fontStyle: FontStyle.italic,
+                                          fontSize: 40),
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
                   ),
                   Positioned(
                     top: 10,
-                    left: 10,
+                    left: -4,
                     child: IconButton(
                       icon: new Icon(Icons.arrow_back, color: Colors.white),
                       onPressed: () => Navigator.of(context).pop(),
