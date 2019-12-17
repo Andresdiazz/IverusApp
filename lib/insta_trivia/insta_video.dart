@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
 import 'package:cocreacion/Categorias/model/category_item.dart';
+import 'package:cocreacion/Trivia/quizpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -131,16 +132,35 @@ class _InstaList_triviaState extends State<InstaList_trivia> {
 class Single_prod extends StatelessWidget {
   final CategoryItem documentData;
   final CategoriesBloc bloc;
+  var tipo = 'iverus_trivia';
+
 
   Single_prod(this.documentData, this.bloc) {}
 
   @override
   Widget build(BuildContext context) {
     return GridTile(
-        child: documentData.image != null ? Image.network(
-          documentData.image,
-          fit: BoxFit.contain,
-        ): Container());
+        child: InkWell(
+            child:documentData.image != null ? Image.network(
+              documentData.image,
+              fit: BoxFit.contain,
+            ): Container(),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => getjson(
+                    documentData.name,
+                    documentData.punto,
+                    documentData.ask,
+                    documentData,
+                    bloc,
+                    tipo,
+                  ),
+                ),
+              );
+            })
+    );
   }
 }
 

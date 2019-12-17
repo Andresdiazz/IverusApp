@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:cocreacion/tree/delayed_animation.dart';
 import 'package:cocreacion/tree/opcion1/negativa.dart';
 import 'package:cocreacion/tree/opcion2/positivo.dart';
@@ -74,7 +75,7 @@ class _Video_2_2State extends State<Video_2_2>
                       height: MediaQuery.of(context).size.height,
                       child: InkWell(
                         onTap: () {
-                          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Positiva()));
+                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
                         },
                       ),
                     ),
@@ -85,7 +86,7 @@ class _Video_2_2State extends State<Video_2_2>
                           height: MediaQuery.of(context).size.height,
                           child: InkWell(
                             onTap: () {
-                              //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ()));
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
                             },
                           ),
                         ))
