@@ -5,6 +5,9 @@ import 'package:cocreacion/Categorias/model/category_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import '../Animated/Share.dart';
+import '../Animated/heart.dart';
+
 class InstaList extends StatefulWidget {
   @override
   _InstaListState createState() => _InstaListState();
@@ -47,6 +50,23 @@ class _InstaListState extends State<InstaList> {
                   Single_prod(item,
                     _bloc,
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 550, left: 320),
+                    child: Stack(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            AnimatedLikeButton(),
+                            SizedBox(width: 10.0,),
+                            AnimatedShareButton(),
+                            SizedBox(width: 10.0,),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+
                 ],
               );
             },
