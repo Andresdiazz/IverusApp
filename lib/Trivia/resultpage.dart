@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
 import 'package:cocreacion/Categorias/model/category_item.dart';
+import 'package:cocreacion/Evaluar_contenido/evaluar.dart';
 import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:cocreacion/Ideas/ui/widgets/slide_info.dart';
 import 'package:cocreacion/Users/bloc/bloc_user.dart';
@@ -115,7 +116,7 @@ class _resultpageState extends State<resultpage> {
                   onPressed: () {
                     widget.categoriesBloc.updateTriviaPoints(marks);
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => HomePage(),
+                      builder: (context) => Evaluar(),
                     ));
                   },
                   child: Text(

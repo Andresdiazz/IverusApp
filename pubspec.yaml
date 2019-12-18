@@ -60,6 +60,7 @@ dependencies:
   provider:
   intl: ^0.16.0
   loading: ^1.0.1
+  avatar_glow:
 
 
 
