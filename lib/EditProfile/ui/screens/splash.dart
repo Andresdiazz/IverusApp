@@ -5,6 +5,7 @@ import 'package:cocreacion/Users/ui/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'edit_profile.dart';
 
@@ -72,6 +73,12 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft
+    ]);
     return Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

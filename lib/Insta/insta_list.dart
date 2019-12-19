@@ -16,16 +16,6 @@ class InstaList extends StatefulWidget {
 class _InstaListState extends State<InstaList> {
 
   CategoriesBloc _bloc = CategoriesBloc("iverus");
-  final _db = Firestore.instance;
-
-  @override
-  void initState() {
-
-
-    super.initState();
-  }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,76 +64,6 @@ class _InstaListState extends State<InstaList> {
       },
 
     );
-
-  /*  return ListView.builder(
-      itemCount: 5,
-      itemBuilder: (context, index) => index == 0 ? new SizedBox() : Column(
-        //cards
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-
-        children: <Widget>[
-          //2st Row
-          Single_prod( ,
-            _bloc,
-          )
-          //3rd row
-          /*
-             Padding(
-               padding: const EdgeInsets.all(5.0),
-               child: Stack(
-                 children: <Widget>[
-                   Row(
-                     children: <Widget>[
-                       AnimatedLikeButton(),
-                       SizedBox(width: 10.0,),
-                       AnimatedShareButton(),
-                       SizedBox(width: 10.0,),
-                     ],
-                   ),
-                 ],
-               ),
-             ),
-             */
-
-
-          //5th row
-          /*Padding(
-               padding: const EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 8.0),
-               child: Row(
-                mainAxisAlignment:MainAxisAlignment.start,
-                 children: <Widget>[
-                   Container(
-                     height: 40.0,
-                     width: 40.0,
-                     decoration: BoxDecoration(
-                       shape: BoxShape.circle,
-                       image: DecorationImage(
-                         fit: BoxFit.fill,
-                         image: NetworkImage(
-                           "https://scontent-qro1-1.xx.fbcdn.net/v/t1.0-9/70280246_138757747339462_127735759061909504_n.jpg?_nc_cat=107&_nc_ohc=8eJcklJktlMAQl72cdt8gxgLQ8e_rK6Apvcdy2OZSQZNSVsEXRL4ba-ug&_nc_ht=scontent-qro1-1.xx&oh=9255b3e83b91f9fb913469c4a77a444e&oe=5E6C418D"
-                         ),
-                       ),
-                     ),
-                   ),
-                   SizedBox(width: 10.0,),
-                   Expanded(
-                     child: TextField(
-                       decoration: InputDecoration(
-                         border: InputBorder.none,
-                         hintText: "Add a comment... ",
-                       ),
-                     ),
-                   )
-                 ],
-               ),
-             ),*/
-
-
-        ],
-      ),
-    );*/
   }
 
 
@@ -157,11 +77,15 @@ class Single_prod extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var deviceSize = MediaQuery.of(context).size;
+
     return GridTile(
         child: documentData.image != null ? Image.network(
         documentData.image,
         fit: BoxFit.contain,
-    ): Container());
+            width: deviceSize.width,
+
+        ): Container());
   }
 }
 

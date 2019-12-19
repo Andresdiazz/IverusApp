@@ -7,6 +7,7 @@ import 'package:country_pickers/country_pickers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
 import 'EditProfile/ui/screens/edit_profile.dart';
@@ -20,7 +21,7 @@ class Authphone extends StatefulWidget {
 }
 
 class _AuthphoneState extends State<Authphone> {
-//  TODO: Handle case when user already have account in db and signin, in this case editProfile should not open if user have submitted data before
+
 
   UserBloc userBloc;
 
@@ -36,6 +37,7 @@ class _AuthphoneState extends State<Authphone> {
   void initState() {
     super.initState();
     _phoneController.text = "";
+
   }
 
   var _keyField = GlobalKey<FormFieldState>();
@@ -64,7 +66,7 @@ class _AuthphoneState extends State<Authphone> {
               decoration: InputDecoration(labelText: "Phone Number",
                   labelStyle: TextStyle(
                     fontFamily: "Aileron",
-                    fontWeight: FontWeight.w600
+                    fontWeight: FontWeight.w600,
               )),
               validator: (val) {
                 if (val.isEmpty) {
@@ -208,6 +210,12 @@ class _AuthphoneState extends State<Authphone> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown
+    ]);
+    var deviceSize = MediaQuery.of(context).size;
+
     userBloc = BlocProvider.of(context);
 
     return Scaffold(
@@ -227,7 +235,7 @@ class _AuthphoneState extends State<Authphone> {
             color: Colors.white,
             child: Center(
                 child: Container(
-              margin: EdgeInsets.only(top: 150),
+              margin: EdgeInsets.only(top: 20),
               child: Column(
                 //crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -235,18 +243,20 @@ class _AuthphoneState extends State<Authphone> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        width: 200,
+                        width: deviceSize.width - 200,
+
                         child: Image(
                             image: NetworkImage(
                           "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2FLOGO-IVERUS-NEGRO.png?alt=media&token=af898df2-cd8d-44f8-bc83-864000bab447",
-                        )),
+                        ),
+                        height: deviceSize.height/10,),
                       ),
-                      SizedBox(height: 100),
+                      SizedBox(height: deviceSize.height / 100),
                       ListTile(title: _buildCountryPickerDropdown()),
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: deviceSize.height / 20 ,
                   ),
                   InkWell(
                     onTap: () {
@@ -296,3 +306,4 @@ class _AuthphoneState extends State<Authphone> {
     );
   }
 }
+

@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>The app tries to use your microphone</string>
-    <key>NSCameraUsageDescription</key>
-    <string>The app tries to use your camera</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -22,27 +18,32 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb440485399846824</string>
+				<string>com.googleusercontent.apps.896146491506-sqhg9gjj892trsf2jovgv61m3vlib355</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FacebookAppID</key>
+	<string>440485399846824</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-
-
+	<key>NSCameraUsageDescription</key>
+	<string>Get image to use as profile image</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Get image to use as profile image</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Get image to use as profile image</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-
-	<key>NSPhotoLibraryUsageDescription</key>
-    	<string>Get image to use as profile image</string>
-
-    	<key>NSCameraUsageDescription</key>
-            	<string>Get image to use as profile image</string>
-
-            		<key>NSMicrophoneUsageDescription</key>
-                            	<string>Get image to use as profile image</string>
-
-
-
-
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
@@ -60,34 +61,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-
-	<!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
-    <!-- Google Sign-in Section -->
-    <key>CFBundleURLTypes</key>
-    <array>
-    	<dict>
-    		<key>CFBundleTypeRole</key>
-    		<string>Editor</string>
-    		<key>CFBundleURLSchemes</key>
-    		<array>
-    			<!-- TODO Replace this value: -->
-    			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
-    			<string>fb440485399846824</string>
-    			<string>com.googleusercontent.apps.896146491506-sqhg9gjj892trsf2jovgv61m3vlib355</string>
-    		</array>
-    	</dict>
-    </array>
-      <key>FacebookAppID</key>
-      <string>440485399846824</string>
-      <key>LSRequiresIPhoneOS</key>
-      <true/>
-
-
-
-
-
 </dict>
-
-
-
 </plist>
