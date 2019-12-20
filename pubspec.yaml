@@ -109,6 +109,8 @@ flutter:
     - assets/Sprinkle.psd
     - assets/python.json
     - assets/test.json
+    - assets/trivia_3.json
+    - assets/trivia_4.json
     - assets/videos/test.MP4
     - assets/image/pict.jpg
     - assets/image/twitter.jpg

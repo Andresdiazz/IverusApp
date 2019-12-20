@@ -116,7 +116,7 @@ class _resultpageState extends State<resultpage> {
                   onPressed: () {
                     widget.categoriesBloc.updateTriviaPoints(marks);
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => Evaluar(),
+                      builder: (context) => Evaluar(documentData: widget.documentData,),
                     ));
                   },
                   child: Text(

@@ -1,0 +1,88 @@
+[
+    {
+        "1": "¿Cuál es el mayor beneficio de aplicar carbón activado en la piel?",
+        "2": "¿Para qué sirve principalmente el ácido hialurónico?",
+        "3": "¿Qué tipo de avena se aplica en las mascarillas?",
+        "4": "¿Cuál de estos ingredientes te protege contra los radicales libres?",
+        "5": "¿Para qué sirve el aceite de arroz?",
+        "6": "¿Este aceite es muy conocido por ayudar a eliminar estrías y cicatrices de acné?",
+        "7": "¿Cuál es el color de Barni ?",
+        "8": "¿Cuál es la fecha actual?",
+        "9": "¿Quienes Somos?",
+        "10": "¿Dónde nos encontramos?"
+    },
+    {
+        "1": {
+            "a": "absorbe toxinas de la piel",
+            "b": "adsorbe toxinas de la piel",
+            "c": "Suaviza y humecta la piel",
+            "d": "blanquea la piel"
+        },
+        "2": {
+            "a": "rellenar arrugas",
+            "b": "eliminar manchas",
+            "c": "blanquear piel",
+            "d": "eliminar grasa"
+        },
+        "3": {
+            "a": "triturada",
+            "b": "entera",
+            "c": "coloidal",
+            "d": "molida"
+        },
+        "4": {
+            "a": "carbón activado",
+            "b": "ácido hialurónico",
+            "c": "arcilla de mar muerto",
+            "d": "avena coloida"
+        },
+        "5": {
+            "a": "desinflama, calma irritaciones y activa la producción de colágeno",
+            "b": "exfolia, desinfecta y combate el acné",
+            "c": "limpia, exfolia y elimina toxinas",
+            "d": "elimina manchas, irritación y previene las arrugas"
+        },
+        "6": {
+           "a": "aceite de rosa mosqueta",
+            "b": "aceite de jengibre",
+            "c": "aceite de jazmín",
+            "d": "aceite de ricino"
+        },
+        "7": {
+            "a": "Azul",
+            "b": "Amarillo",
+            "c": "Rosado Barni",
+            "d": "Rojo"
+        },
+        "8": {
+            "a": "2019-10-28",
+            "b": "2019-10-20",
+            "c": "0009-10-03",
+            "d": "2019-10-02"
+        },
+        "9": {
+            "a": "EXCITED",
+            "b": "TOTTO",
+            "c": "ZARA",
+            "d": "tt"
+        },
+        "10": {
+            "a": "The Pool",
+            "b": "Corporativo Chapultepec",
+            "c": "ZARA",
+            "d": "tt"
+        }
+    },
+    {
+        "1": "adsorbe toxinas de la piel",
+        "2": "rellenar arrugas",
+        "3": "coloidal",
+        "4": "avena coloidal",
+        "5": "desinflama, calma irritaciones y activa la producción de colágeno",
+        "6": "aceite de rosa mosqueta",
+        "7": "Rosado Barni",
+        "8": "2019-10-28",
+        "9": "EXCITED",
+        "10": "Corporativo Chapultepec"
+    }
+]

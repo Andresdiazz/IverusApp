@@ -1,0 +1,88 @@
+[
+    {
+        "1": "¿Cuántas veces al mes es recomendado hacer una exfoliación?",
+        "2": "Así se le llama al proceso de desintoxicación del cuerpo",
+        "3": "¿Qué ingrediente es famoso por ayudar en el proceso de blanqueamiento de dientes?",
+        "4": "¿Cuántas comidas al día es recomendado tener?",
+        "5": "¿Porqué es importante lavar la cara con agua tibia antes de aplicar una mascarilla?",
+        "6": "¿Este aceite es muy conocido por ayudar a eliminar estrías y cicatrices de acné?",
+        "7": "¿Cuál es el color de Barni ?",
+        "8": "¿Cuál es la fecha actual?",
+        "9": "¿Quienes Somos?",
+        "10": "¿Dónde nos encontramos?"
+    },
+    {
+        "1": {
+            "a": "8 veces",
+            "b": "4 veces",
+            "c": "2 veces",
+            "d": "1 vez"
+        },
+        "2": {
+            "a": "DETOX",
+            "b": "DITOX",
+            "c": "DEETOX",
+            "d": "DIETOX"
+        },
+        "3": {
+            "a": "manzanilla",
+            "b": "carbón activado",
+            "c": "pimienta rosa",
+            "d": "vinagre de caña"
+        },
+        "4": {
+            "a": "3 comidas y 3 colaciones",
+            "b": "5 comidas",
+            "c": "3 comidas y 2 colaciones",
+            "d": "3 comidas"
+        },
+        "5": {
+            "a": "para suavizar la piel",
+            "b": "para calentar la piel",
+            "c": "para mantener el ph de la piel",
+            "d": "para abrir los poros"
+        },
+        "6": {
+           "a": "aceite de rosa mosqueta",
+            "b": "aceite de jengibre",
+            "c": "aceite de jazmín",
+            "d": "aceite de ricino"
+        },
+        "7": {
+            "a": "Azul",
+            "b": "Amarillo",
+            "c": "Rosado Barni",
+            "d": "Rojo"
+        },
+        "8": {
+            "a": "2019-10-28",
+            "b": "2019-10-20",
+            "c": "0009-10-03",
+            "d": "2019-10-02"
+        },
+        "9": {
+            "a": "EXCITED",
+            "b": "TOTTO",
+            "c": "ZARA",
+            "d": "tt"
+        },
+        "10": {
+            "a": "The Pool",
+            "b": "Corporativo Chapultepec",
+            "c": "ZARA",
+            "d": "tt"
+        }
+    },
+    {
+        "1": "2 veces",
+        "2": "DETOX",
+        "3": "carbón activado",
+        "4": "3 comidas y 2 colaciones",
+        "5": "para abrir los poros",
+        "6": "aceite de rosa mosqueta",
+        "7": "Rosado Barni",
+        "8": "2019-10-28",
+        "9": "EXCITED",
+        "10": "Corporativo Chapultepec"
+    }
+]

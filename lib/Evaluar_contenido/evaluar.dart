@@ -10,7 +10,7 @@ class Evaluar extends StatefulWidget {
   final CategoriesBloc categoriesBloc;
 
 
-  const Evaluar({Key key, this.documentData, this.categoriesBloc}) : super(key: key);
+  Evaluar({this.documentData, this.categoriesBloc});
 
   @override
   _EvaluarState createState() => _EvaluarState();
@@ -94,13 +94,14 @@ class _EvaluarState extends State<Evaluar> {
                             Navigator.of(context).pushReplacement(MaterialPageRoute(
                               builder: (context) => HomePage(),
                             ));
-                            var data =  databaseReference.collection("iverus_trivia").getDocuments();
-                            data.then((QuerySnapshot snapshot){
-                              var dat = snapshot.documents.forEach((f)=>{
+                            var data =   databaseReference.collection("iverus_trivia").document(widget.documentData.tipo).get()
+                                .then((doc)=>{
+                              if(doc.exists){
                                 databaseReference.collection("iverus_trivia")
-                                    .document("4McSRnrLW5m2WKoZ1h0s").updateData({'no':f.data['no'] + 1})
-                              });
-
+                                    .document(widget.documentData.tipo).updateData({"no":doc.data['no'] + 1})
+                              }  else{
+                                print('"No such document!"')
+                              }
                             });
 
                           },
@@ -130,14 +131,15 @@ class _EvaluarState extends State<Evaluar> {
                             Navigator.of(context).pushReplacement(MaterialPageRoute(
                               builder: (context) => HomePage(),
                             ));
-                            var data =  databaseReference.collection("iverus_trivia").getDocuments();
-                            data.then((QuerySnapshot snapshot){
-                                 var dat = snapshot.documents.forEach((f)=>{
-                                 databaseReference.collection("iverus_trivia")
-                                     .document("4McSRnrLW5m2WKoZ1h0s").updateData({'si':f.data['si'] + 1})
+                            var data =   databaseReference.collection("iverus_trivia").document(widget.documentData.tipo).get()
+                                .then((doc)=>{
+                                  if(doc.exists){
+                                    databaseReference.collection("iverus_trivia")
+                                    .document(widget.documentData.tipo).updateData({"si":doc.data['si'] + 1})
+                                  }  else{
+                                    print('"No such document!"')
+                                  }
                                  });
-
-                            });
 
                           },
                         ),
