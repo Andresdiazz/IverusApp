@@ -35,12 +35,18 @@ class _InstaListState extends State<InstaList> {
             crossAxisSpacing: 4.0,
             itemBuilder: (_, int index) {
               final CategoryItem item = snapshot.data[index];
-              return Stack(
-                children: <Widget>[
-                  Single_prod(item,
-                    _bloc,
-                  ),
-                  Padding(
+              return Scaffold(
+                body: PageView(
+                  //scrollDirection: Axis.vertical,
+                  children: <Widget>[
+                    Container(
+                        color: Colors.amber
+                    ),
+                    Container(color: Colors.black26,)
+                    /*Single_prod(item,
+                      _bloc,
+                    ),
+                    Padding(
                     padding: const EdgeInsets.only(top: 550, left: 320),
                     child: Stack(
                       children: <Widget>[
@@ -54,10 +60,11 @@ class _InstaListState extends State<InstaList> {
                         ),
                       ],
                     ),
-                  ),
+                  ),*/
 
 
-                ],
+                  ],
+                ),
               );
             },
             staggeredTileBuilder: (index) => StaggeredTile.fit(4));

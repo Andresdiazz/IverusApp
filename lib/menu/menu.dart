@@ -6,6 +6,8 @@ import 'package:cocreacion/insta_trivia/insta_home.dart';
 import 'package:cocreacion/insta_video/insta_home.dart';
 import 'package:flutter/material.dart';
 
+import '../PageView.dart';
+
 class CategoryScreen extends StatefulWidget {
   CategoryScreen({Key key}) : super(key: key);
 
@@ -65,7 +67,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => InstHome()),
+                                MaterialPageRoute(builder: (context) => HomeView()),
                               );
                             },
                             child: Container(
@@ -75,7 +77,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 borderRadius: new BorderRadius.all(
                                   Radius.circular(30.0),
                                 ),
-                                color: Color(0xff262da7),
+                                //color: Color(0xff262da7),
                               ),
                               padding: EdgeInsets.all(20.0),
                               child: FittedBox(
@@ -88,7 +90,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       style: TextStyle(
                                           color: Color(0xfff1e4d4),
                                           fontWeight: FontWeight.w900,
-                                          fontStyle: FontStyle.italic,
+                                          fontFamily: 'Aileron',
+                                          //fontStyle: FontStyle.italic,
                                           fontSize: 40),
                                     ),
                                   ],
@@ -107,10 +110,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               height: size.height * 0.2,
                               width: size.width * 0.8,
                               decoration: BoxDecoration(
-                                borderRadius: new BorderRadius.all(
-                                  Radius.circular(30.0),
-                                ),
-                                color: Color(0xff262da7),
+                              border: Border(
+                                top: BorderSide(width: 1.0, color: Colors.white)
+                              )
+                                //borderRadius: new BorderRadius.all(
+                                  //Radius.circular(30.0),
+                                //),
+                                //color: Color(0xff262da7),
                               ),
                               padding: EdgeInsets.all(30.0),
                               child: FittedBox(
@@ -123,7 +129,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       style: TextStyle(
                                           color: Color(0xfff1e4d4),
                                           fontWeight: FontWeight.w900,
-                                          fontStyle: FontStyle.italic,
+                                          fontFamily: 'Aileron',
+                                          //fontStyle: FontStyle.italic,
                                           fontSize: 40),
                                     ),
                                   ],
@@ -142,10 +149,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               height: size.height * 0.2,
                               width: size.width * 0.8,
                               decoration: BoxDecoration(
-                                borderRadius: new BorderRadius.all(
-                                  Radius.circular(30.0),
+                                border: Border(
+                                  top: BorderSide(width: 1.0, color: Colors.white)
                                 ),
-                                color: Color(0xff262da7),
+                                //borderRadius: new BorderRadius.all(
+                                  //Radius.circular(30.0),
+                                //),
+                                //color: Color(0xff262da7),
                               ),
                               padding: EdgeInsets.all(20.0),
                               child: FittedBox(
@@ -158,7 +168,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       style: TextStyle(
                                           color: Color(0xfff1e4d4),
                                           fontWeight: FontWeight.w900,
-                                          fontStyle: FontStyle.italic,
+                                          fontFamily: 'Aileron',
+                                          //fontStyle: FontStyle.italic,
                                           fontSize: 40),
                                     ),
                                   ],
@@ -177,10 +188,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               height: size.height * 0.2,
                               width: size.width * 0.8,
                               decoration: BoxDecoration(
-                                borderRadius: new BorderRadius.all(
-                                  Radius.circular(30.0),
+                                border: Border(
+                                  top: BorderSide(width: 1.0, color: Colors.white)
                                 ),
-                                color: Color(0xff262da7),
+                                //borderRadius: new BorderRadius.all(
+                                  //Radius.circular(30.0),
+                                //),
+                                //color: Color(0xff262da7),
                               ),
                               padding: EdgeInsets.all(20.0),
                               child: FittedBox(
@@ -193,7 +207,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       style: TextStyle(
                                           color: Color(0xfff1e4d4),
                                           fontWeight: FontWeight.w900,
-                                          fontStyle: FontStyle.italic,
+                                          fontFamily: 'Aileron',
+                                          //fontStyle: FontStyle.italic,
                                           fontSize: 40),
                                     ),
 

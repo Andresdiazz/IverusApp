@@ -41,11 +41,11 @@ class _AnimatedShareButtonState extends State<AnimatedShareButton> with TickerPr
           height: 90.0 + extraSize,
           width: 90.0 + extraSize,
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-              /*border: Border.all(color: Color(0xff23A8C5), width: 1.0),
+          /*decoration: BoxDecoration(
+              border: Border.all(color: Color(0xff23A8C5), width: 1.0),
               borderRadius: BorderRadius.circular(50.0),
-              color: Colors.white,*/
-              boxShadow: [BoxShadow(color: Colors.black38, blurRadius: 40.0)]),
+              color: Colors.white,
+              boxShadow: [BoxShadow(color: Colors.black38, blurRadius: 40.0)]),*/
           child: getHeartIcon(),
         ));
   }
