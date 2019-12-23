@@ -36,30 +36,30 @@ class _HomeViewState extends State<HomeView> {
               Container(
                 child: Stack(
                   children: <Widget>[
-
                     Container(
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/gif_videos_donal%2Fdonal_10.gif?alt=media&token=729c7ee4-47cb-46a5-a0d7-466c53c98945"),
-                              fit: BoxFit.cover
-                          )
-                      ),
+                              image: NetworkImage(
+                                  "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/gif_videos_donal%2Fdonal_10.gif?alt=media&token=729c7ee4-47cb-46a5-a0d7-466c53c98945"),
+                              fit: BoxFit.cover)),
                     ),
                     Container(
+                        //color: Colors.grey,
                         alignment: Alignment.bottomRight,
                         //padding: EdgeInsets.only(top: 400),
-                        child: Container(
-                          alignment: Alignment.bottomRight,
-                          child: Column(
-                            children: <Widget>[
-                              AnimatedLikeButton(),
-                              SizedBox(width: 10.0,),
-                              AnimatedShareButton(),
-                              SizedBox(width: 10.0,),
-                            ],
-                          ),
-                        )
-                    ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            AnimatedLikeButton(),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            AnimatedShareButton(),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                          ],
+                        )),
                   ],
                 ),
               ),
@@ -74,17 +74,23 @@ class _HomeViewState extends State<HomeView> {
                         )
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 350.0, top: 600),
-                    child: Column(
-                      children: <Widget>[
-                        AnimatedLikeButton(),
-                        SizedBox(width: 10.0,),
-                        AnimatedShareButton(),
-                        SizedBox(width: 10.0,),
-                      ],
-                    ),
-                  )
+                  Container(
+                      //color: Colors.grey,
+                      alignment: Alignment.bottomRight,
+                      //padding: EdgeInsets.only(top: 400),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          AnimatedLikeButton(),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          AnimatedShareButton(),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                        ],
+                      )),
                 ],
               ),
               Stack(
@@ -98,17 +104,23 @@ class _HomeViewState extends State<HomeView> {
                         )
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 350.0, top: 600),
-                    child: Column(
-                      children: <Widget>[
-                        AnimatedLikeButton(),
-                        SizedBox(width: 10.0,),
-                        AnimatedShareButton(),
-                        SizedBox(width: 10.0,),
-                      ],
-                    ),
-                  )
+                  Container(
+                    //color: Colors.grey,
+                      alignment: Alignment.bottomRight,
+                      //padding: EdgeInsets.only(top: 400),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          AnimatedLikeButton(),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          AnimatedShareButton(),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                        ],
+                      )),
                 ],
               ),
               Stack(
@@ -122,17 +134,23 @@ class _HomeViewState extends State<HomeView> {
                         )
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 350.0, top: 600),
-                    child: Column(
-                      children: <Widget>[
-                        AnimatedLikeButton(),
-                        SizedBox(width: 10.0,),
-                        AnimatedShareButton(),
-                        SizedBox(width: 10.0,),
-                      ],
-                    ),
-                  )
+                  Container(
+                    //color: Colors.grey,
+                      alignment: Alignment.bottomRight,
+                      //padding: EdgeInsets.only(top: 400),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          AnimatedLikeButton(),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          AnimatedShareButton(),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                        ],
+                      )),
                 ],
               ),
             ]
