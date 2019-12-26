@@ -18,17 +18,11 @@ class Evaluar extends StatefulWidget {
 
 final databaseReference = Firestore.instance;
 
-
-
-
-
-
 class _EvaluarState extends State<Evaluar> {
   @override
   void initState() {
     super.initState();
   }
-
 
 
 

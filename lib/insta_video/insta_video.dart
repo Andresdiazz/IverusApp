@@ -4,6 +4,7 @@ import 'package:cocreacion/Categorias/card/video_page.dart';
 import 'package:cocreacion/Categorias/model/category_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 class InstaList_video extends StatefulWidget {
   @override
@@ -32,7 +33,15 @@ class _InstaList_videoState extends State<InstaList_video> {
       builder:
           (BuildContext context, AsyncSnapshot<List<CategoryItem>> snapshot) {
         if (!snapshot.hasData) {
-          return Text("loading....");
+          return Center(
+            child:LoadingFadingLine.circle(
+              borderColor: Colors.blueGrey,
+              borderSize: 3.0,
+              size: 90.0,
+              backgroundColor: Colors.blueGrey,
+              duration: Duration(milliseconds: 500),
+            ) ,
+          );
         }
         int length = snapshot.data.length;
         return StaggeredGridView.countBuilder(
