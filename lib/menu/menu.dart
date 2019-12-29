@@ -6,6 +6,7 @@ import 'package:cocreacion/insta_trivia/insta_home.dart';
 import 'package:cocreacion/insta_video/insta_home.dart';
 import 'package:flutter/material.dart';
 
+import '../PageVideoView.dart';
 import '../PageView.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -103,7 +104,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => InstHome_video()),
+                                MaterialPageRoute(builder: (context) => VideoApp()),
                               );
                             },
                             child: Container(
