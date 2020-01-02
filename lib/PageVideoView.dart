@@ -1,8 +1,11 @@
+import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
 import 'Animated/Share.dart';
 import 'Animated/heart.dart';
+import 'Categorias/model/category_item.dart';
 
 void main() => runApp(VideoApp());
 
@@ -14,16 +17,9 @@ class VideoApp extends StatefulWidget {
 class _VideoAppState extends State<VideoApp> {
   VideoPlayerController _controller;
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.network(
-        'http://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
-  }
+  PageController controller_page = PageController();
+  CategoriesBloc _bloc = CategoriesBloc("iverus_video");
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,97 +38,138 @@ class _VideoAppState extends State<VideoApp> {
       ],
     );
 
-    return MaterialApp(
-      title: 'Video Demo',
-      home: Scaffold(
-        appBar: topBar,
-        body: PageView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  child: Center(
-                    child: _controller.value.initialized
-                        ? AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    )
-                        : Container(),
-                  ),
-                ),
-                Container(
-                    //color: Colors.grey,
-                    alignment: Alignment.bottomRight,
-                    //padding: EdgeInsets.only(top: 400),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        AnimatedLikeButton(),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        AnimatedShareButton(),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                      ],
-                    )),
-              ],
-            ),
-            Stack(
-              children: <Widget>[
-                Container(
-                  child: Center(
-                    child: _controller.value.initialized
-                        ? AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    )
-                        : Container(),
-                  ),
-                ),
-                Container(
-                  //color: Colors.grey,
-                    alignment: Alignment.bottomRight,
-                    //padding: EdgeInsets.only(top: 400),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        AnimatedLikeButton(),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        AnimatedShareButton(),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                      ],
-                    )),
-              ],
-            ),
-          ],
-        ),
+    return Scaffold(
+      appBar: topBar,
+      body: StreamBuilder(
+        stream: _bloc.categories,
+        builder: (BuildContext context, AsyncSnapshot<List<CategoryItem>> snapshot){
+          if (!snapshot.hasData) {
+            print('Alberto:No se Encontro Datos');
+            print('Alberto: Esta Cargando!!!');
+            return Center(
+              child:LoadingFadingLine.circle(
+                borderColor: Colors.blueGrey,
+                borderSize: 3.0,
+                size: 90.0,
+                backgroundColor: Colors.blueGrey,
+                duration: Duration(milliseconds: 500),
+              ),
+            );
+          }
+          int length = snapshot.data.length;
+          return PageView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: length,
+            itemBuilder: (_, int index) {
+              final CategoryItem item = snapshot.data[index];
+              print('Alberto:Si se Encontro Datos!!');
+              print(item);
 
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              _controller.value.isPlaying
-                  ? _controller.pause()
-                  : _controller.play();
-            });
-          },
-          child: Icon(
-            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-          ),
-        ),
-      ),
+              return Stack(
+                children: <Widget>[
+                VideoView(
+                documentData: item,
+                bloc: _bloc,
+                 )],
+              );
+            },
+          );
+        }
+
+
+
+    )
     );
+
+  }
+}
+
+class VideoView extends StatefulWidget {
+  final CategoryItem documentData;
+  final CategoriesBloc bloc;
+
+  VideoView({this.documentData, this.bloc});
+
+  @override
+  _VideoViewState createState() => _VideoViewState();
+}
+
+class _VideoViewState extends State<VideoView> {
+  VideoPlayerController _controller;
+  PageController controllerPage = PageController();
+
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.network(widget.documentData.video)
+    ..initialize().then((_){
+        setState(() {
+          _controller.play();
+        });
+    });
+
+    controllerPage.addListener((){
+        setState(() {
+
+         _controller.pause();
+        });
+    });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return  PageView(
+      controller: controllerPage,
+      scrollDirection: Axis.vertical,
+      children: <Widget>[
+        Stack(
+          children: <Widget>[
+            Container(
+              height: 720.0,
+              child: InkWell(
+                onTap: (){
+                  setState(() {
+                    _controller.value.isPlaying
+                        ? _controller.pause()
+                        : _controller.play();
+                  });
+                },
+                child: _controller.value.initialized
+                    ? AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                   child: VideoPlayer(_controller),
+                )
+                    :Container(),
+
+              ),
+            ),
+            Container(
+              alignment: Alignment.bottomRight,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  AnimatedLikeButton(),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  AnimatedShareButton(),
+                  SizedBox(
+                    width: 10.0,
+                  )
+                ],
+              ),
+            )
+          ],
+        )
+      ],
+    );
+  }
   @override
   void dispose() {
     super.dispose();
     _controller.dispose();
   }
 }
+
+
