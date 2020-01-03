@@ -1,9 +1,7 @@
 
-import 'package:cocreacion/Insta/insta_body.dart';
-import 'package:cocreacion/Insta/insta_home.dart';
 import 'package:cocreacion/insta_tree/insta_home.dart';
 import 'package:cocreacion/insta_trivia/insta_home.dart';
-import 'package:cocreacion/insta_video/insta_home.dart';
+
 import 'package:flutter/material.dart';
 
 import '../PageVideoView.dart';

@@ -7,6 +7,8 @@ import 'dart:math' as math;
 //import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../PageView.dart';
+
 class SlidingCardsView extends StatefulWidget {
   @override
   _SlidingCardsViewState createState() => _SlidingCardsViewState();
@@ -47,7 +49,7 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
             onPressed: () {
               Navigator.push(
                   //context, MaterialPageRoute(builder: (context) => Menu3d()));
-                  context, MaterialPageRoute(builder: (context) => CategoryScreen()));
+                  context, MaterialPageRoute(builder: (context) => HomeView()));
             },
 
             //videoPlayerController: VideoPlayerController.asset('img/video_prueba.mp4'),

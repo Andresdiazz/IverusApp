@@ -1,6 +1,5 @@
-import 'package:cocreacion/Insta/insta_list.dart';
+
 import 'package:cocreacion/insta_trivia/insta_video.dart';
-import 'package:cocreacion/insta_video/insta_video.dart';
 import 'package:flutter/material.dart';
 
 class InstaBody_trivia extends StatelessWidget {

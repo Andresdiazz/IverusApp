@@ -5,6 +5,9 @@ import 'package:loading_animations/loading_animations.dart';
 
 import 'Animated/Share.dart';
 import 'Animated/heart.dart';
+import 'PageVideoView.dart';
+import 'insta_tree/insta_home.dart';
+import 'insta_trivia/insta_home.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -23,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
 
     final topBar = new AppBar(
-      backgroundColor: new Color(0xfff8faf8),
+      backgroundColor: Colors.transparent,
       centerTitle: true,
       elevation: 1.0,
       title: SizedBox(
@@ -38,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
 
 
     return Scaffold(
-      appBar: topBar,
+      //appBar: topBar,
         body: StreamBuilder(
           stream: _bloc.categories,
           //print an integer every 2secs, 10 times
@@ -98,10 +101,126 @@ class Single_prod extends StatefulWidget {
 
 class _Single_prodState extends State<Single_prod>{
 
-
   @override
   Widget build(BuildContext context) {
-    var deviceSize = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
+
+    final topBar = new AppBar(
+      backgroundColor: Colors.transparent,
+      centerTitle: true,
+      elevation: 1.0,
+      automaticallyImplyLeading: false,
+      title: SizedBox(
+          height: 25.0,
+          child: Row(
+            children: <Widget>[
+              InkWell(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeView()),
+                  );
+                },
+                child: Container(
+                  height: size.height * 2 ,
+                  width: 75,
+                  decoration: BoxDecoration(
+                    border: Border(
+                        left: BorderSide(width: 0.5, color: Colors.white),
+                      right: BorderSide(width: 0.5, color: Colors.white)
+                    )
+                  ),
+                  child: Center(
+                    child: Text("Picture", style: TextStyle(
+                        fontFamily: 'AileronBold',
+                        color: Colors.white,
+                      //decoration: TextDecoration.underline
+                    ),),
+                  )
+                ),
+              ),
+              InkWell(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => VideoApp()),
+                  );
+                },
+                child: Container(
+                    height: size.height * 2 ,
+                    width: 75,
+                    decoration: BoxDecoration(
+                        border: Border(
+                            //left: BorderSide(width: 0.5, color: Colors.white),
+                            right: BorderSide(width: 0.5, color: Colors.white)
+                        )
+                    ),
+                    child: Center(
+                      child: Text("Video", style: TextStyle(
+                          fontFamily: 'Aileron',
+                          color: Colors.white
+                      ),),
+                    )
+                ),
+              ),
+              InkWell(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => InstHome_trivia()),
+                  );
+                },
+                child: Container(
+                    height: size.height * 2 ,
+                    width: 75,
+                    decoration: BoxDecoration(
+                        border: Border(
+                            //left: BorderSide(width: 1.0, color: Colors.white),
+                            right: BorderSide(width: 0.5, color: Colors.white)
+                        )
+                    ),
+                    child: Center(
+                      child: Text("Trivia", style: TextStyle(
+                          fontFamily: 'Aileron',
+                          color: Colors.white
+                      ),),
+                    )
+                ),
+              ),
+              InkWell(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => InstHome_tree()),
+                  );
+                },
+                child: Container(
+                    height: size.height * 2 ,
+                    width: 75,
+                    decoration: BoxDecoration(
+                        border: Border(
+                            //left: BorderSide(width: 1.0, color: Colors.white),
+                            right: BorderSide(width: 0.5, color: Colors.white)
+                        )
+                    ),
+                    child: Center(
+                      child: Text("Tree", style: TextStyle(
+                          fontFamily: 'Aileron',
+                          color: Colors.white
+                      ),),
+                    )
+                ),
+              ),
+            ],
+          )
+      ),
+      actions: <Widget>[
+        /*Padding(
+          padding: const EdgeInsets.only(right: 12.0),
+          child: Icon(Icons.send, color: Colors.black),
+        )*/
+      ],
+    );
 
     return PageView(
         scrollDirection: Axis.vertical,
@@ -136,8 +255,10 @@ class _Single_prodState extends State<Single_prod>{
                                   ),
                                 ],
                               )),
+                          topBar,
                         ],
                       ),
+
 
         ]
     );
