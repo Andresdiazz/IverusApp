@@ -116,10 +116,7 @@ class _Single_prodState extends State<Single_prod>{
             children: <Widget>[
               InkWell(
                 onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeView()),
-                  );
+                  Navigator.popAndPushNamed(context,'/HomeView');
                 },
                 child: Container(
                   height: size.height * 2 ,
@@ -141,10 +138,7 @@ class _Single_prodState extends State<Single_prod>{
               ),
               InkWell(
                 onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => VideoApp()),
-                  );
+                  Navigator.popAndPushNamed(context,'/VideoApp');
                 },
                 child: Container(
                     height: size.height * 2 ,
@@ -165,10 +159,8 @@ class _Single_prodState extends State<Single_prod>{
               ),
               InkWell(
                 onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => InstHome_trivia()),
-                  );
+                  Navigator.popAndPushNamed(context,'/InstHome_trivia');
+
                 },
                 child: Container(
                     height: size.height * 2 ,
@@ -189,10 +181,8 @@ class _Single_prodState extends State<Single_prod>{
               ),
               InkWell(
                 onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => InstHome_tree()),
-                  );
+                  Navigator.popAndPushNamed(context,'/InstHome_tree');
+
                 },
                 child: Container(
                     height: size.height * 2 ,
