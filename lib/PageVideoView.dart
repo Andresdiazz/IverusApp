@@ -104,6 +104,26 @@ class _VideoViewState extends State<VideoView> {
     final topBar = new AppBar(
       backgroundColor: Colors.transparent,
       centerTitle: true,
+      flexibleSpace: Container(
+        alignment: Alignment.bottomRight,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            AnimatedLikeButton(
+              documentData: widget.documentData,
+              bloc: widget.bloc,
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            AnimatedShareButton(
+                documentData: widget.documentData, bloc: widget.bloc),
+            SizedBox(
+              width: 10.0,
+            )
+          ],
+        ),
+      ),
       elevation: 1.0,
       automaticallyImplyLeading: false,
       title: SizedBox(
@@ -237,26 +257,6 @@ class _VideoViewState extends State<VideoView> {
                         child: VideoPlayer(_controller),
                       )
                     : Container(),
-              ),
-            ),
-            Container(
-              alignment: Alignment.bottomRight,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  AnimatedLikeButton(
-                    documentData: widget.documentData,
-                    bloc: widget.bloc,
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  AnimatedShareButton(
-                      documentData: widget.documentData, bloc: widget.bloc),
-                  SizedBox(
-                    width: 10.0,
-                  )
-                ],
               ),
             ),
             topBar

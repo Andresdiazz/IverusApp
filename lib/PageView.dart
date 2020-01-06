@@ -98,6 +98,25 @@ class _Single_prodState extends State<Single_prod> {
       backgroundColor: Colors.transparent,
       centerTitle: true,
       elevation: 1.0,
+      flexibleSpace: Container(
+          //color: Colors.grey,
+          alignment: Alignment.bottomRight,
+          //padding: EdgeInsets.only(top: 400),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              AnimatedLikeButton(
+                  documentData: widget.documentData, bloc: widget.bloc),
+              SizedBox(
+                width: 10.0,
+              ),
+              AnimatedShareButton(
+                  documentData: widget.documentData, bloc: widget.bloc),
+              SizedBox(
+                width: 10.0,
+              ),
+            ],
+          )),
       automaticallyImplyLeading: false,
       title: SizedBox(
           height: 25.0,
@@ -219,25 +238,6 @@ class _Single_prodState extends State<Single_prod> {
                         image: NetworkImage(widget.documentData.image),
                         fit: BoxFit.cover)),
               ),
-              Container(
-                  //color: Colors.grey,
-                  alignment: Alignment.bottomRight,
-                  //padding: EdgeInsets.only(top: 400),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      AnimatedLikeButton(
-                          documentData: widget.documentData, bloc: widget.bloc),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      AnimatedShareButton(
-                          documentData: widget.documentData, bloc: widget.bloc),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                    ],
-                  )),
               topBar,
             ],
           ),
