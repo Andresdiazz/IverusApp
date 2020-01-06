@@ -1,10 +1,15 @@
-
 import 'dart:async';
 import 'dart:math';
 
+import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
+import 'package:cocreacion/Categorias/model/category_item.dart';
 import 'package:flutter/material.dart';
+
 class AnimatedLikeButton extends StatefulWidget {
-  AnimatedLikeButton({Key key}) : super(key: key);
+  final CategoryItem documentData;
+  final CategoriesBloc bloc;
+
+  AnimatedLikeButton({Key key, this.documentData, this.bloc}) : super(key: key);
 
   @override
   _AnimatedLikeButtonState createState() => _AnimatedLikeButtonState();
@@ -12,7 +17,8 @@ class AnimatedLikeButton extends StatefulWidget {
 
 enum LikeWidgetStatus { HIDDEN, BECOMING_VISIBLE, VISIBLE, BECOMING_INVISIBLE }
 
-class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProviderStateMixin {
+class _AnimatedLikeButtonState extends State<AnimatedLikeButton>
+    with TickerProviderStateMixin {
   int _counter = 0;
   double _sprinklesAngle = 0.0;
   LikeWidgetStatus _likeWidgetStatus = LikeWidgetStatus.HIDDEN;
@@ -31,18 +37,19 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
     return Container(
         //margin: EdgeInsets.only(left: 220.0,top:700.0),
         child: Stack(
-          alignment: FractionalOffset.center,
-          overflow: Overflow.visible,
-          children: <Widget>[
-            getScoreButton(),
-            getLikeButton(),
-          ],
-        ));
+      alignment: FractionalOffset.center,
+      overflow: Overflow.visible,
+      children: <Widget>[
+        getScoreButton(),
+        getLikeButton(),
+      ],
+    ));
   }
 
   Widget getLikeButton() {
     var extraSize = 0.0;
-    if (_likeWidgetStatus == LikeWidgetStatus.VISIBLE || _likeWidgetStatus == LikeWidgetStatus.BECOMING_VISIBLE) {
+    if (_likeWidgetStatus == LikeWidgetStatus.VISIBLE ||
+        _likeWidgetStatus == LikeWidgetStatus.BECOMING_VISIBLE) {
       extraSize = likeSizeAnimationController.value * 3;
     }
     return GestureDetector(
@@ -63,15 +70,20 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
 
   initState() {
     super.initState();
+    _counter = widget.bloc.getLikes(widget.documentData.id);
+
     random = Random();
-    likeInAnimationController = AnimationController(duration: Duration(milliseconds: 150), vsync: this);
+    likeInAnimationController =
+        AnimationController(duration: Duration(milliseconds: 150), vsync: this);
     likeInAnimationController.addListener(() {
       setState(() {}); // Calls render function
     });
 
-    likeOutAnimationController = AnimationController(vsync: this, duration: mainDuration);
-    likeOutPositionAnimation = Tween(begin: 100.0, end: 150.0)
-        .animate(CurvedAnimation(parent: likeOutAnimationController, curve: Curves.easeOut));
+    likeOutAnimationController =
+        AnimationController(vsync: this, duration: mainDuration);
+    likeOutPositionAnimation = Tween(begin: 100.0, end: 150.0).animate(
+        CurvedAnimation(
+            parent: likeOutAnimationController, curve: Curves.easeOut));
     likeOutPositionAnimation.addListener(() {
       setState(() {});
     });
@@ -81,7 +93,8 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
       }
     });
 
-    likeSizeAnimationController = AnimationController(vsync: this, duration: Duration(milliseconds: 150));
+    likeSizeAnimationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 150));
     likeSizeAnimationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         likeSizeAnimationController.reverse();
@@ -91,8 +104,10 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
       setState(() {});
     });
 
-    sparklesAnimationController = AnimationController(vsync: this, duration: mainDuration);
-    sparklesAnimation = CurvedAnimation(parent: sparklesAnimationController, curve: Curves.easeIn);
+    sparklesAnimationController =
+        AnimationController(vsync: this, duration: mainDuration);
+    sparklesAnimation = CurvedAnimation(
+        parent: sparklesAnimationController, curve: Curves.easeIn);
     sparklesAnimation.addListener(() {
       setState(() {});
     });
@@ -106,6 +121,8 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
 
   //Incrementador de like
   void increment(Timer t) {
+    widget.bloc.updateLike(widget.documentData.id, widget.bloc.category);
+
     likeSizeAnimationController.forward(from: 0.0);
     sparklesAnimationController.forward(from: 0.0);
     setState(() {
@@ -113,7 +130,6 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
       _sprinklesAngle = random.nextDouble() * (2 * pi);
     });
   }
-
 
 //
   void onTapDown(TapDownDetails tap) {
@@ -130,7 +146,8 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
       likeInAnimationController.forward(from: 0.0);
     }
     increment(null); // Cuida el grifo
-    holdTimer = Timer.periodic(mainDuration, increment);// Se encarga de mantener
+    holdTimer =
+        Timer.periodic(mainDuration, increment); // Se encarga de mantener
   }
 
   void onTapUp(TapUpDetails tap) {
@@ -195,9 +212,12 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
             ),
             child: Center(
                 child: Text(
-                  "+" + _counter.toString(),
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.0),
-                )))));
+              "+" + _counter.toString(),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0),
+            )))));
 
     var widget = Positioned(
         child: Stack(
@@ -211,22 +231,25 @@ class _AnimatedLikeButtonState extends State<AnimatedLikeButton> with TickerProv
 
   Widget getHeartIcon() {
     Widget imageIcon;
-    if (_likeWidgetStatus == LikeWidgetStatus.VISIBLE || _likeWidgetStatus == LikeWidgetStatus.BECOMING_VISIBLE) {
+    if (_likeWidgetStatus == LikeWidgetStatus.VISIBLE ||
+        _likeWidgetStatus == LikeWidgetStatus.BECOMING_VISIBLE) {
       imageIcon = Padding(
           padding: EdgeInsets.all(2),
-          child: ImageIcon(NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fheart.png?alt=media&token=5db2c9ae-2875-4c32-910c-53bc6315821f"),
+          child: ImageIcon(
+              NetworkImage(
+                  "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fheart.png?alt=media&token=5db2c9ae-2875-4c32-910c-53bc6315821f"),
               color: Colors.white,
               //color: Color(0xff721385),
-              size: 40.0))
-      ;
+              size: 40.0));
     } else {
       imageIcon = Padding(
           padding: EdgeInsets.all(2),
-          child: ImageIcon(NetworkImage("https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fheart_filled.png?alt=media&token=cf2b9db9-24da-4f01-826a-d44a724025c9"),
+          child: ImageIcon(
+              NetworkImage(
+                  "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fheart_filled.png?alt=media&token=cf2b9db9-24da-4f01-826a-d44a724025c9"),
               color: Colors.white,
               //color: Color(0xff721385),
-              size: 40.0)
-      );
+              size: 40.0));
     }
     return imageIcon;
   }

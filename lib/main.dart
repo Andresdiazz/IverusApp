@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
             title: 'IverusApp',
 //            home: SplashScreen()),
             home: SplashScreen()),
-        bloc: UserBloc()
-    );
+        bloc: UserBloc());
   }
 }
