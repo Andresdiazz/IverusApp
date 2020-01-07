@@ -269,6 +269,7 @@ class _VideoViewState extends State<VideoView> {
   @override
   void dispose() {
     super.dispose();
+    widget.bloc.videoClick(widget.documentData.id);
     _controller.dispose();
   }
 }

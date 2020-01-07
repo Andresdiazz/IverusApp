@@ -17,6 +17,7 @@ class User {
   int rank;
   Map<dynamic, dynamic> likes;
   List<dynamic> shares;
+  List<dynamic> watchedVideos;
   List<Ideas> myIdeas;
   List<Ideas> myFavoriteIdeas;
 
@@ -33,6 +34,7 @@ class User {
       @required this.desc,
       this.likes,
       this.shares,
+      this.watchedVideos,
       this.myIdeas,
       this.myFavoriteIdeas});
 
@@ -49,6 +51,7 @@ class User {
       'desc': desc,
       'likes': likes,
       'shares': shares,
+      'watchedVideos': watchedVideos,
     });
   }
 
@@ -69,6 +72,8 @@ class User {
     desc = json['desc'] == null ? null : json['desc'];
     likes = json['likes'] != null ? json['likes'] : null;
     shares = json['shares'] != null ? json['shares'] : null;
+    watchedVideos =
+        json['watchedVideos'] != null ? json['watchedVideos'] : null;
   }
 
   Map<String, dynamic> getMap() {
@@ -88,6 +93,7 @@ class User {
     if (this.desc != null) data['desc'] = this.desc;
     if (this.likes != null) data['likes'] = this.likes;
     if (this.shares != null) data['shares'] = this.shares;
+    if (this.watchedVideos != null) data['watchedVideos'] = this.watchedVideos;
 
     return data;
   }

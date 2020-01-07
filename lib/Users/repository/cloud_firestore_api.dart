@@ -351,14 +351,22 @@ class CloudFirestoreAPI {
     });
   }
 
-  updatePointsOnVideoWatch(String uid, String table) async {
+  updatePointsOnVideoWatch(String uid, String table, String videoId) async {
     return getProfile(uid).then((res) {
       var user = User.fromJson(res.data);
+      var watchedVideos = user.watchedVideos;
+      if (watchedVideos == null) watchedVideos = List();
+      watchedVideos.add(videoId);
       int points = user.points != null ? user.points : 0;
       points = points + 20;
       user.points = points;
+      user.watchedVideos = watchedVideos;
       DocumentReference ref = _db.collection(USERS).document(user.uid);
-      return ref.setData(user.getMap()).then((res) {});
+      return ref.setData(user.getMap()).then((res) {
+        print("success");
+      }).catchError((error) {
+        print("error");
+      });
     });
   }
 

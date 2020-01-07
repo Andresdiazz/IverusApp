@@ -58,8 +58,8 @@ class CloudFirestoreRepository {
 
   Future<int> getVideosCount() => _cloudFirestoreAPI.getVideosCount();
 
-  updatePointsOnVideoWatch(String uid, String table) =>
-      _cloudFirestoreAPI.updatePointsOnVideoWatch(uid, table);
+  updatePointsOnVideoWatch(String uid, String table, String videoId) =>
+      _cloudFirestoreAPI.updatePointsOnVideoWatch(uid, table, videoId);
 
   Future<CommonResponse> getTutorial() => _cloudFirestoreAPI.getTutorial();
 

@@ -108,8 +108,9 @@ class CategoriesBloc extends Bloc {
     }).then((error) {});
   }
 
-  videoClick() {
-    _cloudFirestoreRepository.updatePointsOnVideoWatch(user.uid, category);
+  videoClick(String videoId) {
+    _cloudFirestoreRepository.updatePointsOnVideoWatch(
+        user.uid, category, videoId);
   }
 
   @override

@@ -177,7 +177,7 @@ class _VideoPageState extends State<VideoPage>
   @override
   void dispose() {
     super.dispose();
-    widget.categoriesBloc.videoClick();
+    widget.categoriesBloc.videoClick(widget.documentData.id);
     _controllervideo.dispose();
   }
 }

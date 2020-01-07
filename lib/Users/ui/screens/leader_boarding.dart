@@ -49,16 +49,20 @@ class _LeaderBoardingState extends State<LeaderBoarding> {
       },
     );
 
-    final video = StreamBuilder<int>(
-      stream: homeBloc.videosCount,
-      builder: (context, AsyncSnapshot<int> snapshot) {
+    final video = StreamBuilder<User>(
+      stream: homeBloc.user,
+      builder: (context, AsyncSnapshot<User> snapshot) {
         return Column(
           children: <Widget>[
             Center(
                 child: Row(
               children: <Widget>[
                 Text(
-                  snapshot.data == null ? "0" : snapshot.data.toString(),
+                  snapshot.data == null ||
+                          snapshot.data.watchedVideos == null ||
+                          snapshot.data.watchedVideos.length == 0
+                      ? '0'
+                      : snapshot.data.watchedVideos.length.toString(),
                   style: TextStyle(color: Colors.white, fontFamily: "Aileron"),
                 ),
                 Icon(
