@@ -5,6 +5,7 @@ import 'package:loading_animations/loading_animations.dart';
 
 import 'Animated/Share.dart';
 import 'Animated/heart.dart';
+import 'Ideas/ui/screens/home_page.dart';
 import 'PageVideoView.dart';
 import 'insta_tree/insta_home.dart';
 import 'insta_trivia/insta_home.dart';
@@ -123,6 +124,18 @@ class _Single_prodState extends State<Single_prod> {
           child: Row(
             children: <Widget>[
               InkWell(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                },
+                child: Container(
+                  width: size.width / 9,
+                  child: Icon(Icons.home),
+                ),
+              ),
+              InkWell(
                 onTap: () {
                   Navigator.push(
                     context,
@@ -130,7 +143,7 @@ class _Single_prodState extends State<Single_prod> {
                   );
                 },
                 child: Container(
-                    height: size.height * 2,
+                    height: size.height * 3,
                     width: 75,
                     decoration: BoxDecoration(
                         border: Border(
@@ -139,7 +152,7 @@ class _Single_prodState extends State<Single_prod> {
                                 BorderSide(width: 0.5, color: Colors.white))),
                     child: Center(
                       child: Text(
-                        "Picture",
+                        "Pics",
                         style: TextStyle(
                           fontFamily: 'AileronBold',
                           color: Colors.white,
@@ -188,7 +201,7 @@ class _Single_prodState extends State<Single_prod> {
                                 BorderSide(width: 0.5, color: Colors.white))),
                     child: Center(
                       child: Text(
-                        "Trivia",
+                        "Blog",
                         style: TextStyle(
                             fontFamily: 'Aileron', color: Colors.white),
                       ),
@@ -211,7 +224,7 @@ class _Single_prodState extends State<Single_prod> {
                                 BorderSide(width: 0.5, color: Colors.white))),
                     child: Center(
                       child: Text(
-                        "Tree",
+                        "You",
                         style: TextStyle(
                             fontFamily: 'Aileron', color: Colors.white),
                       ),
