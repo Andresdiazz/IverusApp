@@ -23,7 +23,7 @@ class InstHome_tree extends StatelessWidget {
       title: Center(
 
         child: SizedBox(
-            height: 25.0,
+            height: 25,
             child: Row(
               children: <Widget>[
                 InkWell(

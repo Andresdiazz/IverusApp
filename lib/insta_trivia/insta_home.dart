@@ -20,7 +20,7 @@ class InstHome_trivia extends StatelessWidget {
       elevation: 1.0,
       automaticallyImplyLeading: false,
       title: SizedBox(
-          height: 25.0,
+          height: 25,
           child: Row(
             children: <Widget>[
               InkWell(
