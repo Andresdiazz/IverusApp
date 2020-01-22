@@ -79,7 +79,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   firebase_auth:
-  google_sign_in:
+  google_sign_in: ^4.1.1
   firebase_storage: ^3.0.3
   cloud_firestore: ^0.12.7
   flutter_spinkit: "^4.0.0"

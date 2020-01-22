@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       iconData: FontAwesomeIcons.google,
                       top: 10.0,
                       onPressed: () {
-                        userBloc.signOut();
+//                        userBloc.signOut();
                         userBloc.signIn().then((FirebaseUser user) {
                           userBloc.updateUserData(User(
                             uid: user.uid,
