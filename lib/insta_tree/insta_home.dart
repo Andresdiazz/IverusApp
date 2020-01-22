@@ -4,6 +4,7 @@ import 'package:cocreacion/insta_trivia/insta_body.dart';
 import 'package:cocreacion/insta_trivia/insta_home.dart';
 import 'package:flutter/material.dart';
 
+import '../Ideas/ui/screens/home_page.dart';
 import '../PageVideoView.dart';
 import '../PageView.dart';
 
@@ -22,9 +23,21 @@ class InstHome_tree extends StatelessWidget {
       title: Center(
 
         child: SizedBox(
-            height: 25.0,
+            height: 25,
             child: Row(
               children: <Widget>[
+                InkWell(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  },
+                  child: Container(
+                    width: size.width / 9,
+                    child: Icon(Icons.home),
+                  ),
+                ),
                 InkWell(
                   onTap: (){
                     Navigator.push(
@@ -42,7 +55,7 @@ class InstHome_tree extends StatelessWidget {
                           )
                       ),
                       child: Center(
-                        child: Text("Picture", style: TextStyle(
+                        child: Text("Pics", style: TextStyle(
                             fontFamily: 'Aileron',
                             color: Colors.white
                         ),),
@@ -90,7 +103,7 @@ class InstHome_tree extends StatelessWidget {
                           )
                       ),
                       child: Center(
-                        child: Text("Trivia", style: TextStyle(
+                        child: Text("Blog", style: TextStyle(
                             fontFamily: 'Aileron',
                             color: Colors.white
                         ),),
@@ -114,7 +127,7 @@ class InstHome_tree extends StatelessWidget {
                           )
                       ),
                       child: Center(
-                        child: Text("Tree", style: TextStyle(
+                        child: Text("You", style: TextStyle(
                             fontFamily: 'AileronBold',
                             //fontWeight: FontWeight.bold,
                             color: Colors.white,

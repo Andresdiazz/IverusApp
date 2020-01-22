@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'Animated/Share.dart';
 import 'Animated/heart.dart';
 import 'Categorias/model/category_item.dart';
+import 'Ideas/ui/screens/home_page.dart';
 import 'PageView.dart';
 import 'insta_tree/insta_home.dart';
 import 'insta_trivia/insta_home.dart';
@@ -131,6 +132,18 @@ class _VideoViewState extends State<VideoView> {
           child: Row(
             children: <Widget>[
               InkWell(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                },
+                child: Container(
+                  width: size.width / 9,
+                  child: Icon(Icons.home),
+                ),
+              ),
+              InkWell(
                 onTap: () {
                   Navigator.push(
                     context,
@@ -147,7 +160,7 @@ class _VideoViewState extends State<VideoView> {
                                 BorderSide(width: 0.5, color: Colors.white))),
                     child: Center(
                       child: Text(
-                        "Picture",
+                        "Pics",
                         style: TextStyle(
                             fontFamily: 'Aileron', color: Colors.white),
                       ),
@@ -196,7 +209,7 @@ class _VideoViewState extends State<VideoView> {
                                 BorderSide(width: 0.5, color: Colors.white))),
                     child: Center(
                       child: Text(
-                        "Trivia",
+                        "Blog",
                         style: TextStyle(
                             fontFamily: 'Aileron', color: Colors.white),
                       ),
@@ -219,7 +232,7 @@ class _VideoViewState extends State<VideoView> {
                                 BorderSide(width: 0.5, color: Colors.white))),
                     child: Center(
                       child: Text(
-                        "Tree",
+                        "You",
                         style: TextStyle(
                             fontFamily: 'Aileron', color: Colors.white),
                       ),
