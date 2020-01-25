@@ -86,14 +86,16 @@ class _AnimatedShareButtonState extends State<AnimatedShareButton>
     try {
       widget.bloc.updateShare(widget.documentData.id, widget.bloc.category);
 
-      final ByteData bytes = await rootBundle.load(
-          'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fexcited.png?alt=media&token=6b1d9929-44e0-4d46-8dce-5c42e438dd03');
+//      final ByteData bytes = await rootBundle.load(
+//          'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fexcited.png?alt=media&token=6b1d9929-44e0-4d46-8dce-5c42e438dd03');
       await WcFlutterShare.share(
           sharePopupTitle: 'share',
-          fileName: 'excited',
-          mimeType:
-              'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fexcited.png?alt=media&token=6b1d9929-44e0-4d46-8dce-5c42e438dd03',
-          bytesOfFile: bytes.buffer.asUint8List());
+//          fileName: 'excited.png',
+          mimeType: 'text/plain',
+          text:
+              'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fexcited.png?alt=media&token=6b1d9929-44e0-4d46-8dce-5c42e438dd03'
+//          bytesOfFile: bytes.buffer.asUint8List()
+          );
     } catch (e) {
       print('error: $e');
     }

@@ -8,6 +8,98 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:896146491506:android:38b63265269443992f5aeb",
+        "android_client_info": {
+          "package_name": "excited.andresdiaz.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896146491506-v3ipntj1le06s3j456cbf0pohsnh241r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com",
+            "certificate_hash": "1bea4eae3dc2806d18b78d0ed03e835d8f767298"
+          }
+        },
+        {
+          "client_id": "896146491506-mf1fau9ujhct507llirdiu1bf7ajnup7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com",
+            "certificate_hash": "909592aaea17c044b2c8163d6608ae72871fbefe"
+          }
+        },
+        {
+          "client_id": "896146491506-hfch0dma89kr3tsus4r7qdrnd3lo5vdi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com",
+            "certificate_hash": "be1bf424440eea7e48efbaf92df6eeead5a5cdba"
+          }
+        },
+        {
+          "client_id": "896146491506-tmo1m42v1n5vgtt67e6aj9udotmg2o5t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com",
+            "certificate_hash": "acb09dfd0b37f78813f502c105be407ce05dfddd"
+          }
+        },
+        {
+          "client_id": "896146491506-tdrjk9urag6b2l5kjpg7hbfg38hk6885.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com",
+            "certificate_hash": "2f9803851909ba744c8eb84ea4dd05ffe5602934"
+          }
+        },
+        {
+          "client_id": "896146491506-ol83d5tg8s49rvkfu122if2k6l4i2g1p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com",
+            "certificate_hash": "a26414e3afd8e88d044f6c0a0b435b192ce24e91"
+          }
+        },
+        {
+          "client_id": "896146491506-0kb4kg06ohm60h0jh0aa3jha6ehq54d3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com",
+            "certificate_hash": "da424ca2101d05cebc0704d1a949d8f48ce959f5"
+          }
+        },
+        {
+          "client_id": "896146491506-u7hveap6m53vs38vid96bk1a6q34hhs6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIi3BSNaCkCeeBxqLT7lSJg1495Z4r1ac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896146491506-k2npqjqrqh5054h0hpqaihu5ddr2fgj2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "896146491506-28i0md3gp6c0d68u5t1j7ti04s2l0uhd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "excited.andresdiaz.com.excited"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:896146491506:android:be5ea9732687da84",
         "android_client_info": {
           "package_name": "excited.andresdiaz.com.cocreacion"
@@ -15,27 +107,27 @@
       },
       "oauth_client": [
         {
-          "client_id": "896146491506-h7v9km95kpscqo2s88u4943u8btsf2aa.apps.googleusercontent.com",
+          "client_id": "896146491506-5e4civ5t43trgj66p0fugeko3u740glm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "excited.andresdiaz.com.cocreacion",
-            "certificate_hash": "2f9803851909ba744c8eb84ea4dd05ffe5602934"
+            "certificate_hash": "be1bf424440eea7e48efbaf92df6eeead5a5cdba"
           }
         },
         {
-          "client_id": "896146491506-aecd5gooldti52u87ub9igu62gg3qku8.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "excited.andresdiaz.com.cocreacion",
-            "certificate_hash": "a26414e3afd8e88d044f6c0a0b435b192ce24e91"
-          }
-        },
-        {
-          "client_id": "896146491506-351j44d9uc40noejc6h3jnuopjt538sh.apps.googleusercontent.com",
+          "client_id": "896146491506-hut4ipe74tifg8g5evvm4cvva3osamsm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "excited.andresdiaz.com.cocreacion",
             "certificate_hash": "da424ca2101d05cebc0704d1a949d8f48ce959f5"
+          }
+        },
+        {
+          "client_id": "896146491506-6di422l4cf38097udt4en9r33uujtu8n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com.cocreacion",
+            "certificate_hash": "a26414e3afd8e88d044f6c0a0b435b192ce24e91"
           }
         },
         {

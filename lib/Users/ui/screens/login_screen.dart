@@ -11,6 +11,7 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -19,6 +20,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   UserBloc userBloc;
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: <String>[
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
 
   //Facebook sign in
   void startFacebookLogin() async {
@@ -52,6 +59,33 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+
+    _googleSignIn.onCurrentUserChanged
+        .listen((GoogleSignInAccount account) async {
+      if (account != null) {
+        GoogleSignInAuthentication googleAuth = await account.authentication;
+
+        if (googleAuth.idToken != null && googleAuth.accessToken != null) {
+          final authResult = await FirebaseAuth.instance
+              .signInWithCredential(GoogleAuthProvider.getCredential(
+            idToken: googleAuth.idToken,
+            accessToken: googleAuth.accessToken,
+          ));
+
+          var user = authResult.user;
+
+          userBloc.updateUserData(User(
+            uid: user.uid,
+            name: user.displayName,
+            email: user.email,
+            photoURL: user.photoUrl,
+          ));
+        } else {
+          throw Exception('Missing Google Auth Token');
+        }
+      }
+    });
+    _googleSignIn.signInSilently();
   }
 
   @override
@@ -163,18 +197,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ButtonLogin(
                       iconData: FontAwesomeIcons.google,
                       top: 10.0,
-                      onPressed: () {
-//                        userBloc.signOut();
-                        userBloc.signIn().then((FirebaseUser user) {
-                          userBloc.updateUserData(User(
-                            uid: user.uid,
-                            name: user.displayName,
-                            email: user.email,
-                            photoURL: user.photoUrl,
-                          ));
-                        }).catchError((error) {
+                      onPressed: () async {
+                        try {
+                          await _googleSignIn.signOut();
+                          await _googleSignIn.signIn();
+                        } catch (error) {
                           print(error);
-                        });
+                        }
+//                        userBloc.signOut();
                       }),
                   ButtonLogin(
                     iconData: FontAwesomeIcons.facebookF,

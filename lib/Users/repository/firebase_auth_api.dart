@@ -11,21 +11,54 @@ class FirebaseAuthAPI {
     ],
   );
 
+  Future<FirebaseUser> signInWithGoogle() async {
+    GoogleSignIn googleSignIn = GoogleSignIn();
+    GoogleSignInAccount googleUser = await googleSignIn.signIn();
+
+    if (googleUser != null) {
+      GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      if (googleAuth.idToken != null && googleAuth.accessToken != null) {
+        final authResult = await FirebaseAuth.instance
+            .signInWithCredential(GoogleAuthProvider.getCredential(
+          idToken: googleAuth.idToken,
+          accessToken: googleAuth.accessToken,
+        ));
+
+        return authResult.user;
+      } else {
+        throw Exception('Missing Google Auth Token');
+      }
+    } else {
+      throw Exception('Google sign in aborted');
+    }
+  }
+
   //Firebase api google
   Future<FirebaseUser> signIn() async {
-    return googleSignIn.signIn().then((googleSignInAccount) {
-      googleSignInAccount.authentication.then((value) async {
-        AuthResult user = (await _auth.signInWithCredential(
-            GoogleAuthProvider.getCredential(
-                idToken: value.idToken,
-                accessToken: value.accessToken))) as AuthResult;
-        return user.user;
-      }).catchError((error) {
-        print(error);
-      });
-    }).catchError((e) {
-      print(e);
+//    googleSignIn.signIn();
+    try {
+      googleSignIn.signIn();
+    } catch (error) {
+      print(error);
+    }
+    googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
+      if (account != null) {
+        return account.authentication.then((auth) async {
+          AuthResult user = (await _auth.signInWithCredential(
+              GoogleAuthProvider.getCredential(
+                  idToken: auth.idToken, accessToken: auth.accessToken)));
+          return user.user;
+        }).then((error) {
+          return null;
+        });
+      } else {
+        return null;
+      }
     });
+
+    googleSignIn.signInSilently();
+
 //    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
 //    GoogleSignInAuthentication gSA = await googleSignInAccount.authentication;
 

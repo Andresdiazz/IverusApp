@@ -124,7 +124,7 @@ class _Single_prodState extends State<Single_prod> {
           child: Row(
             children: <Widget>[
               InkWell(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomePage()),
