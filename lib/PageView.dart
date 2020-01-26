@@ -91,6 +91,7 @@ class Single_prod extends StatefulWidget {
 }
 
 class _Single_prodState extends State<Single_prod> {
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -125,10 +126,7 @@ class _Single_prodState extends State<Single_prod> {
             children: <Widget>[
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
+                  Navigator.of(context).pushReplacementNamed('/HomePage');
                 },
                 child: Container(
                   width: size.width / 9,
@@ -137,10 +135,7 @@ class _Single_prodState extends State<Single_prod> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeView()),
-                  );
+                  Navigator.of(context).pushReplacementNamed('/HomeView');
                 },
                 child: Container(
                     height: size.height * 3,
@@ -163,10 +158,7 @@ class _Single_prodState extends State<Single_prod> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => VideoApp()),
-                  );
+                  Navigator.of(context).pushReplacementNamed('/VideoApp');
                 },
                 child: Container(
                     height: size.height * 2,
@@ -186,10 +178,7 @@ class _Single_prodState extends State<Single_prod> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => InstHome_trivia()),
-                  );
+                  Navigator.of(context).pushReplacementNamed('/InstHome_trivia');
                 },
                 child: Container(
                     height: size.height * 2,
@@ -209,10 +198,7 @@ class _Single_prodState extends State<Single_prod> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => InstHome_tree()),
-                  );
+                  Navigator.pushNamed(context, '/InstHome_tree');
                 },
                 child: Container(
                     height: size.height * 2,

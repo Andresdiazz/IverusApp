@@ -25,10 +25,7 @@ class InstHome_trivia extends StatelessWidget {
             children: <Widget>[
               InkWell(
                 onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
+                  Navigator.of(context).pushReplacementNamed('/HomePage');
                 },
                 child: Container(
                   width: size.width / 9,
@@ -37,10 +34,7 @@ class InstHome_trivia extends StatelessWidget {
               ),
               InkWell(
                 onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeView()),
-                  );
+                  Navigator.of(context).pushReplacementNamed('/HomeView');
                 },
                 child: Container(
                     height: size.height * 2 ,
@@ -61,10 +55,7 @@ class InstHome_trivia extends StatelessWidget {
               ),
               InkWell(
                 onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => VideoApp()),
-                  );
+                  Navigator.of(context).pushReplacementNamed('/VideoApp');
                 },
                 child: Container(
                     height: size.height * 2 ,
@@ -85,10 +76,7 @@ class InstHome_trivia extends StatelessWidget {
               ),
               InkWell(
                 onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => InstHome_trivia()),
-                  );
+                  Navigator.of(context).pushReplacementNamed('/InstHome_trivia');
                 },
                 child: Container(
                     height: size.height * 2 ,
@@ -110,10 +98,7 @@ class InstHome_trivia extends StatelessWidget {
               ),
               InkWell(
                 onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => InstHome_tree()),
-                  );
+                  Navigator.pushNamed(context, '/InstHome_tree');
                 },
                 child: Container(
                     height: size.height * 2 ,
@@ -144,10 +129,10 @@ class InstHome_trivia extends StatelessWidget {
     );
 
     return Scaffold(
+          appBar: topBar,
           body: Stack(
             children: <Widget>[
-              InstaBody_trivia(),
-              topBar
+              InstaBody_trivia()
             ],
           ),
     );

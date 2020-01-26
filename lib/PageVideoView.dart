@@ -7,9 +7,6 @@ import 'Animated/Share.dart';
 import 'Animated/heart.dart';
 import 'Categorias/model/category_item.dart';
 import 'Ideas/ui/screens/home_page.dart';
-import 'PageView.dart';
-import 'insta_tree/insta_home.dart';
-import 'insta_trivia/insta_home.dart';
 
 void main() => runApp(VideoApp());
 
@@ -63,7 +60,8 @@ class _VideoAppState extends State<VideoApp> {
                   );
                 },
               );
-            }));
+            })
+    );
   }
 }
 
@@ -145,10 +143,7 @@ class _VideoViewState extends State<VideoView> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeView()),
-                  );
+                  Navigator.of(context).pushReplacementNamed('/HomeView');
                 },
                 child: Container(
                     height: size.height * 2,
@@ -168,10 +163,7 @@ class _VideoViewState extends State<VideoView> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => VideoApp()),
-                  );
+                  Navigator.of(context).pushReplacementNamed('/VideoApp');
                 },
                 child: Container(
                     height: size.height * 2,
@@ -194,10 +186,7 @@ class _VideoViewState extends State<VideoView> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => InstHome_trivia()),
-                  );
+                  Navigator.of(context).pushReplacementNamed('/InstHome_trivia');
                 },
                 child: Container(
                     height: size.height * 2,
@@ -217,10 +206,7 @@ class _VideoViewState extends State<VideoView> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => InstHome_tree()),
-                  );
+                  Navigator.pushNamed(context, '/InstHome_tree');
                 },
                 child: Container(
                     height: size.height * 2,
@@ -241,10 +227,6 @@ class _VideoViewState extends State<VideoView> {
             ],
           )),
       actions: <Widget>[
-        /*Padding(
-          padding: const EdgeInsets.only(right: 12.0),
-          child: Icon(Icons.send, color: Colors.black),
-        )*/
       ],
     );
 

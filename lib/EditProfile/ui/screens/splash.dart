@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'edit_profile.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,47 +15,34 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> animation;
+    AnimationController controller;
+    Animation<double> animation;
 
-  UserBloc userBloc = UserBloc();
+    UserBloc userBloc = UserBloc();
 
   initState() {
     super.initState();
-
-    FirebaseAuth.instance.currentUser().then((res) {
-      if (res != null)
-        checkValidity(res);
-      else {
-        Timer(
-            Duration(seconds: 3),
-            () => Navigator.of(context).pushAndRemoveUntil(
+      FirebaseAuth.instance.currentUser().then((res) {
+        if (res != null)
+           checkValidity(res);
+        else {
+           Timer(
+                Duration(seconds: 3),
+                () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                     builder: (BuildContext context) => LoginScreen()),
                 (_) => false));
-      }
-    });
-
-    controller = AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
-    animation = CurvedAnimation(
-      parent: controller,
-      curve: Curves.fastOutSlowIn,
-    );
-
-    controller.forward();
-
-//    Timer(
-//        Duration(seconds: 3),
-//        () => Navigator.of(context).pushAndRemoveUntil(
-//            MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
-//            (_) => false));
+             }
+        });
+      controller = AnimationController(duration: const Duration(milliseconds: 1000), vsync: this);
+      animation = CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
+      controller.forward();
   }
 
   checkValidity(FirebaseUser user) {
     userBloc.checkIfAlreadyExists(user.uid).then((snapshot) {
       if (snapshot.exists) {
-//            user signed in and exited
+        //user signed in and exited
         User user = User.fromJson(snapshot.data);
         if (user.name.isEmpty || user.photoURL.isEmpty) {
           Navigator.pushReplacement(context,
