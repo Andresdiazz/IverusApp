@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
 import 'package:cocreacion/Categorias/model/category_item.dart';
@@ -85,15 +86,20 @@ class _Single_prodState extends State<Single_prod> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
 
 
     return  PageView(scrollDirection: Axis.vertical,
         children: [
         InkWell(
-              child:widget.documentData.image != null ? Image.network(
-                widget.documentData.image,
-                fit: BoxFit.contain,
-              ): Container(),
+              child:widget.documentData.image != null ? Center(
+                  child: CachedNetworkImage(
+                    imageUrl: widget.documentData.image,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    width: size.width,
+                    height: size.height ,
+                  )): Container(),
               onTap: () {
                 Navigator.push(
                   context,

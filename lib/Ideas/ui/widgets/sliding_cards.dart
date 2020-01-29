@@ -41,8 +41,8 @@ class _SlidingCardsViewState extends State<SlidingCardsView> {
         controller: pageController,
         children: <Widget>[
           SlidingCard(
-            name: "I'm Iverus",
-            date: 'Live Tomorrow 7PM',
+            name: "I'm Excited",
+            date: '',
             assetName: 'https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2Fiverus.gif?alt=media&token=dd13f1bd-f1d2-4cb4-a173-09bd2bdee0c1',
             offset: pageOffset,
             onPressed: () {

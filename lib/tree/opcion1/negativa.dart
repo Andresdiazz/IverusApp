@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:video_player/video_player.dart';
@@ -73,7 +74,7 @@ class _NegativaState extends State<Negativa> with SingleTickerProviderStateMixin
 
                           child: InkWell(
                             onTap: (){
-                              //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Positiva()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
 
 
                             },
@@ -88,7 +89,7 @@ class _NegativaState extends State<Negativa> with SingleTickerProviderStateMixin
 
                               child: InkWell(
                                 onTap: (){
-                                  //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Negativa()));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
 
                                 },
                               ),

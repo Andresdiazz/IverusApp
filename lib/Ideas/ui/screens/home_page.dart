@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cocreacion/Ideas/ui/screens/timer.dart';
 import 'package:cocreacion/Ideas/ui/widgets/sliding_cards.dart';
 import 'package:cocreacion/Ideas/ui/widgets/tabs.dart';
@@ -47,9 +48,10 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-        child: Image(
-          image: NetworkImage(
-              "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2FLOGO-IVERUS-NEGRO.png?alt=media&token=af898df2-cd8d-44f8-bc83-864000bab447"),
+        child: CachedNetworkImage(
+          imageUrl: "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2FLOGO-IVERUS-NEGRO.png?alt=media&token=af898df2-cd8d-44f8-bc83-864000bab447",
+          placeholder: (context, url) => CircularProgressIndicator(),
+          errorWidget: (context, url, error) => Icon(Icons.error),
           width: 150,
         )
         /*Text(

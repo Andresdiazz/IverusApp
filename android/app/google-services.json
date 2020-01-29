@@ -107,6 +107,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "896146491506-v8ijh59uh6o8m677gv05h6ohcvff0l5r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "excited.andresdiaz.com.cocreacion",
+            "certificate_hash": "acb09dfd0b37f78813f502c105be407ce05dfddd"
+          }
+        },
+        {
           "client_id": "896146491506-5e4civ5t43trgj66p0fugeko3u740glm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

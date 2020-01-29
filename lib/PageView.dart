@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cocreacion/Categorias/bloc/categories_bloc.dart';
 import 'package:cocreacion/Categorias/model/category_item.dart';
 import 'package:flutter/material.dart';
@@ -231,12 +232,16 @@ class _Single_prodState extends State<Single_prod> {
         children: [
           Stack(
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(widget.documentData.image),
-                        fit: BoxFit.cover)),
-              ),
+             Center(
+                  child:  CachedNetworkImage(
+                    imageUrl: widget.documentData.image,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                      width: size.width ,
+                      height: size.height
+
+                  ),
+                ),
               topBar,
             ],
           ),

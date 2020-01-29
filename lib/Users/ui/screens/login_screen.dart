@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cocreacion/Ideas/ui/screens/home_page.dart';
 import 'package:cocreacion/Users/model/user.dart';
 import 'package:cocreacion/Users/ui/widgets/background_login.dart';
@@ -118,10 +119,11 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 margin: EdgeInsets.only(top: 200.0),
                 width: 200,
-                child: Image(
-                    image: NetworkImage(
-                  "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2FLOGO-IVERUS-BLANCO.png?alt=media&token=67116e89-a5d2-4278-a75c-30f502f9fa5b",
-                )),
+                child: CachedNetworkImage(
+                  imageUrl: "https://firebasestorage.googleapis.com/v0/b/cocreacion-f17df.appspot.com/o/Assets%2Fimg%2FLOGO-IVERUS-BLANCO.png?alt=media&token=67116e89-a5d2-4278-a75c-30f502f9fa5b",
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                )
               ),
               Container(
                 margin: EdgeInsets.only(top: 100.0),

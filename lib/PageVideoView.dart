@@ -82,7 +82,7 @@ class _VideoViewState extends State<VideoView> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.documentData.video)
+    _controller = VideoPlayerController.network( widget.documentData.video)
       ..initialize().then((_) {
         setState(() {
           _controller.play();
